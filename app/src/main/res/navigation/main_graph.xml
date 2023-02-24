@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_graph"
+    app:startDestination="@id/locationScreen">
+
+    <fragment
+        android:id="@+id/homeScreen"
+        android:name="com.shersar.ramazon2023.screen.HomeScreen"
+        android:label="screen_home"
+        tools:layout="@layout/screen_home" />
+
+    <fragment
+        android:id="@+id/locationScreen"
+        android:name="com.shersar.ramazon2023.screen.LocationScreen"
+        android:label="LocationScreen"
+        tools:layout="@layout/screen_location"/>
+
+
+</navigation>
