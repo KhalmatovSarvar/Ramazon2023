@@ -15,6 +15,7 @@ class HomeScreen: Fragment(R.layout.screen_home) {
         super.onViewCreated(view, savedInstanceState)
 
         initView()
+        //hghgghg
     }
 
     private fun initView() {
