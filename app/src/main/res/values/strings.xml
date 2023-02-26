@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Ramazon2023</string>
+    <string name="menu_home">hHome</string>
+    <string name="menu_tasbeh">Tasbeh</string>
+    <string name="menu_qibla">Qibla</string>
+    <string name="menu_settings">Settings</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

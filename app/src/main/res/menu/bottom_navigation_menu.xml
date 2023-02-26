@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/homeScreen"
+        android:icon="@drawable/selector_home_icon"
+        android:title="@string/menu_home" />
+    <item
+        android:id="@+id/tasbehScreen"
+        android:icon="@drawable/selector_tasbeh_icon"
+        android:title="@string/menu_tasbeh" />
+    <item
+        android:id="@+id/qiblaScreen"
+        android:icon="@drawable/selector_qibla_icon"
+        android:title="@string/menu_qibla" />
+    <item
+        android:id="@+id/settingsScreen"
+        android:icon="@drawable/selector_settings_icon"
+        android:title="@string/menu_settings" />
+</menu>
