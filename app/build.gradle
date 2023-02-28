@@ -1,6 +1,8 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-android'
+    id 'kotlin-android-extensions'
 }
 
 android {
@@ -51,4 +53,7 @@ dependencies {
     implementation 'io.github.nikartm:fit-button:2.0.0'
     //
     implementation 'com.google.android.gms:play-services-location:21.0.1'
+    implementation "androidx.viewpager2:viewpager2:1.0.0"
+    implementation 'me.relex:circleindicator:2.1.6'
+    implementation 'io.github.ahmad-hamwi:tabsync:1.0.1'
 }

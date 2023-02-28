@@ -631,6 +631,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="start|center_vertical"
+                            android:textColor="#99263238"
                             android:text="Bomdod/Fajr"
                             android:textSize="14sp" />
 
@@ -656,6 +657,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="start|center_vertical"
+                            android:textColor="#99263238"
                             android:text="Peshin/Zuhr"
                             android:textSize="14sp" />
 
@@ -681,6 +683,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="start|center_vertical"
+                            android:textColor="#99263238"
                             android:text="Asr/Asr"
                             android:textSize="14sp" />
 
@@ -706,6 +709,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="start|center_vertical"
+                            android:textColor="#99263238"
                             android:text="Shom/Mag`rib"
                             android:textSize="14sp" />
 
@@ -730,6 +734,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="start|center_vertical"
+                            android:textColor="#99263238"
                             android:text="Xufton/Isha"
                             android:textSize="14sp" />
 
