@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:elevation="0dp"
+    app:cardCornerRadius="4dp">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingHorizontal="20dp"
+            android:paddingVertical="20dp">
+
+            <TextView
+                android:id="@+id/tv_title_question"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Bu yerda ro`zaga oid savol bo`lishi kerak edi"
+                android:textColor="#263238"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_answer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:justificationMode="inter_word"
+                android:paddingTop="12dp"
+                android:text="Lorem ipsum dolor sit amet consectetur. Eget viverra nec tristique lacinia mauris non non ultrices erat. Ornare ultrices egestas pulvinar nulla. In aliquam sed sit tristique nunc. Duis euismod sed imperdiet suscipit. Morbi dolor vel tellus id quam enim vel. In fringilla nibh hendrerit sit proin sed. Nec amet dictumst sem sapien nulla leo arcu sit. Aenean ullamcorper adipiscing nam eget eleifend congue. Aenean non donec amet amet magna. Massa massa platea non eleifend a vel facilisis ut.
+A nibh convallis pellentesque elit odio quam at. Praesent sed malesuada eget scelerisque lectus elementum. Non dui gravida faucibus convallis aliquam nunc id. Ornare ac est at nunc malesuada a ullamcorper urna. Vitae rutrum ultricies a mattis gravida. Sed et quis dolor amet convallis."
+                android:textColor="#263238"
+                android:textSize="16sp"
+                android:textStyle="normal" />
+
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.cardview.widget.CardView>
