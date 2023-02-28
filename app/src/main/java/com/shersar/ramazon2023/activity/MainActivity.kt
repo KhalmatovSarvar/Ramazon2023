@@ -23,6 +23,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         initView()
+        //this is initView
     }
 
 
@@ -37,7 +38,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-// i was here
+
     override fun onBackPressed() {
         if (binding.bottomNavigation.selectedItemId == R.id.homeScreen) {
             if (isTaskRoot) {
