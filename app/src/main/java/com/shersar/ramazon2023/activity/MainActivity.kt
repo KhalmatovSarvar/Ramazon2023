@@ -38,6 +38,7 @@ class MainActivity : AppCompatActivity() {
     }
 
 
+    //2 press and kill the app code source
     override fun onBackPressed() {
         if (binding.bottomNavigation.selectedItemId == R.id.homeScreen) {
             if (isTaskRoot) {
