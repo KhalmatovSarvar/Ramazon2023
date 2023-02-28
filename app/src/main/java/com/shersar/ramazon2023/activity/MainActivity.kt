@@ -65,7 +65,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-
+// i was here
     override fun onBackPressed() {
         if (binding.bottomNavigation.selectedItemId == R.id.homeScreen) {
             if (isTaskRoot) {
