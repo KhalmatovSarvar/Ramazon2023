@@ -1,16 +1,19 @@
 package com.shersar.ramazon2023.activity
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import com.shersar.ramazon2023.R
 import com.shersar.ramazon2023.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
+    private var backPressedCounter = 0
 
     private lateinit var navController: NavController
     private lateinit var binding: ActivityMainBinding
@@ -31,37 +34,6 @@ class MainActivity : AppCompatActivity() {
         navController = navHostFragment.findNavController()
         //setting up bottom nav with navController
         binding.bottomNavigation.setupWithNavController(navController)
-        binding.bottomNavigation.setOnNavigationItemSelectedListener { menuItem ->
-            when (menuItem.itemId) {
-                R.id.homeScreen -> {
-                    navController.navigate(R.id.homeScreen)
-
-                    true
-                }
-                R.id.tasbehScreen -> {
-                    navController.navigate(R.id.tasbehScreen)
-                    navController.popBackStack(R.id.qiblaScreen,false)
-                    navController.popBackStack(R.id.settingsScreen,false)
-
-                    true
-                }
-                R.id.qiblaScreen -> {
-                    navController.navigate(R.id.qiblaScreen)
-                    navController.popBackStack(R.id.tasbehScreen,false)
-                    navController.popBackStack(R.id.settingsScreen,false)
-                    true
-                }
-                R.id.settingsScreen -> {
-                    navController.navigate(R.id.settingsScreen)
-                    navController.popBackStack(R.id.tasbehScreen,false)
-                    navController.popBackStack(R.id.qiblaScreen,false)
-                    true
-                }
-
-                else -> false
-            }
-        }
-
 
     }
 
@@ -69,7 +41,15 @@ class MainActivity : AppCompatActivity() {
     override fun onBackPressed() {
         if (binding.bottomNavigation.selectedItemId == R.id.homeScreen) {
             if (isTaskRoot) {
-                finish()
+                if (backPressedCounter >= 1) {
+                    super.onBackPressed()
+                } else {
+                    Toast.makeText(this, "Dasturdan chiqish uchun yana bir marta bosing", Toast.LENGTH_SHORT).show()
+                    backPressedCounter++
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        backPressedCounter = 0
+                    }, 2000)
+                }
             } else {
                 super.onBackPressed()
             }

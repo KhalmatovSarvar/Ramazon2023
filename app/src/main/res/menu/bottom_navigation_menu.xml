@@ -10,7 +10,7 @@
         android:title="@string/menu_tasbeh" />
     <item
         android:id="@+id/qiblaScreen"
-        android:icon="@drawable/selector_qibla_icon"
+        android:icon="@drawable/selector_document_icon"
         android:title="@string/menu_qibla" />
     <item
         android:id="@+id/settingsScreen"

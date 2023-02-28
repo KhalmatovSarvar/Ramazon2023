@@ -14,11 +14,11 @@
         tools:layout="@layout/screen_home" />
     <fragment
         android:id="@+id/qiblaScreen"
-        android:name="com.shersar.ramazon2023.screen.QiblaScreen"
+        android:name="com.shersar.ramazon2023.screen.QuestionsScreen"
         android:label="fragment_qibla_screen"
         app:popUpTo="@id/homeScreen"
         app:popUpToInclusive="true"
-        tools:layout="@layout/fragment_qibla_screen" />
+        tools:layout="@layout/fragment_questions_screen" />
     <fragment
         android:id="@+id/settingsScreen"
         android:name="com.shersar.ramazon2023.screen.SettingsScreen"
