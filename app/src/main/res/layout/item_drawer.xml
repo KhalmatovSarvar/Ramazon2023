@@ -8,38 +8,42 @@
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"
-        app:layout_constraintTop_toTopOf="parent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="30dp"
-        app:tabBackground="@drawable/tab_selector"
-        app:tabIndicator="@null"
-        app:tabSelectedTextColor="@color/white"
-        app:tabMode="scrollable"
         android:background="#F5F5F5"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tabBackground="@drawable/tab_selector"
         app:tabGravity="center"
+        app:tabIndicator="@null"
+        app:tabMode="scrollable"
+        app:tabSelectedTextColor="@color/white"
         app:tabTextColor="@color/writter" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:nestedScrollingEnabled="true"
-        android:orientation="vertical"
-        android:layout_marginTop="15dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+    <androidx.viewpager2.widget.ViewPager2
         app:layout_constraintTop_toBottomOf="@id/tabLayout"
-        tools:listitem="@layout/item_category" />
-
-    <View
+        android:id="@+id/viewpager2"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/teal_200"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        android:layout_height="wrap_content"/>
+
+<!--    <androidx.fragment.app.FragmentContainerView-->
+<!--        android:id="@+id/nav_host_fragment"-->
+<!--        android:name="androidx.navigation.fragment.NavHostFragment"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:defaultNavHost="true"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/tabLayout"-->
+<!--        android:layout_marginTop="20dp"-->
+<!--        app:navGraph="@navigation/zikr_graph" />-->
+
+
+
+    <!--    <View-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="1dp"-->
+    <!--        android:background="@color/teal_200"-->
+    <!--        app:layout_constraintBottom_toBottomOf="parent" />-->
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
