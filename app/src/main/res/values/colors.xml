@@ -9,6 +9,7 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="background">#006D56</color>
+    <color name="setting_writing">#B3000000</color>
     <color name="bottom_nav_item_selected">#006D56</color>
     <color name="bottom_nav_item_not_selected">#231F2080</color>
     <color name="card_background_day">#F5F5F5</color>

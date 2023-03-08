@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:state_checked="true">
+        <shape android:shape="oval">
+            <solid android:color="@color/background"/>
+            <size android:width="15dp"
+                android:height="15dp"/>
+            <padding android:bottom="1dp" android:right="1dp" android:top="1dp"/>
+        </shape>
+    </item>
+
+    <item android:state_checked="false">
+        <shape android:shape="oval">
+            <solid android:color="@color/card_background_day"/>
+            <size android:width="15dp"
+                android:height="15dp"/>
+            <padding android:bottom="1dp" android:left="1dp" android:top="1dp"/>
+        </shape>
+    </item>
+
+</selector>

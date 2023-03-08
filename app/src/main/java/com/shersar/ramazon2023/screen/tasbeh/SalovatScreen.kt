@@ -1,15 +1,15 @@
-package com.shersar.ramazon2023.screen
+package com.shersar.ramazon2023.screen.tasbeh
 
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import com.shersar.ramazon2023.R
-import com.shersar.ramazon2023.databinding.ScreenItem1Binding
+import com.shersar.ramazon2023.databinding.ScreenSalovatBinding
 import viewBinding
 
-class Item1Screen : Fragment(R.layout.screen_item1) {
+class SalovatScreen :Fragment(R.layout.screen_salovat){
 
-    private val binding by viewBinding { ScreenItem1Binding.bind(it) }
+    private val binding by viewBinding { ScreenSalovatBinding.bind(it) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -20,9 +20,5 @@ class Item1Screen : Fragment(R.layout.screen_item1) {
 
     private fun initView() {
 
-    }
-
-    companion object {
-        fun newInstance()=Item1Screen()
     }
 }

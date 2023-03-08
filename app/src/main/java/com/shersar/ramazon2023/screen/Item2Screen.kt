@@ -21,4 +21,8 @@ class Item2Screen : Fragment(R.layout.screen_item2) {
     private fun initView() {
 
     }
+
+    companion object {
+        fun newInstance()=Item2Screen()
+    }
 }

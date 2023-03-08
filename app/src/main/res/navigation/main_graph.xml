@@ -25,14 +25,23 @@
         android:label="fragment_settings_screen"
         app:popUpTo="@id/homeScreen"
         app:popUpToInclusive="true"
-        tools:layout="@layout/fragment_settings_screen" />
+        tools:layout="@layout/screen_settings" />
     <fragment
         android:id="@+id/tasbehScreen"
-        android:name="com.shersar.ramazon2023.screen.TasbehScreen"
+        android:name="com.shersar.ramazon2023.screen.tasbeh.TasbehScreen"
         android:label="fragment_tasbeh_screen"
         app:popUpTo="@id/homeScreen"
         app:popUpToInclusive="true"
         tools:layout="@layout/screen_tasbeh" />
+    <fragment
+        android:id="@+id/soundScreen"
+        android:name="com.shersar.ramazon2023.screen.SoundScreen"
+        android:label="screen_sound"
+        tools:layout="@layout/screen_sound" />
+    <fragment
+        android:id="@+id/itemDrawerScreen"
+        android:name="com.shersar.ramazon2023.screen.drawer.ItemDrawerScreen"
+        android:label="ItemDrawerScreen" />
 
 
 </navigation>
