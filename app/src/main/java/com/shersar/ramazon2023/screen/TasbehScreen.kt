@@ -229,16 +229,9 @@ class TasbehScreen : Fragment(R.layout.screen_tasbeh) {
     private fun initView() {
         var count1 = 1
         var count2 = 1
-        binding.constraintLayout.setOnClickListener {
-            binding.moreSettings.root.visibility = View.GONE
-            binding.drawerCustom.root.visibility = View.GONE
-        }
-        binding.icMore.setOnClickListener {
-            binding.moreSettings.root.visibility = View.VISIBLE
-        }
-        binding.drawerr.setOnClickListener {
-            binding.drawerCustom.root.visibility = View.VISIBLE
-        }
+
+
+
 
         val image = binding.moreSettings
 
