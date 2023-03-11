@@ -13,7 +13,7 @@ import com.shersar.ramazon2023.model.Zikrlar
 class CategoriesAdapter(
     private val context: Context,
     private val list: List<Item>,
-    val onItemClick: (String) -> Unit
+    //val onItemClick: (String) -> Unit
 ) : RecyclerView.Adapter<CategoriesAdapter.CategoryViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
