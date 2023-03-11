@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="280dp"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:background="@color/white"
     android:layout_margin="7dp"
@@ -28,11 +28,12 @@
                 android:textColor="@color/writter"
                 android:textSize="14sp" />
 
-            <ImageView
-                android:id="@+id/iv_gone_vibratsiya"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_gone" />
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/switchOn_vibratsiya"
+                android:layout_width="33dp"
+                android:layout_height="14dp"
+                android:thumb="@drawable/thumb"
+                app:track="@drawable/track"/>
         </LinearLayout>
 
         <LinearLayout
@@ -55,11 +56,12 @@
                 android:textColor="@color/writter"
                 android:textSize="14sp" />
 
-            <ImageView
-                android:id="@+id/iv_visible_ovoz"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_gone" />
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/switchOn_sound"
+                android:layout_width="33dp"
+                android:layout_height="14dp"
+                android:thumb="@drawable/thumb"
+                app:track="@drawable/track"/>
         </LinearLayout>
 
         <LinearLayout
@@ -79,6 +81,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Matn kattaligi"
+                android:layout_marginEnd="40dp"
                 android:textColor="@color/writter"
                 android:textSize="14sp" />
 
@@ -118,30 +121,31 @@
             android:layout_height="1dp"
             android:layout_marginTop="12dp"
             android:background="#0F231F20" />
-<!--        <LinearLayout-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:orientation="horizontal"-->
-<!--            android:layout_marginTop="12dp">-->
 
-<!--            <TextView-->
-<!--                android:id="@+id/tv_arab_click"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="Arab"-->
-<!--                android:background="@drawable/bg_more"-->
-<!--                android:paddingVertical="10dp"-->
-<!--                android:paddingHorizontal="16dp"/>-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:orientation="horizontal">
 
-<!--            <TextView-->
-<!--                android:id="@+id/tv_transkir_click"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="Transkripsiya"-->
-<!--                android:background="@drawable/bg_more"-->
-<!--                android:layout_marginStart="4dp"-->
-<!--                android:paddingVertical="10dp"-->
-<!--                android:paddingHorizontal="16dp"/>-->
-<!--        </LinearLayout>-->
+            <TextView
+                android:id="@+id/tv_arab_click"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_more"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="10dp"
+                android:text="Arab" />
+
+            <TextView
+                android:id="@+id/tv_transkir_click"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:background="@drawable/bg_more"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="10dp"
+                android:text="Transkripsiya" />
+        </LinearLayout>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

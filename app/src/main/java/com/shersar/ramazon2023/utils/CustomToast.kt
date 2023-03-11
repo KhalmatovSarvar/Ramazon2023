@@ -12,7 +12,7 @@ object ToastUtils {
     fun showToast(context: Context, message: String) {
         val inflater = LayoutInflater.from(context)
         val layout = inflater.inflate(R.layout.custom_toast, null)
-        val text = layout.findViewById<TextView>(R.id.toast_text)
+        val text = layout.findViewById<TextView>(R.id.tv_toast)
         text.text = message
         val toast = Toast(context)
         toast.setGravity(Gravity.CENTER, 0, 0)

@@ -5,15 +5,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.shersar.ramazon2023.R
 import com.shersar.ramazon2023.model.Item
-import com.shersar.ramazon2023.model.Zikrlar
+import com.shersar.ramazon2023.screen.Item1Screen
 
 class CategoriesAdapter(
     private val context: Context,
     private val list: List<Item>,
-    //val onItemClick: (String) -> Unit
 ) : RecyclerView.Adapter<CategoriesAdapter.CategoryViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
@@ -31,7 +31,14 @@ class CategoriesAdapter(
         holder.todayZikr.text = Items.today_zikr
         holder.allZikr.text = Items.all_zikr
         holder.orderNumber.text = Items.order_number.toString()
-
+//        holder.itemView.setOnClickListener {
+//            val fragment = Item1Screen.newInstance(list[position])
+//            (holder.itemView.context as AppCompatActivity).supportFragmentManager
+//                .beginTransaction()
+//                .replace(R.id, fragment)
+//                .addToBackStack(null)
+//                .commit()
+//        }
     }
 
     override fun getItemCount(): Int {
@@ -47,10 +54,7 @@ class CategoriesAdapter(
         val orderNumber: TextView = view.findViewById(R.id.tv_number_order)
         fun bind(item: Item) {
             val uzb = item.uzb_zikr
-            // uzb.text=item.uzb_zikr
-//            item.setOnClickListener {
-//                onItemClick(item.uzb_zikr)
-//            }
+
         }
 
     }

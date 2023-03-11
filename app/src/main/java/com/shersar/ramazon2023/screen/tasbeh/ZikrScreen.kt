@@ -59,7 +59,7 @@ class ZikrScreen : Fragment(R.layout.screen_zikr) {
                 "255"
             ),
             Item(
-                2,
+                10,
                 "Ma shaa Alloh",
                 " سُبْحَانَ اللهِ",
                 "“Subhanalloh” so’zi “allohni poklab yod etaman, Allohni poklayman”, deb o’girilgan.",
