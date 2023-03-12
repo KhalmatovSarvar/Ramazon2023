@@ -1,7 +1,8 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
-    id 'kotlin-android'
+    id 'dagger.hilt.android.plugin'
+    id 'kotlin-kapt'
     id 'kotlin-android-extensions'
 }
 
@@ -39,6 +40,13 @@ android {
 
 dependencies {
 
+    def room_version = "2.5.0"
+    def navigation_version = "2.5.3"
+    def retrofit_version = "2.9.0"
+    def hilt_version = "2.42"
+    def glide_version = "4.14.2"
+
+
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.8.0'
@@ -50,10 +58,39 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
     //lotti animation
     implementation 'com.airbnb.android:lottie:5.2.0'
+
     implementation 'io.github.nikartm:fit-button:2.0.0'
+
     implementation 'com.google.android.gms:play-services-location:21.0.1'
+
     implementation "androidx.viewpager2:viewpager2:1.0.0"
+
     implementation 'me.relex:circleindicator:2.1.6'
+
     implementation 'io.github.ahmad-hamwi:tabsync:1.0.1'
+
+    // Navigation
+    implementation "androidx.navigation:navigation-fragment-ktx:$navigation_version"
+    implementation "androidx.navigation:navigation-ui-ktx:$navigation_version"
+
+
+    //    // Retrofit
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+    implementation "com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.2"
+
+    // Room Database
+    implementation "androidx.room:room-runtime:$room_version"
+    implementation "androidx.room:room-ktx:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
+
+    // Dagger Hilt
+    implementation "com.google.dagger:hilt-android:$hilt_version"
+    kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
+    implementation 'androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03'
+    kapt 'androidx.hilt:hilt-compiler:1.0.0'
+
+    // Kotlin Coroutines
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'
 
 }

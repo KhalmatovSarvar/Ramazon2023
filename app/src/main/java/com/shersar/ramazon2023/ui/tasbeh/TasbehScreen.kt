@@ -1,4 +1,4 @@
-package com.shersar.ramazon2023.screen.tasbeh
+package com.shersar.ramazon2023.ui.tasbeh
 
 import android.os.Bundle
 import android.view.Gravity
@@ -19,8 +19,6 @@ import com.shersar.ramazon2023.R
 import com.shersar.ramazon2023.databinding.ScreenTasbehBinding
 import com.shersar.ramazon2023.model.Item
 import com.shersar.ramazon2023.model.Zikrlar
-import com.shersar.ramazon2023.screen.Item1Screen
-import com.shersar.ramazon2023.screen.Item2Screen
 import com.shersar.ramazon2023.utils.CustomDialog
 import me.relex.circleindicator.CircleIndicator3
 import viewBinding

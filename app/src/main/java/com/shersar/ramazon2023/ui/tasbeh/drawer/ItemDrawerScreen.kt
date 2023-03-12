@@ -1,4 +1,4 @@
-package com.shersar.ramazon2023.screen.drawer
+package com.shersar.ramazon2023.ui.tasbeh.drawer
 
 import android.content.ContentValues.TAG
 import android.os.Bundle

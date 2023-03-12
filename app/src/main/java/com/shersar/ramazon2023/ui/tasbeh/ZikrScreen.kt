@@ -1,4 +1,4 @@
-package com.shersar.ramazon2023.screen.tasbeh
+package com.shersar.ramazon2023.ui.tasbeh
 
 import android.os.Bundle
 import android.view.View

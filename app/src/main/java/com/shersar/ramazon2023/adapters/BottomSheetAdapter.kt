@@ -1,6 +1,6 @@
 package com.shersar.ramazon2023.adapters
 
-import android.content.Context
+
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.shersar.ramazon2023.R
 import com.shersar.ramazon2023.model.Bottomsheet
 import kotlinx.android.synthetic.main.item_bottomsheet.view.*
+
 
 class BottomSheetAdapter( val list: ArrayList<Bottomsheet>) :
     RecyclerView.Adapter<BottomSheetAdapter.ViewHolder>() {
@@ -25,6 +26,7 @@ class BottomSheetAdapter( val list: ArrayList<Bottomsheet>) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val modelClass = list[position]
         holder.itemView.tv_city.text = modelClass.city_name
+
         if (isNewRadioButtonChecked) {
             holder.itemView.radio_btn.isChecked = modelClass.isSelected
         } else {

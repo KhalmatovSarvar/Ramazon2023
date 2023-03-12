@@ -1,6 +1,5 @@
-package com.shersar.ramazon2023.screen
+package com.shersar.ramazon2023.ui.home
 
-import android.opengl.Visibility
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment

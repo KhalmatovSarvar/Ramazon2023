@@ -1,4 +1,4 @@
-package com.shersar.ramazon2023.screen.bottomsheet
+package com.shersar.ramazon2023.ui.settings.bottomsheet
 
 import android.os.Bundle
 import android.view.View

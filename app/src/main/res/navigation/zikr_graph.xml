@@ -7,12 +7,12 @@
 
     <fragment
         android:id="@+id/zikrScreen"
-        android:name="com.shersar.ramazon2023.screen.tasbeh.ZikrScreen"
+        android:name="com.shersar.ramazon2023.ui.tasbeh.ZikrScreen"
         android:label="ZikrScreen"
         tools:layout="@layout/screen_item1"/>
     <fragment
         android:id="@+id/salovatScreen"
-        android:name="com.shersar.ramazon2023.screen.tasbeh.SalovatScreen"
+        android:name="com.shersar.ramazon2023.ui.tasbeh.SalovatScreen"
         android:label="SalovatScreen"
         tools:layout="@layout/screen_salovat"/>
 </navigation>

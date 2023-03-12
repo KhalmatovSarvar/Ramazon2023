@@ -1,11 +1,9 @@
-package com.shersar.ramazon2023.screen
+package com.shersar.ramazon2023.ui.settings
 
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
-import android.widget.Toast
-import androidx.collection.arraySetOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
@@ -14,7 +12,6 @@ import com.shersar.ramazon2023.R
 import com.shersar.ramazon2023.adapters.BottomSheetAdapter
 import com.shersar.ramazon2023.databinding.ScreenSettingsBinding
 import com.shersar.ramazon2023.model.Bottomsheet
-import com.shersar.ramazon2023.screen.bottomsheet.LocationBottomSheetScreen
 import viewBinding
 
 

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/card_background_day"
-    tools:context=".screen.SoundScreen">
+    tools:context=".ui.settings.SoundScreen">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"

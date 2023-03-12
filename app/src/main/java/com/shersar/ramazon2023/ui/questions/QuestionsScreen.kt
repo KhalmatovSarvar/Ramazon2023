@@ -1,4 +1,4 @@
-package com.shersar.ramazon2023.screen
+package com.shersar.ramazon2023.ui.questions
 
 import android.os.Bundle
 import android.view.LayoutInflater

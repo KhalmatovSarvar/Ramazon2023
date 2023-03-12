@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:id="@+id/constraint_layout"
     android:background="@color/card_background_day"
-    tools:context=".screen.SettingsScreen">
+    tools:context=".ui.settings.SettingsScreen">
 
     <TextView
         android:id="@+id/location"
