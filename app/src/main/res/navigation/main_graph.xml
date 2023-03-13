@@ -42,6 +42,21 @@
         android:id="@+id/itemDrawerScreen"
         android:name="com.shersar.ramazon2023.ui.tasbeh.drawer.ItemDrawerScreen"
         android:label="ItemDrawerScreen" />
+    <fragment
+        android:id="@+id/aboutProjectScreen"
+        android:name="com.shersar.ramazon2023.ui.settings.AboutProjectScreen"
+        android:label="AboutProjectScreen"
+        tools:layout="@layout/screen_about_project"/>
+    <fragment
+        android:id="@+id/inAboutProjectScreen"
+        android:name="com.shersar.ramazon2023.ui.settings.InAboutProjectScreen"
+        android:label="InAboutProjectScreen"
+        tools:layout="@layout/screen_in_about_project"/>
+    <fragment
+        android:id="@+id/projectWorkerScreen"
+        android:name="com.shersar.ramazon2023.ui.settings.ProjectWorkerScreen"
+        android:label="ProjectWorkerScreen"
+        tools:layout="@layout/screen_project_worker"/>
 
 
 </navigation>

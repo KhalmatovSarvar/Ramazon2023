@@ -38,6 +38,9 @@ class SettingsScreen : Fragment(R.layout.screen_settings) {
         binding.llLocation.setOnClickListener {
             bottomSheet()
         }
+        binding.llAboutProject.setOnClickListener {
+            findNavController().navigate(R.id.aboutProjectScreen)
+        }
 
     }
 
@@ -52,11 +55,13 @@ class SettingsScreen : Fragment(R.layout.screen_settings) {
         var count = 1
         bottomSheet.findViewById<LinearLayout>(R.id.choose).setOnClickListener {
             if (count % 2 == 1) {
-                bottomSheet.findViewById<ImageView>(R.id.arrow_down).setImageResource(R.drawable.ic_up_arrow)
+                bottomSheet.findViewById<ImageView>(R.id.arrow_down)
+                    .setImageResource(R.drawable.ic_up_arrow)
                 bottomSheet.findViewById<RecyclerView>(R.id.rv).visibility = View.VISIBLE
                 count++
-            }else{
-                bottomSheet.findViewById<ImageView>(R.id.arrow_down).setImageResource(R.drawable.ic_arrow_down)
+            } else {
+                bottomSheet.findViewById<ImageView>(R.id.arrow_down)
+                    .setImageResource(R.drawable.ic_arrow_down)
                 bottomSheet.findViewById<RecyclerView>(R.id.rv).visibility = View.GONE
                 count++
             }

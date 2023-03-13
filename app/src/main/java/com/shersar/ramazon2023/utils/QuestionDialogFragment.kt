@@ -8,7 +8,7 @@ import androidx.fragment.app.DialogFragment
 import com.shersar.ramazon2023.R
 import com.shersar.ramazon2023.model.Question
 
-class QuestionDialogFragment(val question:Question):DialogFragment() {
+class QuestionDialogFragment(private val question:Question):DialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val dialogView = layoutInflater.inflate(R.layout.dialog_question, null)

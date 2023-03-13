@@ -27,23 +27,4 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
-<!--    <androidx.fragment.app.FragmentContainerView-->
-<!--        android:id="@+id/nav_host_fragment"-->
-<!--        android:name="androidx.navigation.fragment.NavHostFragment"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        app:defaultNavHost="true"-->
-<!--        app:layout_constraintTop_toBottomOf="@id/tabLayout"-->
-<!--        android:layout_marginTop="20dp"-->
-<!--        app:navGraph="@navigation/zikr_graph" />-->
-
-
-
-    <!--    <View-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="1dp"-->
-    <!--        android:background="@color/teal_200"-->
-    <!--        app:layout_constraintBottom_toBottomOf="parent" />-->
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>
