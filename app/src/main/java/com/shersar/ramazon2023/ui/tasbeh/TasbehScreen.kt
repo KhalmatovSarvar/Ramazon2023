@@ -1,6 +1,7 @@
 package com.shersar.ramazon2023.ui.tasbeh
 
 import android.os.Bundle
+import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.view.Window
@@ -8,8 +9,14 @@ import android.view.WindowManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
@@ -19,7 +26,10 @@ import com.shersar.ramazon2023.R
 import com.shersar.ramazon2023.databinding.ScreenTasbehBinding
 import com.shersar.ramazon2023.model.Item
 import com.shersar.ramazon2023.model.Zikrlar
+import com.shersar.ramazon2023.ui.tasbeh.viewmodel.ZikrViewModel
 import com.shersar.ramazon2023.utils.CustomDialog
+import com.shersar.ramazon2023.utils.UiStateObject
+import kotlinx.coroutines.launch
 import me.relex.circleindicator.CircleIndicator3
 import viewBinding
 
@@ -28,6 +38,10 @@ class TasbehScreen : Fragment(R.layout.screen_tasbeh) {
     private lateinit var tabLayout: TabLayout
     private lateinit var recyclerView: RecyclerView
     private val binding by viewBinding { ScreenTasbehBinding.bind(it) }
+    private val viewModel by viewModels<ZikrViewModel>()
+    private lateinit var adapterFragments: ViewPagerAdapter
+
+    private lateinit var viewPagerr: ViewPager2
     var count = 0
     private val categories = mutableListOf(
         Zikrlar(
@@ -83,15 +97,25 @@ class TasbehScreen : Fragment(R.layout.screen_tasbeh) {
         ),
     )
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        viewModel.getZikrState()
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         initview()
         initViewPager()
         initCounts()
+        setupZikrObservers()
     }
 
     private fun initCounts() {
+
+
+        Log.d("@@@@", "Main tasbeh Screen ")
 
         binding.ivMoreVerDot.setOnClickListener {
             Toast.makeText(requireContext(), "sssssss", Toast.LENGTH_SHORT).show()
@@ -115,10 +139,12 @@ class TasbehScreen : Fragment(R.layout.screen_tasbeh) {
     }
 
     private fun initViewPager() {
-        var viewPagerr: ViewPager2 = binding.viewpager2
+        viewPagerr = binding.viewpager2
+        adapterFragments = ViewPagerAdapter(requireActivity())
         var circleIndicator: CircleIndicator3 = binding.circleIndicator
-        val adapter = ViewPagerAdapter(requireActivity())
-        viewPagerr.adapter = adapter
+
+
+//        viewPagerr.adapter = adapterFragments
 
         // Set the CircleIndicator with ViewPager2
         circleIndicator.setViewPager(viewPagerr)
@@ -132,17 +158,18 @@ class TasbehScreen : Fragment(R.layout.screen_tasbeh) {
         binding.apply {
             header = navView.getHeaderView(0)
         }
-        initTabs(header)
+        initTabs(header, binding.drawerlayout)
+
 
     }
 
-    private fun initTabs(header: View) {
+    private fun initTabs(header: View, drawerLayout: DrawerLayout) {
 
         val viewPager2: ViewPager2 = header.findViewById(R.id.viewpager2)
         val tabLayout: TabLayout = header.findViewById(R.id.tabLayout)
 
-        viewPager2.adapter = FragmentAdapter(requireContext() as AppCompatActivity)
-        viewPager2.isUserInputEnabled = false
+        viewPager2.adapter = FragmentAdapter(requireContext() as AppCompatActivity, viewModel, drawerLayout)
+//        viewPager2.isUserInputEnabled = false
         TabLayoutMediator(tabLayout, viewPager2) { tab, position ->
             when (position) {
                 0 -> tab.text = "Zikrlar"
@@ -154,12 +181,58 @@ class TasbehScreen : Fragment(R.layout.screen_tasbeh) {
 
     }
 
+    private fun setupZikrObservers() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.zikrState.collect {
+                    when (it) {
+                        is UiStateObject.LOADING -> {
 
+                        }
+                        is UiStateObject.SUCCESS -> {
+                            Log.d("@@@", "Home ${it.data}")
+
+                            adapterFragments.fragments.add(Item1Screen(viewModel))
+                            adapterFragments.fragments.add(Item2Screen(viewModel))
+                            viewPagerr.adapter = adapterFragments
+                        }
+                        is UiStateObject.ERROR -> {
+                        }
+                        else -> Unit
+                    }
+                }
+            }
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
+
+        Log.d("@@@", "Tasbeh on pause")
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        Log.d("@@@", "Tasbeh on resume")
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        Log.d("@@@", "Tasbeh on Start")
+    }
+
+    override fun onStop() {
+        super.onStop()
+
+        Log.d("@@@", "Tasbeh on stop")
+    }
 }
 
 class ViewPagerAdapter(activity: FragmentActivity) : FragmentStateAdapter(activity) {
 
-    private val fragments = listOf(Item1Screen(), Item2Screen())
+     val fragments = mutableListOf<Fragment>()
 
     override fun getItemCount(): Int {
         return fragments.size
@@ -171,16 +244,16 @@ class ViewPagerAdapter(activity: FragmentActivity) : FragmentStateAdapter(activi
 }
 
 
-class FragmentAdapter(activity: AppCompatActivity) : FragmentStateAdapter(activity) {
+class FragmentAdapter(activity: AppCompatActivity, val viewModel: ZikrViewModel, val drawerLayout: DrawerLayout) : FragmentStateAdapter(activity) {
     override fun getItemCount(): Int {
         return 2
     }
 
     override fun createFragment(position: Int): Fragment {
         return when (position) {
-            0 -> ZikrScreen()
-            1 -> SalovatScreen()
-            else -> ZikrScreen()
+            0 -> ZikrScreen(viewModel, drawerLayout)
+            1 -> SalovatScreen(viewModel)
+            else -> ZikrScreen(viewModel, drawerLayout)
         }
     }
 }

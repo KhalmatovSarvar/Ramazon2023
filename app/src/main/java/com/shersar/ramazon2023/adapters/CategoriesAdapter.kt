@@ -14,6 +14,8 @@ class CategoriesAdapter(
     private val list: List<Item>,
 ) : RecyclerView.Adapter<CategoriesAdapter.CategoryViewHolder>() {
 
+    var onClick: ((Item) -> Unit)? = null
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
         return CategoryViewHolder(
             LayoutInflater.from(parent.context).inflate(R.layout.item_drawer_item, parent, false)
@@ -29,6 +31,7 @@ class CategoriesAdapter(
         holder.todayZikr.text = Items.today_zikr
         holder.allZikr.text = Items.all_zikr
         holder.orderNumber.text = Items.order_number.toString()
+        holder.bind(Items)
 //        holder.itemView.setOnClickListener {
 //            val fragment = Item1Screen.newInstance(list[position])
 //            (holder.itemView.context as AppCompatActivity).supportFragmentManager
@@ -43,7 +46,7 @@ class CategoriesAdapter(
         return list.size
     }
 
-    class CategoryViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    inner class CategoryViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val uzb: TextView = view.findViewById(R.id.tv_name_zikr_uzb)
         val arab: TextView = view.findViewById(R.id.tv_name_zikr_arab)
         val tarjima: TextView = view.findViewById(R.id.tv_tarjima)
@@ -53,6 +56,9 @@ class CategoriesAdapter(
         fun bind(item: Item) {
             val uzb = item.uzb_zikr
 
+            itemView.setOnClickListener {
+                onClick?.invoke(item)
+            }
         }
 
     }
