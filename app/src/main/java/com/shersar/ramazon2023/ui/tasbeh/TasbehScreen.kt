@@ -1,6 +1,11 @@
 package com.shersar.ramazon2023.ui.tasbeh
 
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.media.AudioManager
 import android.os.Bundle
+import android.view.*
 import android.util.Log
 import android.view.Gravity
 import android.view.View
@@ -8,6 +13,7 @@ import android.view.Window
 import android.view.WindowManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
@@ -111,6 +117,8 @@ class TasbehScreen : Fragment(R.layout.screen_tasbeh) {
         initCounts()
         setupZikrObservers()
     }
+
+
 
     private fun initCounts() {
 
