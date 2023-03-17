@@ -333,7 +333,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="2dp"
-                android:text="Sultonova Gulzoda"
+                android:text="Bintu Baxtiyor"
                 android:textColor="@color/writter"
                 android:textSize="16sp"
                 android:textStyle="bold" />
