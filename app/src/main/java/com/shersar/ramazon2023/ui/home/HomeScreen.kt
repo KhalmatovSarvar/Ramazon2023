@@ -12,6 +12,8 @@ import com.shersar.ramazon2023.databinding.ScreenHomeBinding
 import com.shersar.ramazon2023.utils.UiStateObject
 import com.shersar.ramazon2023.viewmodel.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import viewBinding
 
 @AndroidEntryPoint
@@ -23,12 +25,15 @@ class HomeScreen : Fragment(R.layout.screen_home) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initView()
-        homeViewModel.getHijriCalendar(2023, 3, 41.311081, 69.240562)
 
+        initView()
+//        homeViewModel.getHijriCalendar(2023, 3, 41.311081, 69.240562)
+
+        homeViewModel.startCountdown()
         homeViewModel.getAllPrayerTimesFromDb()
         setUpObservers()
     }
+
 
 
     private fun initView() {
@@ -78,5 +83,13 @@ class HomeScreen : Fragment(R.layout.screen_home) {
                 }
             }
         }
+
+
+        lifecycleScope.launch {
+            homeViewModel.currentTime.collect { time ->
+                binding.tvDayLeft.text = time // update a TextView with the current time
+            }
+        }
+
     }
 }
