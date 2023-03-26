@@ -1,31 +1,28 @@
 package com.shersar.ramazon2023.repository
 
 import com.shersar.ramazon2023.data.remote.ApiService
-import com.shersar.ramazon2023.model.HijriCalendarResponse
-import com.shersar.ramazon2023.utils.UiStateList
-import retrofit2.HttpException
-import java.io.IOException
+import com.shersar.ramazon2023.model.MonthlyCalendar
+import com.shersar.ramazon2023.utils.UiStateObject
 import javax.inject.Inject
 
 class HomeRepository @Inject constructor(
     private val apiService: ApiService
 ) {
-    suspend fun getHijriCalendar(year: Int, month: Int, latitude: Double, longitude: Double): UiStateList<HijriCalendarResponse> {
+    suspend fun getMonthlyCalendarFromApi(year: Int, month: Int, latitude: Double, longitude: Double): UiStateObject<MonthlyCalendar> {
         return try {
-            val response = apiService.getHijriCalendar(year, month, latitude, longitude)
+            val response = apiService.getMonthlyCalendar(year, month, latitude, longitude)
             if (response.isSuccessful) {
-                val hijriCalendarResponse = response.body()
-                if (hijriCalendarResponse != null) {
-                    val data = listOf(hijriCalendarResponse)
-                    UiStateList.SUCCESS(data)
+                val monthlyCalendar = response.body()
+                if (monthlyCalendar != null) {
+                    UiStateObject.SUCCESS(monthlyCalendar)
                 } else {
-                    UiStateList.ERROR("Response body is null")
+                    UiStateObject.ERROR("Response body is null")
                 }
             } else {
-                UiStateList.ERROR(response.message(), true)
+                UiStateObject.ERROR(response.message())
             }
         } catch (e: Exception) {
-            UiStateList.ERROR(e.message.toString())
+            UiStateObject.ERROR(e.message.toString())
         }
     }
 
