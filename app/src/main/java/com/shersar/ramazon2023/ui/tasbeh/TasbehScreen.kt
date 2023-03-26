@@ -1,11 +1,6 @@
 package com.shersar.ramazon2023.ui.tasbeh
 
-import android.content.BroadcastReceiver
-import android.content.Context
-import android.content.Intent
-import android.media.AudioManager
 import android.os.Bundle
-import android.view.*
 import android.util.Log
 import android.view.Gravity
 import android.view.View
@@ -13,7 +8,6 @@ import android.view.Window
 import android.view.WindowManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
@@ -22,7 +16,6 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
@@ -32,8 +25,10 @@ import com.shersar.ramazon2023.R
 import com.shersar.ramazon2023.databinding.ScreenTasbehBinding
 import com.shersar.ramazon2023.model.Item
 import com.shersar.ramazon2023.model.Zikrlar
+import com.shersar.ramazon2023.ui.tasbeh.viewmodel.SalovatViewModel
 import com.shersar.ramazon2023.ui.tasbeh.viewmodel.ZikrViewModel
 import com.shersar.ramazon2023.utils.CustomDialog
+import com.shersar.ramazon2023.utils.ExapleDialog
 import com.shersar.ramazon2023.utils.UiStateObject
 import kotlinx.coroutines.launch
 import me.relex.circleindicator.CircleIndicator3
@@ -44,9 +39,8 @@ class TasbehScreen : Fragment(R.layout.screen_tasbeh) {
     private lateinit var tabLayout: TabLayout
     private lateinit var recyclerView: RecyclerView
     private val binding by viewBinding { ScreenTasbehBinding.bind(it) }
-    private val viewModel by viewModels<ZikrViewModel>()
+    private val viewModelZikr by viewModels<ZikrViewModel>()
     private lateinit var adapterFragments: ViewPagerAdapter
-
     private lateinit var viewPagerr: ViewPager2
     var count = 0
     private val categories = mutableListOf(
@@ -54,59 +48,118 @@ class TasbehScreen : Fragment(R.layout.screen_tasbeh) {
             "Zikrlar",
             Item(
                 1,
-                "Subhanalloh",
-                " سُبْحَانَ اللهِ",
-                "“Subhanalloh” so’zi “allohni poklab yod etaman, Allohni poklayman”, deb o’girilgan.",
-                "10",
-                "255"
+                "Субҳаналлоҳ",
+                "سُبْحَانَ اللَّه",
+                "Маьноси: Аллоҳни поклаб ёд этаман.",
+                "0",
+                "0"
             ),
             Item(
                 2,
-                "Ma shaa Alloh",
-                " سُبْحَانَ اللهِ",
-                "“Subhanalloh” so’zi “allohni poklab yod etaman, Allohni poklayman”, deb o’girilgan.",
-                "12",
-                "1234"
+                "Алҳамдулиллаҳ",
+                "الْحَمْدُ لله",
+                "Маьноси: Аллоҳга хамд бўлсин.",
+                "0",
+                "0"
             ),
             Item(
-                1,
-                "Subhanalloh",
-                " سُبْحَانَ اللهِ",
-                "“Subhanalloh” so’zi “allohni poklab yod etaman, Allohni poklayman”, deb o’girilgan.",
-                "10",
-                "255"
+                3,
+                "Аллоҳу акбар",
+                "اأَللهُ أَکْبَرُ",
+                "Маьноси: Аллоҳ буюкдир.",
+                "0",
+                "0"
             ),
             Item(
-                1,
-                "Subhanalloh",
-                " سُبْحَانَ اللهِ",
-                "“Subhanalloh” so’zi “allohni poklab yod etaman, Allohni poklayman”, deb o’girilgan.",
-                "10",
-                "255"
+                4,
+                "Астағфируллоҳ",
+                "أَسْتَغْفِرُ اللَّهَ",
+                "Маъноси:Аллоҳдан кечирим сўрайман.",
+                "0",
+                "0"
             ),
             Item(
-                1,
-                "Subhanalloh",
-                " سُبْحَانَ اللهِ",
-                "“Subhanalloh” so’zi “allohni poklab yod etaman, Allohni poklayman”, deb o’girilgan.",
-                "10",
-                "255"
+                5,
+                "Астағфируллоҳ ва атувбу илайҳ",
+                "أَسْتَغْفِرُ اللَّهَ وأَتُوبُ إِلَيهِ ",
+                "Маъноси:Аллоҳдан кечирим сўрайман ва Унга тавба қиламан.",
+                "0",
+                "0"
             ),
             Item(
-                1,
-                "Subhanalloh",
-                " سُبْحَانَ اللهِ",
-                "“Subhanalloh” so’zi “allohni poklab yod etaman, Allohni poklayman”, deb o’girilgan.",
-                "10",
-                "255"
-            )
+                6,
+                "Астағфируллоҳаллазий Ла илаҳа илла ҳувал ҳаййул қоййум ва атувбу илайҳ",
+                "أَسْتَغْفِرُ اللَّهَ الَّذِي لَا إِلَهَ إلَّا هُوَ الْحَيُّ الْقَيُّومُ وأَتُوبُ إِلَيهِ ",
+                "Маъноси: Барҳаёт, тирик Аллоҳдан авф этишини сўрайман ва Унга тавба қиламан.",
+                "0",
+                "0"
+            ),
+            Item(
+                6,
+                "Субҳаналлоҳи ва биҳамдиҳи\n" +
+                        "Субҳаналлоҳил ъзийм",
+                "سُبْحَانَ اللهِ وَبِحَمْدِهِ \n" +
+                        "سُبْحَانَ اللهِ الْعَظِيمِ",
+                "Маъноси: Аллоҳга ҳамд айтиш билан Уни айбу нуқсонлардан поклаб ёд етаман.",
+                "0",
+                "0"
+            ),
+            Item(
+                6,
+                "Йа муқоллибал қулуб саббит қолбий ъала дийник",
+                "يَا مُقَلِّبَ الْقُلُوبِ ثَبِّتْ قَلْبِي عَلَى دِيْنِكَ ",
+                "Маъноси: Эй қалбларни ўзгартирувчи, қалбимни динингда собит қил.",
+                "0",
+                "0"
+            ),
+            Item(
+                5,
+                "Ла илаҳа илла анта субҳанака инний кунту миназ золимийн",
+                "لَا إِلَهَ إلَّا أَنْتَ سُبْحَانَكَ إَنِّي كُنْتُ مِنَ الظَّالِمِينَ ",
+                "Маъноси: Сендан бошқа илоҳ йўқ. Сени поклаб ёд етаман. Албатта мен золимлардан бўлдим.",
+                "0",
+                "0"
+            ),
+            Item(
+                5,
+                "Ла илаҳа иллаллоҳ",
+                "لَا إِلَٰهَ إِلَّا الله",
+                "Маьноси: Аллоҳдан ўзга илоҳ йўқ.",
+                "0",
+                "0"
+            ),
+            Item(
+                5,
+                "Ла ҳавла ва ла қуввата илла биллаҳ",
+                "لَا حَولَ وَلَا قُوَّةَ إَلَّا بِاللَّهِ ",
+                "Маъноси: Куч ва қувват ёлғиз Аллоҳдандир.",
+                "0",
+                "0"
+            ),
+            Item(
+                5,
+                "Аллоҳумма мағфиротука авсаъу мин зунубий ва роҳматука аржа ъиндий мин ъамалий",
+                "اللَّهُمَّ مَغْفِرَتُكَ أَوْسَعُ مِنْ ذُنُوبِي وَرَحْمَتُكَ أَرْجَى عِنْدِي مِنْ عَمَلِي",
+                "\n" +
+                        "Маъноси:Аллоҳим, мағфиратинг гинохимдан кенгроқдир. Раҳматинг ҳузуримдаги амалимдан умидлироқдир.",
+                "0",
+                "0"
+            ),
+            Item(
+                5,
+                "Ла илаҳа иллаллоҳ Мухаммадур росуллоҳ",
+                "لَا إِلَٰهَ إِلَّا الله مُحَمَّدٌ رَسُولُ اُللَّهِ",
+                "Маьнлси: Аллоҳдан ўзга илоҳ йўқ Мухаммад унинг элчиси.",
+                "0",
+                "0"
+            ),
         ),
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        viewModel.getZikrState()
+        viewModelZikr.getZikrState()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -119,14 +172,12 @@ class TasbehScreen : Fragment(R.layout.screen_tasbeh) {
     }
 
 
-
     private fun initCounts() {
 
 
         Log.d("@@@@", "Main tasbeh Screen ")
 
         binding.ivMoreVerDot.setOnClickListener {
-            Toast.makeText(requireContext(), "sssssss", Toast.LENGTH_SHORT).show()
             val customDialog = CustomDialog(requireContext())
             customDialog.setTitle("Custom Dialog Title")
             customDialog.show()
@@ -138,8 +189,10 @@ class TasbehScreen : Fragment(R.layout.screen_tasbeh) {
             wlp.gravity = Gravity.END
             wlp.flags = wlp.flags and WindowManager.LayoutParams.FLAG_DIM_BEHIND.inv()
             window.attributes = wlp
+          /** val dialogFragment = ExapleDialog()
+            dialogFragment.show(parentFragmentManager, "MyDialogFragment")*/
         }
-        binding.fitCount.setOnClickListener {
+        binding.fmCount.setOnClickListener {
             count++
             binding.tvNowCount.text = count.toString()
             binding.tvbeforeCount.text = count.toString()
@@ -152,7 +205,7 @@ class TasbehScreen : Fragment(R.layout.screen_tasbeh) {
         var circleIndicator: CircleIndicator3 = binding.circleIndicator
 
 
-//        viewPagerr.adapter = adapterFragments
+        viewPagerr.adapter = adapterFragments
 
         // Set the CircleIndicator with ViewPager2
         circleIndicator.setViewPager(viewPagerr)
@@ -176,7 +229,8 @@ class TasbehScreen : Fragment(R.layout.screen_tasbeh) {
         val viewPager2: ViewPager2 = header.findViewById(R.id.viewpager2)
         val tabLayout: TabLayout = header.findViewById(R.id.tabLayout)
 
-        viewPager2.adapter = FragmentAdapter(requireContext() as AppCompatActivity, viewModel, drawerLayout)
+        viewPager2.adapter =
+            FragmentAdapter(requireContext() as AppCompatActivity, viewModelZikr, drawerLayout)
 //        viewPager2.isUserInputEnabled = false
         TabLayoutMediator(tabLayout, viewPager2) { tab, position ->
             when (position) {
@@ -192,7 +246,7 @@ class TasbehScreen : Fragment(R.layout.screen_tasbeh) {
     private fun setupZikrObservers() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.zikrState.collect {
+                viewModelZikr.zikrState.collect {
                     when (it) {
                         is UiStateObject.LOADING -> {
 
@@ -200,8 +254,8 @@ class TasbehScreen : Fragment(R.layout.screen_tasbeh) {
                         is UiStateObject.SUCCESS -> {
                             Log.d("@@@", "Home ${it.data}")
 
-                            adapterFragments.fragments.add(Item1Screen(viewModel))
-                            adapterFragments.fragments.add(Item2Screen(viewModel))
+                            adapterFragments.fragments.add(Item1Screen(viewModelZikr))
+                            adapterFragments.fragments.add(Item2Screen(viewModelZikr))
                             viewPagerr.adapter = adapterFragments
                         }
                         is UiStateObject.ERROR -> {
@@ -212,6 +266,7 @@ class TasbehScreen : Fragment(R.layout.screen_tasbeh) {
             }
         }
     }
+
 
     override fun onPause() {
         super.onPause()
@@ -240,7 +295,7 @@ class TasbehScreen : Fragment(R.layout.screen_tasbeh) {
 
 class ViewPagerAdapter(activity: FragmentActivity) : FragmentStateAdapter(activity) {
 
-     val fragments = mutableListOf<Fragment>()
+    val fragments = mutableListOf<Fragment>()
 
     override fun getItemCount(): Int {
         return fragments.size
@@ -252,16 +307,20 @@ class ViewPagerAdapter(activity: FragmentActivity) : FragmentStateAdapter(activi
 }
 
 
-class FragmentAdapter(activity: AppCompatActivity, val viewModel: ZikrViewModel, val drawerLayout: DrawerLayout) : FragmentStateAdapter(activity) {
+class FragmentAdapter(
+    activity: AppCompatActivity,
+    private val viewModelZikr: ZikrViewModel,
+    private val drawerLayout: DrawerLayout
+) : FragmentStateAdapter(activity) {
     override fun getItemCount(): Int {
         return 2
     }
 
     override fun createFragment(position: Int): Fragment {
         return when (position) {
-            0 -> ZikrScreen(viewModel, drawerLayout)
-            1 -> SalovatScreen(viewModel)
-            else -> ZikrScreen(viewModel, drawerLayout)
+            0 -> ZikrScreen(viewModelZikr, drawerLayout)
+            1 -> SalovatScreen(drawerLayout)
+            else -> ZikrScreen(viewModelZikr, drawerLayout)
         }
     }
 }

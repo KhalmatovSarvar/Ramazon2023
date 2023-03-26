@@ -16,6 +16,8 @@
     <color name="card_background_night">#000F38</color>
     <color name="card_text_color">#50FFFFFF</color>
     <color name="card_text_color_unselected">#60323899</color>
+    <color name="for_switch_false">#BBBBBB</color>
+    <color name="for_switch_true">#9AE5D5</color>
     <color name="writter">#263238</color>
 
 

@@ -29,11 +29,11 @@
                 android:textSize="14sp" />
 
             <androidx.appcompat.widget.SwitchCompat
-                android:id="@+id/switchOn_vibratsiya"
-                android:layout_width="33dp"
-                android:layout_height="14dp"
-                android:thumb="@drawable/thumb"
-                app:track="@drawable/track"/>
+                android:id="@+id/switch_compat_vib"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:thumbTint="@drawable/selected_switch"
+                android:trackTint="@drawable/selected_switch" />
         </LinearLayout>
 
         <LinearLayout
@@ -57,11 +57,11 @@
                 android:textSize="14sp" />
 
             <androidx.appcompat.widget.SwitchCompat
-                android:id="@+id/switchOn_sound"
-                android:layout_width="33dp"
-                android:layout_height="14dp"
-                android:thumb="@drawable/thumb"
-                app:track="@drawable/track"/>
+                android:id="@+id/switch_compat_sound"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:thumbTint="@drawable/selected_switch"
+                android:trackTint="@drawable/selected_switch" />
         </LinearLayout>
 
         <LinearLayout

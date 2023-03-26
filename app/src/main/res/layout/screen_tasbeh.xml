@@ -30,6 +30,7 @@
                 <androidx.viewpager2.widget.ViewPager2
                     android:id="@+id/viewpager2"
                     android:layout_width="match_parent"
+                    android:layout_marginHorizontal="16dp"
                     android:layout_height="match_parent" />
 
                 <me.relex.circleindicator.CircleIndicator3
@@ -85,7 +86,7 @@
                     android:id="@+id/tv_now_count"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="top|center_horizontal"
+                    android:layout_gravity="center"
                     android:text="0"
                     android:textColor="@color/writter"
                     android:textSize="72sp" />
@@ -94,33 +95,33 @@
                     android:id="@+id/tvbefore_count"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="50dp"
                     android:text="0"
-                    android:layout_gravity="top|center_horizontal"
-                    android:layout_marginTop="80dp"
                     android:textColor="#99263238"
                     android:textSize="16sp" />
 
-                <com.github.nikartm.button.FitButton
-                    android:id="@+id/fitCount"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:enabled="true"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="50dp"
-                    android:gravity="center_vertical"
-                    app:fb_backgroundColor="@color/background"
-                    app:fb_cornerRadius="2dp"
-                    app:fb_divColor="#fff"
-                    app:fb_divHeight="40dp"
-                    app:fb_divWidth="1dp"
-                    app:fb_iconHeight="28dp"
-                    app:fb_iconMarginEnd="16dp"
-                    app:fb_iconMarginStart="20dp"
-                    app:fb_iconPosition="left"
-                    app:fb_iconWidth="28dp"
-                    app:fb_rippleColor="#FBE9E7"
-                    app:fb_shape="oval"
-                    app:fb_textPaddingStart="16dp" />
+<!--                <com.github.nikartm.button.FitButton-->
+<!--                    android:id="@+id/fitCount"-->
+<!--                    android:layout_width="100dp"-->
+<!--                    android:layout_height="100dp"-->
+<!--                    android:enabled="true"-->
+<!--                    android:layout_gravity="center"-->
+<!--                    android:layout_marginTop="50dp"-->
+<!--                    android:gravity="center_vertical"-->
+<!--                    app:fb_backgroundColor="@color/background"-->
+<!--                    app:fb_cornerRadius="2dp"-->
+<!--                    app:fb_divColor="#fff"-->
+<!--                    app:fb_divHeight="40dp"-->
+<!--                    app:fb_divWidth="1dp"-->
+<!--                    app:fb_iconHeight="28dp"-->
+<!--                    app:fb_iconMarginEnd="16dp"-->
+<!--                    app:fb_iconMarginStart="20dp"-->
+<!--                    app:fb_iconPosition="left"-->
+<!--                    app:fb_iconWidth="28dp"-->
+<!--                    app:fb_rippleColor="#FBE9E7"-->
+<!--                    app:fb_shape="oval"-->
+<!--                    app:fb_textPaddingStart="16dp" />-->
 
             </FrameLayout>
         </LinearLayout>

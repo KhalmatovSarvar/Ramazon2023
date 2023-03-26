@@ -1,0 +1,11 @@
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_checked="true"
+        android:thumbTint="@color/background"
+        android:trackTint="#9AE5D5" />
+    <item android:state_checked="false"
+        android:thumbTint="@color/card_background_day"
+        android:trackTint="#BBBBBB" />
+    <item android:state_checkable="true"
+        android:thumbTint="@color/background"
+        android:trackTint="#9AE5D5" />
+</selector>
