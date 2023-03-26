@@ -25,7 +25,7 @@ import viewBinding
 import java.io.IOException
 import java.util.*
 
-class LocationScreen : Fragment(R.layout.screen_location) {
+class LocationScreen2 : Fragment(R.layout.screen_location) {
 
     private val binding by viewBinding { ScreenLocationBinding.bind(it) }
     lateinit var locationRequest: LocationRequest

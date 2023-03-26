@@ -9,10 +9,9 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.shersar.ramazon2023.R
 import com.shersar.ramazon2023.databinding.ScreenHomeBinding
-import com.shersar.ramazon2023.utils.UiStateList
+import com.shersar.ramazon2023.utils.UiStateObject
 import com.shersar.ramazon2023.viewmodel.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.android.qualifiers.ActivityContext
 import viewBinding
 
 @AndroidEntryPoint
@@ -25,7 +24,9 @@ class HomeScreen : Fragment(R.layout.screen_home) {
         super.onViewCreated(view, savedInstanceState)
 
         initView()
-        homeViewModel.getHijriCalendar(1444, 9, 41.311081, 69.240562)
+        homeViewModel.getHijriCalendar(2023, 3, 41.311081, 69.240562)
+
+        homeViewModel.getAllPrayerTimesFromDb()
         setUpObservers()
     }
 
@@ -54,23 +55,24 @@ class HomeScreen : Fragment(R.layout.screen_home) {
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
             homeViewModel.uiState.collect { uiState ->
                 when (uiState) {
-                    is UiStateList.SUCCESS -> {
+                    is UiStateObject.SUCCESS -> {
                         // Update UI with data
                         val data = uiState.data // list of HijriCalendarResponse objects
-                        Log.d("HOMESCREEN", "setUpObservers: ${data.size.toString()} ")
-                        Toast.makeText(requireContext(), data.size.toString(), Toast.LENGTH_SHORT).show()
+                        Log.d("HOMESCREEN", "setUpObserversSuccess: ${data.data?.size.toString()} ")
+                        Toast.makeText(requireContext(), data.data?.size.toString(), Toast.LENGTH_SHORT).show()
+
                     }
-                    is UiStateList.ERROR -> {
+                    is UiStateObject.ERROR -> {
                         // Handle error
                         val errorMessage = uiState.message
-                        Log.d("HOMESCREEN", "setUpObservers: $errorMessage ")
+                        Log.d("HOMESCREEN", "setUpObserversError: $errorMessage ")
                         Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show()
                     }
-                    UiStateList.LOADING -> {
+                    UiStateObject.LOADING -> {
                         // Show loading indicator
                         Toast.makeText(requireContext(), "LOADING", Toast.LENGTH_SHORT).show()
                     }
-                    UiStateList.EMPTY -> {
+                    UiStateObject.EMPTY -> {
                         // Handle empty state
                     }
                 }
