@@ -2,7 +2,6 @@ package com.shersar.ramazon2023.di
 
 import com.shersar.ramazon2023.BuildConfig
 import com.shersar.ramazon2023.data.remote.ApiService
-import com.shersar.ramazon2023.repository.HomeRepository
 import com.shersar.ramazon2023.utils.Constants
 import dagger.Module
 import dagger.Provides
@@ -39,11 +38,11 @@ object NetworkModule {
     }
 
 
-    @Provides
-    @Singleton
-    fun provideHomeRepository(apiService: ApiService): HomeRepository {
-        return HomeRepository(apiService)
-    }
+//    @Provides
+//    @Singleton
+//    fun provideHomeRepository(apiService: ApiService): HomeRepository {
+//        return HomeRepository(apiService)
+//    }
     @Provides
     @Singleton
     fun provideFactory(): GsonConverterFactory {

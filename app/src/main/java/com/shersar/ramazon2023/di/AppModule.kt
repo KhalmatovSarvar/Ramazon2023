@@ -3,6 +3,8 @@ package com.shersar.ramazon2023.di
 import android.content.Context
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
+import com.shersar.ramazon2023.repository.dateTimeRepo.DateTimeRepository
+import com.shersar.ramazon2023.repository.dateTimeRepo.DateTimeRepositoryImpl
 import com.shersar.ramazon2023.data.local.AppDatabase
 import com.shersar.ramazon2023.data.local.dao.PrayerTimesDao
 import dagger.Module
@@ -33,6 +35,11 @@ object AppModule {
     @Provides
     fun provideFusedLocationProviderClient(@ApplicationContext context: Context): FusedLocationProviderClient {
         return LocationServices.getFusedLocationProviderClient(context)
+    }
+
+    @Provides
+    fun provideDateTimeRepository(): DateTimeRepository {
+        return DateTimeRepositoryImpl()
     }
 
 
