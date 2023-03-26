@@ -21,6 +21,7 @@ class HomeViewModel @Inject constructor(
     private val locationRepository: LocationRepository
 ) : ViewModel() {
 
+    //opened dev
     private val _uiState = MutableStateFlow<UiStateObject<MonthlyCalendar>>(UiStateObject.EMPTY)
 
     val uiState: StateFlow<UiStateObject<MonthlyCalendar>>
