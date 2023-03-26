@@ -6,7 +6,6 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import com.shersar.ramazon2023.R
 import com.shersar.ramazon2023.databinding.ScreenItem2Binding
-import com.shersar.ramazon2023.model.Item
 import com.shersar.ramazon2023.ui.tasbeh.viewmodel.ZikrViewModel
 import viewBinding
 

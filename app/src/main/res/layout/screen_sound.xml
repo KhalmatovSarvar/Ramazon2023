@@ -106,13 +106,16 @@
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
-            <androidx.appcompat.widget.AppCompatSeekBar
-                android:id="@+id/seekbar"
+
+            <SeekBar
+                android:id="@+id/seekBar"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="22dp"
-                android:layout_marginTop="23dp"
-                android:max="100" />
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="20dp"
+                android:layout_weight="8"
+                android:progressBackgroundTint="#D9D9D9"
+                android:progressTint="@color/background"
+                android:thumbTint="@color/background" />
         </LinearLayout>
 
         <LinearLayout
@@ -156,13 +159,13 @@
                     android:textSize="14sp" />
             </LinearLayout>
 
-            <ImageView
-                android:id="@+id/iv_visibli"
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/switch_compat_vib"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginVertical="20dp"
-                android:layout_marginEnd="27.5dp"
-                android:src="@drawable/ic_visib" />
+                android:layout_marginEnd="20dp"
+                android:thumbTint="@drawable/selected_switch"
+                android:trackTint="@drawable/selected_switch" />
         </LinearLayout>
 
     </androidx.appcompat.widget.LinearLayoutCompat>
@@ -213,14 +216,14 @@
 
         </LinearLayout>
 
-        <ImageView
-            android:id="@+id/iv_visib_gone"
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/switch_compat_notific"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginStart="30dp"
+            android:layout_marginTop="30dp"
             android:layout_marginEnd="20dp"
-            android:src="@drawable/ic_gone" />
+            android:thumbTint="@drawable/selected_switch"
+            android:trackTint="@drawable/selected_switch" />
     </androidx.appcompat.widget.LinearLayoutCompat>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

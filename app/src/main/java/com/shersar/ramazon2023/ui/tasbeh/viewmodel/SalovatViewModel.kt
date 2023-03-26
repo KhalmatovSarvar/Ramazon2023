@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
-class ZikrViewModel: ViewModel() {
+class SalovatViewModel: ViewModel() {
 
     val _homeState = MutableStateFlow(
         Item(
@@ -24,13 +24,13 @@ class ZikrViewModel: ViewModel() {
 
 
 
-    private val _zikrState = MutableStateFlow<UiStateObject<Item>>(UiStateObject.EMPTY)
-    val zikrState: StateFlow<UiStateObject<Item>> = _zikrState
+    private val _salovatState = MutableStateFlow<UiStateObject<Item>>(UiStateObject.EMPTY)
+    val zikrState: StateFlow<UiStateObject<Item>> = _salovatState
 
     fun getZikrState() = viewModelScope.launch {
-        _zikrState.value = UiStateObject.LOADING
+        _salovatState.value = UiStateObject.LOADING
         try {
-            _zikrState.value = UiStateObject.SUCCESS(Item(
+            _salovatState.value = UiStateObject.SUCCESS(Item(
                 1,
                 "Субҳаналлоҳ",
                 "سُبْحَانَ اللَّه",
@@ -39,16 +39,16 @@ class ZikrViewModel: ViewModel() {
                 "0"
             ))
         } catch (e: Exception) {
-            _zikrState.value = UiStateObject.ERROR(e.localizedMessage ?: "ERROR_MESSAGE")
+            _salovatState.value = UiStateObject.ERROR(e.localizedMessage ?: "ERROR_MESSAGE")
         }
     }
 
     fun setZikrState(item: Item) = viewModelScope.launch {
-        _zikrState.value = UiStateObject.LOADING
+        _salovatState.value = UiStateObject.LOADING
         try {
-            _zikrState.value = UiStateObject.SUCCESS(item)
+            _salovatState.value = UiStateObject.SUCCESS(item)
         } catch (e: Exception) {
-            _zikrState.value = UiStateObject.ERROR(e.localizedMessage ?: "ERROR_MESSAGE")
+            _salovatState.value = UiStateObject.ERROR(e.localizedMessage ?: "ERROR_MESSAGE")
         }
     }
 

@@ -24,8 +24,6 @@
                 android:layout_height="wrap_content"
                 android:text="Bu yerda ro`zaga oid savol bo`lishi kerak "
                 android:textColor="#263238"
-                android:ellipsize="end"
-                android:maxLines="1"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 />
