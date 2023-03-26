@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_graph"
-    app:startDestination="@id/locationScreen2">
+    app:startDestination="@id/locationScreen">
 
     <fragment
         android:id="@+id/homeScreen"
@@ -58,9 +58,10 @@
         android:label="ProjectWorkerScreen"
         tools:layout="@layout/screen_project_worker"/>
     <fragment
-        android:id="@+id/locationScreen2"
-        android:name="com.shersar.ramazon2023.ui.settings.LocationScreen2"
-        android:label="LocationScreen2" />
+        android:id="@+id/locationScreen"
+        android:name="com.shersar.ramazon2023.ui.location.LocationScreen"
+        android:label="LocationScreen"
+        tools:layout="@layout/screen_location"/>
 
 
 </navigation>

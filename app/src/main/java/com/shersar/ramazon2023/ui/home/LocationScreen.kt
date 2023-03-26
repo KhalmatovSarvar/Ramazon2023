@@ -33,28 +33,28 @@ class LocationScreen : Fragment(R.layout.screen_location) {
     private fun initView() {
 
 
-        binding.btnLocation.setOnClickListener {
-
-
-            viewLifecycleOwner.lifecycleScope.launchWhenCreated {
-                locationViewModel.locationFlow.collect { location ->
-                    // Handle the location result here
-                    if (location != null) {
-
-                        Toast.makeText(
-                            requireContext(),
-                            "${location.longitude}",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                        Log.d("locationFind", "initView: ${location.longitude.dec()} ")
-                        // Do something with the location
-                    } else {
-                        // Handle the case where location is null
-                        Log.d("locationFind", "location is NULL ")
-                    }
-                }
-
-            }
-        }
+//        binding.btnLocation.setOnClickListener {
+//
+//
+//            viewLifecycleOwner.lifecycleScope.launchWhenCreated {
+//                locationViewModel.locationFlow.collect { location ->
+//                    // Handle the location result here
+//                    if (location != null) {
+//
+//                        Toast.makeText(
+//                            requireContext(),
+//                            "${location.longitude}",
+//                            Toast.LENGTH_SHORT
+//                        ).show()
+//                        Log.d("locationFind", "initView: ${location.longitude.dec()} ")
+//                        // Do something with the location
+//                    } else {
+//                        // Handle the case where location is null
+//                        Log.d("locationFind", "location is NULL ")
+//                    }
+//                }
+//
+//            }
+//        }
     }
 }
