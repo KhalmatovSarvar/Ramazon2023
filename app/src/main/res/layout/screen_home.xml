@@ -492,7 +492,7 @@
                         android:layout_marginTop="10dp"
                         android:singleLine="false"
                         android:text="Navaytu an asuma sovma shahri romazona minal fajri ilal mag‘ribi, xolisan lillahi ta’ala. Allohu akbar."
-                        android:textColor="#40323866"
+                        android:textColor="#B31A2226"
                         android:textSize="16sp"
                         android:textStyle="normal" />
 
@@ -526,7 +526,7 @@
                         android:layout_marginTop="10dp"
                         android:singleLine="false"
                         android:text="نَوَيْتُ أَنْ أَصُومَ صَوْمَ شَهْرَ رَمَضَانَ مِنَ الْفَجْرِ إِلَى الْمَغْرِبِ، خَالِصًا لِلهِ تَعَالَى أَللهُ أَكْبَرُ"
-                        android:textColor="#40323866"
+                        android:textColor="#B31A2226"
                         android:textSize="16sp"
                         android:textStyle="normal"
                         android:visibility="gone" />
@@ -556,7 +556,7 @@
                         android:layout_marginTop="10dp"
                         android:singleLine="false"
                         android:text="Allohumma laka sumtu va bika amantu va ‘alayka tavakkaltu va ‘ala rizqika aftartu, fag‘firli ya g‘offaruma qoddamtu va ma axxortu."
-                        android:textColor="#40323866"
+                        android:textColor="#B31A2226"
                         android:textSize="16sp"
                         android:textStyle="normal" />
 
@@ -590,7 +590,7 @@
                         android:layout_marginTop="10dp"
                         android:singleLine="false"
                         android:text="اَللَّهُمَّ لَكَ صُمْتُ وَ بِكَ آمَنْتُ وَ عَلَيْكَ تَوَكَّلْتُ وَ عَلَى رِزْقِكَ أَفْتَرْتُ، فَغْفِرْلِى مَا قَدَّمْتُ وَ مَا أَخَّرْتُ بِرَحْمَتِكَ يَا أَرْحَمَ الرَّاحِمِينَ"
-                        android:textColor="#40323866"
+                        android:textColor="#B31A2226"
                         android:textSize="16sp"
                         android:textStyle="normal"
                         android:visibility="gone" />
