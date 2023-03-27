@@ -45,6 +45,7 @@
                     android:src="@drawable/assalomu_alaykum" />
 
                 <LinearLayout
+                    android:id="@+id/ll_location"
                     android:layout_width="111dp"
                     android:layout_height="40dp"
                     android:background="@drawable/bg_location"
@@ -298,7 +299,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
                         android:text="Quyosh"
-                        android:textColor="@color/card_text_color_unselected"
+                        android:textColor="#991A2226"
                         android:textSize="14sp" />
 
                     <TextView
@@ -362,7 +363,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
                         android:text="Iftorlik"
-                        android:textColor="@color/card_text_color_unselected"
+                        android:textColor="#991A2226"
                         android:textSize="14sp" />
 
                     <TextView
@@ -420,7 +421,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
                         android:text="Taroveh"
-                        android:textColor="@color/card_text_color_unselected"
+                        android:textColor="#991A2226"
                         android:textSize="14sp" />
 
                     <TextView

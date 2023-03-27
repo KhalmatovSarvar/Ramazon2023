@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.shersar.ramazon2023.R
 import com.shersar.ramazon2023.databinding.ScreenHomeBinding
 import com.shersar.ramazon2023.utils.UiStateObject
@@ -31,7 +32,7 @@ class HomeScreen : Fragment(R.layout.screen_home) {
 
         homeViewModel.startCountdown()
         homeViewModel.getAllPrayerTimesFromDb()
-        setUpObservers()
+//        setUpObservers()
     }
 
 
@@ -51,6 +52,9 @@ class HomeScreen : Fragment(R.layout.screen_home) {
                 } else {
                     tvOgizOchishArab.visibility = View.GONE
                 }
+            }
+            llLocation.setOnClickListener {
+                findNavController().navigate(R.id.action_homeScreen_to_locationScreen)
             }
         }
     }
