@@ -246,6 +246,7 @@
                         android:textSize="14sp" />
 
                     <TextView
+                        android:id="@+id/tv_saharlik"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
@@ -302,6 +303,7 @@
                         android:textSize="14sp" />
 
                     <TextView
+                        android:id="@+id/tv_quyosh"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
@@ -366,6 +368,7 @@
                         android:textSize="14sp" />
 
                     <TextView
+                        android:id="@+id/tv_iftorlik"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
@@ -428,7 +431,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:gravity="start"
-                        android:text="20:59"
+                        android:text="20:45"
                         android:textColor="@color/black"
                         android:textSize="20sp"
                         android:textStyle="bold" />

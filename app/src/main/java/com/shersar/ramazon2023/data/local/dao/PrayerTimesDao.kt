@@ -15,5 +15,7 @@ interface PrayerTimesDao {
     @Query("SELECT * FROM Daily_prayer_times")
     suspend fun getAllPrayerTimes(): List<DailyPrayerTimesEntity>
 
+    @Query("SELECT * FROM Daily_prayer_times where day=:day")
+    suspend fun getPrayerTimesByDay(day: String): DailyPrayerTimesEntity
 
 }

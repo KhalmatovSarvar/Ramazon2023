@@ -1,5 +1,6 @@
 package com.shersar.ramazon2023.ui.home
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -8,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.shersar.ramazon2023.R
+import com.shersar.ramazon2023.data.local.entity.DailyPrayerTimesEntity
 import com.shersar.ramazon2023.databinding.ScreenHomeBinding
 import com.shersar.ramazon2023.utils.UiStateObject
 import com.shersar.ramazon2023.viewmodel.HomeViewModel
@@ -22,6 +24,12 @@ class HomeScreen : Fragment(R.layout.screen_home) {
     private val homeViewModel: HomeViewModel by viewModels()
     private val binding by viewBinding { ScreenHomeBinding.bind(it) }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        homeViewModel.getPrayerTimeByDay()
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -29,8 +37,8 @@ class HomeScreen : Fragment(R.layout.screen_home) {
         initView()
 //        homeViewModel.getHijriCalendar(2023, 3, 41.311081, 69.240562)
 
-        homeViewModel.startCountdown()
-        homeViewModel.getAllPrayerTimesFromDb()
+//        homeViewModel.startCountdown()
+//        homeViewModel.getAllPrayerTimesFromDb()
         setUpObservers()
     }
 
@@ -55,21 +63,40 @@ class HomeScreen : Fragment(R.layout.screen_home) {
         }
     }
 
+    @SuppressLint("SetTextI18n")
+    private fun setUpTimes(day: DailyPrayerTimesEntity){
+        binding.apply {
+            tvDayHijriy.text = "${String.format("%02d", day.day.toInt())}.${String.format("%02d", day.monthNumber)}.${day.year}"
+            tvDayQamariy.text = "${day.dayHijri} ${day.monthNameEN} ${day.yearHijri}"
+
+            tvSaharlik.text = day.fajr.split(" ")[0]
+            tvQuyosh.text = day.Sunrise.split(" ")[0]
+            tvIftorlik.text = day.Sunset.split(" ")[0]
+
+            tvFajrTime.text = day.fajr.split(" ")[0]
+            tvZuhrTime.text = day.Dhuhr.split(" ")[0]
+            tvAsrTime.text = day.Asr.split(" ")[0]
+            tvShomTime.text = day.Maghrib.split(" ")[0]
+            tvIshaTime.text = day.Isha.split(" ")[0]
+        }
+    }
+
 
     private fun setUpObservers() {
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
-            homeViewModel.uiState.collect { uiState ->
-                when (uiState) {
+            homeViewModel.prayerTimeState.collect { prayerTimeState ->
+                when (prayerTimeState) {
                     is UiStateObject.SUCCESS -> {
                         // Update UI with data
-                        val data = uiState.data // list of HijriCalendarResponse objects
-                        Log.d("HOMESCREEN", "setUpObserversSuccess: ${data.data?.size.toString()} ")
-                        Toast.makeText(requireContext(), data.data?.size.toString(), Toast.LENGTH_SHORT).show()
+                        val data = prayerTimeState.data // list of HijriCalendarResponse objects
+                        setUpTimes(data)
+                        homeViewModel.startCountdown(data)
+                        Log.d("HOMESCREEN", "setUpObserversSuccess: ${data} ")
 
                     }
                     is UiStateObject.ERROR -> {
                         // Handle error
-                        val errorMessage = uiState.message
+                        val errorMessage = prayerTimeState.message
                         Log.d("HOMESCREEN", "setUpObserversError: $errorMessage ")
                         Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show()
                     }
@@ -86,8 +113,10 @@ class HomeScreen : Fragment(R.layout.screen_home) {
 
 
         lifecycleScope.launch {
-            homeViewModel.currentTime.collect { time ->
-                binding.tvDayLeft.text = time // update a TextView with the current time
+            homeViewModel.currentTime.collect { pair ->
+                val (def, text) = pair
+                binding.tvDayLeft.text = def // update a TextView with the current time
+                binding.tvDownCountTimer.text = text
             }
         }
 

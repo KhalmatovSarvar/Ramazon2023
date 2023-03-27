@@ -26,7 +26,10 @@ data class DailyPrayerTimesEntity(
     val Imsak: String,
     val Midnight: String,
     val Firstthird: String,
-    val Lastthird: String
+    val Lastthird: String,
+
+    val date: String,
+    val format: String
 )
 
 
