@@ -5,11 +5,14 @@ import com.shersar.ramazon2023.data.local.dao.PrayerTimesDao
 import com.shersar.ramazon2023.data.local.entity.DailyPrayerTimesEntity
 import com.shersar.ramazon2023.data.remote.ApiService
 import com.shersar.ramazon2023.model.DailyPrayerTime
+import com.shersar.ramazon2023.repository.dateTimeRepo.DateTimeRepository
+import com.shersar.ramazon2023.repository.dateTimeRepo.DateTimeRepositoryImpl
 import javax.inject.Inject
 
 class LocationRepository @Inject constructor(
     private val apiService: ApiService,
-    private val prayerTimesDao: PrayerTimesDao
+    private val prayerTimesDao: PrayerTimesDao,
+    private val dateTimeRepository: DateTimeRepository
 ) {
     suspend fun getMonthlyCalendarFromApi(
         year: Int,
@@ -104,9 +107,11 @@ class LocationRepository @Inject constructor(
 
     suspend fun getPrayerTimesByDay(day: String) = prayerTimesDao.getPrayerTimesByDay(day)
 
-
-
-
-
+    suspend fun getPrayerTimeWithNextDay(): Pair<DailyPrayerTimesEntity, DailyPrayerTimesEntity>{
+        val (date, time) = dateTimeRepository.getCurrentDateTime()
+        val today = date.split("-")[2].toInt()
+        val tomorrow = today + 1
+        return Pair(prayerTimesDao.getPrayerTimesById(today), prayerTimesDao.getPrayerTimesById(tomorrow))
+    }
 
 }

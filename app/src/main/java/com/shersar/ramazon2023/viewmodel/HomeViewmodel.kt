@@ -22,24 +22,6 @@ class HomeViewModel @Inject constructor(
     private val locationRepository: LocationRepository
 ) : ViewModel() {
 
-    private val _uiState = MutableStateFlow<UiStateList<DailyPrayerTimesEntity>>(UiStateList.EMPTY)
-    val uiState: StateFlow<UiStateList<DailyPrayerTimesEntity>>
-        get() = _uiState
-
-    fun getAllPrayerTimesFromDb() {
-        viewModelScope.launch {
-            _uiState.value = UiStateList.LOADING
-            try {
-                val response = locationRepository.getMonthlyCalendarFromDB()
-                _uiState.value = UiStateList.SUCCESS(response)
-
-            }catch (e: Exception){
-                _uiState.value = UiStateList.ERROR(e.message ?: "Error occurred")
-            }
-            val times = locationRepository.getMonthlyCalendarFromDB()
-        }
-    }
-
     private val _prayerTimeByDayState = MutableStateFlow<UiStateObject<DailyPrayerTimesEntity>>(UiStateObject.EMPTY)
     val prayerTimeState: StateFlow<UiStateObject<DailyPrayerTimesEntity>>
         get() = _prayerTimeByDayState
@@ -55,21 +37,16 @@ class HomeViewModel @Inject constructor(
             }catch (e: Exception){
                 _prayerTimeByDayState.value = UiStateObject.ERROR(e.message ?: "Error occurred")
             }
-            val times = locationRepository.getMonthlyCalendarFromDB()
         }
     }
-
-
-
 
     private val _currentTime = MutableStateFlow<Pair<String, String>>(Pair("00:00:00", "Saharlikka qoldi"))
     val currentTime: StateFlow<Pair<String, String>>
         get() = _currentTime
 
-
-    fun startCountdown(day: DailyPrayerTimesEntity) {
+    private fun startCountdown(day: DailyPrayerTimesEntity, tomorrow: DailyPrayerTimesEntity) {
         val (date, time) = dateTimeRepository.getCurrentDateTime()
-        val (endTimeMillis, text) = calculateMillsDef(day)
+        val (endTimeMillis, text) = calculateMillsDef(day, tomorrow)
         val countDownTimer = object : CountDownTimer(endTimeMillis, 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 // Calculate hours, minutes, and seconds from milliseconds
@@ -84,24 +61,41 @@ class HomeViewModel @Inject constructor(
 
             override fun onFinish() {
                 // Do something when the countdown finishes
-                _currentTime.value = Pair("00:00:00", "Saharlikka qoldi")
+                startCountdown(day, tomorrow)
             }
         }
         countDownTimer.start()
     }
 
-    fun calculateMillsDef(day: DailyPrayerTimesEntity): Pair<Long, String>{
+    private fun calculateMillsDef(day: DailyPrayerTimesEntity, tomorrow: DailyPrayerTimesEntity): Pair<Long, String>{
         val currentDate = dateTimeRepository.getCurrentDate()
 
         val comingSunset = toTimestamp("${day.date}, ${day.Maghrib.split(" ")[0]}")
 
-        var comingFajr = toTimestamp("${day.date}, ${day.fajr.split(" ")[0]}")
+        val comingFajr = toTimestamp("${day.date}, ${day.fajr.split(" ")[0]}")
+        val comingFajrTomorrow = toTimestamp("${tomorrow.date}, ${tomorrow.fajr.split(" ")[0]}")
 
         Log.d("HomeViewModel Times: ", " Cur: $currentDate, <  $comingFajr < $comingSunset")
 
-        return if(currentDate < comingSunset)  Pair(comingSunset - currentDate, "Iftorlikka qoldi")
-        else Pair(comingFajr - currentDate, "Saharlikka qoldi")
+        return if (currentDate < comingFajr){
+            Pair(comingFajr - currentDate, "Saharlikka qoldi")
+        } else if (currentDate < comingSunset){
+            Pair(comingSunset - currentDate, "Iftorlikka qoldi")
+        } else {
+            Pair(comingFajrTomorrow - currentDate, "Saharlikka qoldi")
+        }
+    }
 
+    fun calcCurrentDefs(){
+        viewModelScope.launch {
+            try {
+                val (today, tomorrow) = locationRepository.getPrayerTimeWithNextDay()
+                startCountdown(today, tomorrow)
+
+            }catch (e:Exception){
+                _currentTime.value = Pair("00:00:00", "Saharlikka qoldi")
+            }
+        }
     }
 
     fun timeToMillis(timeString: String): Long {
@@ -111,7 +105,6 @@ class HomeViewModel @Inject constructor(
         val seconds = timeParts[2].toLong()
         return ((hours * 3600) + (minutes * 60) + seconds) * 1000
     }
-
 
 }
 

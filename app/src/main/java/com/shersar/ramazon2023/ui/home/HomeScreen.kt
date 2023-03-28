@@ -35,10 +35,6 @@ class HomeScreen : Fragment(R.layout.screen_home) {
 
 
         initView()
-//        homeViewModel.getHijriCalendar(2023, 3, 41.311081, 69.240562)
-
-//        homeViewModel.startCountdown()
-//        homeViewModel.getAllPrayerTimesFromDb()
         setUpObservers()
     }
 
@@ -90,7 +86,7 @@ class HomeScreen : Fragment(R.layout.screen_home) {
                         // Update UI with data
                         val data = prayerTimeState.data // list of HijriCalendarResponse objects
                         setUpTimes(data)
-                        homeViewModel.startCountdown(data)
+                        homeViewModel.calcCurrentDefs()
                         Log.d("HOMESCREEN", "setUpObserversSuccess: ${data} ")
 
                     }
@@ -98,11 +94,11 @@ class HomeScreen : Fragment(R.layout.screen_home) {
                         // Handle error
                         val errorMessage = prayerTimeState.message
                         Log.d("HOMESCREEN", "setUpObserversError: $errorMessage ")
-                        Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show()
+//                        Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show()
                     }
                     UiStateObject.LOADING -> {
                         // Show loading indicator
-                        Toast.makeText(requireContext(), "LOADING", Toast.LENGTH_SHORT).show()
+//                        Toast.makeText(requireContext(), "LOADING", Toast.LENGTH_SHORT).show()
                     }
                     UiStateObject.EMPTY -> {
                         // Handle empty state
@@ -110,7 +106,6 @@ class HomeScreen : Fragment(R.layout.screen_home) {
                 }
             }
         }
-
 
         lifecycleScope.launch {
             homeViewModel.currentTime.collect { pair ->
