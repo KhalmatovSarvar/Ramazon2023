@@ -9,6 +9,7 @@ import android.view.WindowManager
 import com.shersar.ramazon2023.databinding.ActivitySplashBinding
 
 class SplashActivity : AppCompatActivity() {
+
     private lateinit var binding: ActivitySplashBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {

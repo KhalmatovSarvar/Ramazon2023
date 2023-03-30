@@ -15,4 +15,8 @@ class DateTimeRepositoryImpl @Inject constructor() : DateTimeRepository {
         return Pair(date, time)
     }
 
+    override fun getCurrentDate(): Long {
+        return Calendar.getInstance().time.time
+    }
+
 }

@@ -21,5 +21,8 @@ data class DailyPrayerTime(
     val imsak: String,
     val midnight: String,
     val firstthird: String,
-    val lastthird: String
+    val lastthird: String,
+
+    val date: String,
+    val format: String
 )

@@ -5,11 +5,14 @@ import com.shersar.ramazon2023.data.local.dao.PrayerTimesDao
 import com.shersar.ramazon2023.data.local.entity.DailyPrayerTimesEntity
 import com.shersar.ramazon2023.data.remote.ApiService
 import com.shersar.ramazon2023.model.DailyPrayerTime
+import com.shersar.ramazon2023.repository.dateTimeRepo.DateTimeRepository
+import com.shersar.ramazon2023.repository.dateTimeRepo.DateTimeRepositoryImpl
 import javax.inject.Inject
 
 class LocationRepository @Inject constructor(
     private val apiService: ApiService,
-    private val prayerTimesDao: PrayerTimesDao
+    private val prayerTimesDao: PrayerTimesDao,
+    private val dateTimeRepository: DateTimeRepository
 ) {
     suspend fun getMonthlyCalendarFromApi(
         year: Int,
@@ -29,7 +32,7 @@ class LocationRepository @Inject constructor(
 
                     for (i in 0 until items.data.size) {
 
-                        Log.d("OBJECTPRAYERTIME", "getMonthlyCalendarFromApi: ${items.data[i]?.timings?.Fajr.toString()}")
+                        Log.d("OBJECTPRAYERTIME", "getMonthlyCalendarFromApi: ${items.data[i]?.date?.gregorian.toString()}")
 
 
                         val prayerTime = DailyPrayerTime(
@@ -52,7 +55,9 @@ class LocationRepository @Inject constructor(
                             imsak = items.data[i]?.timings?.Imsak.toString(),
                             midnight = items.data[i]?.timings?.Midnight.toString(),
                             firstthird = items.data[i]?.timings?.Firstthird.toString(),
-                            lastthird = items.data[i]?.timings?.Lastthird.toString()
+                            lastthird = items.data[i]?.timings?.Lastthird.toString(),
+                            date = items.data[i]?.date?.gregorian?.date.toString(),
+                            format = items.data[i]?.date?.gregorian?.format.toString()
                         )
 
                         val prayerTimesToEntity = DailyPrayerTimesEntity(
@@ -77,6 +82,8 @@ class LocationRepository @Inject constructor(
                             prayerTime.midnight,
                             prayerTime.firstthird,
                             prayerTime.lastthird,
+                            prayerTime.date,
+                            prayerTime.format
                         )
 
                         Log.d("DB SAVED OBJECT ", "getMonthlyCalendarFromApi: ${prayerTimesToEntity.toString()}")
@@ -96,13 +103,15 @@ class LocationRepository @Inject constructor(
         }
     }
 
-    suspend fun getMonthlyCalendarFromDB(){
-        val prayerTimes = prayerTimesDao.getAllPrayerTimes()
-        Log.d("LocationRepository", "getMonthlyCalendarFromDB: ${prayerTimes.size}")
+    suspend fun getMonthlyCalendarFromDB() = prayerTimesDao.getAllPrayerTimes()
+
+    suspend fun getPrayerTimesByDay(day: String) = prayerTimesDao.getPrayerTimesByDay(day)
+
+    suspend fun getPrayerTimeWithNextDay(): Pair<DailyPrayerTimesEntity, DailyPrayerTimesEntity>{
+        val (date, time) = dateTimeRepository.getCurrentDateTime()
+        val today = date.split("-")[2].toInt()
+        val tomorrow = today + 1
+        return Pair(prayerTimesDao.getPrayerTimesById(today), prayerTimesDao.getPrayerTimesById(tomorrow))
     }
-
-
-
-
 
 }
