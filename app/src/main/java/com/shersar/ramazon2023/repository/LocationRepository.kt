@@ -105,13 +105,12 @@ class LocationRepository @Inject constructor(
 
     suspend fun getMonthlyCalendarFromDB() = prayerTimesDao.getAllPrayerTimes()
 
-    suspend fun getPrayerTimesByDay(day: String) = prayerTimesDao.getPrayerTimesByDay(day)
+    suspend fun getPrayerTimesByDate(date: String) = prayerTimesDao.getPrayerTimesByDate(date)
 
     suspend fun getPrayerTimeWithNextDay(): Pair<DailyPrayerTimesEntity, DailyPrayerTimesEntity>{
         val (date, time) = dateTimeRepository.getCurrentDateTime()
-        val today = date.split("-")[2].toInt()
-        val tomorrow = today + 1
-        return Pair(prayerTimesDao.getPrayerTimesById(today), prayerTimesDao.getPrayerTimesById(tomorrow))
+        val today = date
+        val tomorrowId = prayerTimesDao.getPrayerTimesByDate(date).id+1
+        return Pair(prayerTimesDao.getPrayerTimesByDate(today), prayerTimesDao.getPrayerTimesById(tomorrowId))
     }
-
 }

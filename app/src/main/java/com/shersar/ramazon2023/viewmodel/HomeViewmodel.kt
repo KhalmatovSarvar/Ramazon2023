@@ -31,7 +31,7 @@ class HomeViewModel @Inject constructor(
         viewModelScope.launch {
             _prayerTimeByDayState.value = UiStateObject.LOADING
             try {
-                val response = locationRepository.getPrayerTimesByDay(date.split("-")[2])
+                val response = locationRepository.getPrayerTimesByDate(date)
                 _prayerTimeByDayState.value = UiStateObject.SUCCESS(response)
 
             }catch (e: Exception){
