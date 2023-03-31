@@ -1,9 +1,14 @@
 package com.shersar.ramazon2023.activity
 
+import android.app.Activity
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.view.Gravity
 import android.view.WindowManager
+import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
@@ -49,7 +54,12 @@ class MainActivity : AppCompatActivity() {
                 if (backPressedCounter >= 1) {
                     finishAffinity()
                 } else {
-                    Toast.makeText(this, "Dasturdan chiqish uchun yana bir marta bosing", Toast.LENGTH_SHORT).show()
+//                    Toast.makeText(this, "Dasturdan chiqish uchun yana bir marta bosing", Toast.LENGTH_SHORT).show()
+                    Toast(this).showCustomToast(
+                        R.drawable.ic_logo_islam,
+                        "Dasturdan chiqish uchun yana bir bor orqaga tugmasini bosing.",
+                        this
+                    )
                     backPressedCounter++
                     Handler(Looper.getMainLooper()).postDelayed({
                         backPressedCounter = 0
@@ -60,6 +70,29 @@ class MainActivity : AppCompatActivity() {
             }
         } else {
             super.onBackPressed()
+        }
+    }
+    fun Toast.showCustomToast( imageView: Int,message: String, activity: Activity) {
+        val layout = activity.layoutInflater.inflate(
+            R.layout.custom_toast,
+            activity.findViewById(R.id.custom_toast)
+        )
+
+        // set the text of the TextView of the message
+        val textView = layout.findViewById<TextView>(R.id.tv_toast)
+        textView.text = message
+
+        val img = layout.findViewById<ImageView>(R.id.iv_toast)
+        img.setImageResource(imageView)
+
+
+        // use the application extension function
+        this.apply {
+            setGravity(Gravity.BOTTOM, 0, 340)
+
+            duration = Toast.LENGTH_SHORT
+            view = layout
+            show()
         }
     }
 

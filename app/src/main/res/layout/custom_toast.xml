@@ -15,15 +15,17 @@
         android:id="@+id/iv_toast"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
         android:src="@drawable/ic_logo_islam"/>
 
   <TextView
       android:id="@+id/tv_toast"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_marginLeft="5dp"
-      android:text="Dasturdan chiqish uchun yana bir marta bosing"
-      android:textColor="@color/white"
-      android:textSize="18sp"/>
+      android:layout_marginLeft="10dp"
+      android:gravity="center"
+      android:text="Dasturdanvvvvv chiqish uchun yana bir marta bosing."
+      android:textColor="@color/writter"
+      android:textSize="16sp"/>
 
 </LinearLayout>
