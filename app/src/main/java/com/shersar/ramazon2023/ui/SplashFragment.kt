@@ -1,22 +1,22 @@
 package com.shersar.ramazon2023.ui
 
+import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
-import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import com.shersar.ramazon2023.R
 import com.shersar.ramazon2023.databinding.FragmentSplashBinding
 import com.shersar.ramazon2023.utils.UiStateList
-import com.shersar.ramazon2023.utils.UiStateObject
 import com.shersar.ramazon2023.utils.activityNavController
 import com.shersar.ramazon2023.utils.navigateSafely
 import com.shersar.ramazon2023.viewmodel.SplashViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 import viewBinding
 
 @AndroidEntryPoint
@@ -31,13 +31,14 @@ class SplashFragment : Fragment(R.layout.fragment_splash) {
         splashViewModel.getAllPrayerTimesFromDb()
     }
 
+    @RequiresApi(Build.VERSION_CODES.P)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         setUpObservers()
     }
 
-
+    @RequiresApi(Build.VERSION_CODES.P)
     private fun setUpObservers() {
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
             splashViewModel.uiState.collect { uiState ->
@@ -46,11 +47,15 @@ class SplashFragment : Fragment(R.layout.fragment_splash) {
                         // Update UI with data
                         val data = uiState.data // list of HijriCalendarResponse objects
                         Log.d("SplashScreen", "setUpObserversSuccess: ${data} ")
-                        if (data.isEmpty()){
-                            activityNavController().navigateSafely(R.id.action_global_locationFragment)
-                        } else{
-                            activityNavController().navigateSafely(R.id.action_global_mainFlowFragment)
-                        }
+
+                        Handler(Looper.getMainLooper()).postDelayed({
+                            if (data.isEmpty()){
+                                activityNavController().navigateSafely(R.id.action_global_locationFragment)
+                            } else{
+                                activityNavController().navigateSafely(R.id.action_global_mainFlowFragment)
+                            }
+                        }, 1000)
+
                         Log.d("HOMESCREEN", "setUpObserversSuccess: $ ")
 
                     }
@@ -70,7 +75,6 @@ class SplashFragment : Fragment(R.layout.fragment_splash) {
                 }
             }
         }
-
 
     }
 }

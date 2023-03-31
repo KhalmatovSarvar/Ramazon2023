@@ -122,7 +122,8 @@
         </androidx.core.widget.NestedScrollView>
     </LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout><!--    android:id="@+id/btn_location"-->
+</androidx.constraintlayout.widget.ConstraintLayout>
+    <!--    android:id="@+id/btn_location"-->
     <!--<TextView-->
     <!--android:layout_width="match_parent"-->
     <!--android:layout_height="wrap_content"-->

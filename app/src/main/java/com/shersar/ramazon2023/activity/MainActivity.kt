@@ -37,9 +37,11 @@ class MainActivity : AppCompatActivity() {
 
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment_main) as NavHostFragment
-        navController = navHostFragment.findNavController()
-        //setting up bottom nav with navController
-//        binding.bottomNavigation.setupWithNavController(navController)
+        navController = navHostFragment.navController
+
+        val navGraph = navController.navInflater.inflate(R.navigation.nav_graph)
+
+        navController.graph = navGraph
 
     }
 
