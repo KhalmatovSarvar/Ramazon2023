@@ -5,6 +5,7 @@ import android.app.Activity
 import android.content.Intent
 import android.content.IntentSender
 import android.content.pm.PackageManager
+import android.content.res.ColorStateList
 import android.location.Geocoder
 import android.os.Bundle
 import android.util.Log
@@ -70,15 +71,15 @@ class LocationScreen : Fragment(R.layout.screen_location) {
         fusedLocationProviderClient =
             LocationServices.getFusedLocationProviderClient(requireContext())
 
-        recyclerView =binding.rv
-        adapter= BottomSheetAdapter(getData())
-        recyclerView.adapter=adapter
-        var count =1
+        recyclerView = binding.rv
+        adapter = BottomSheetAdapter(getData())
+        recyclerView.adapter = adapter
+        var count = 1
         binding.llChoose.setOnClickListener {
             if (count % 2 == 1) {
                 binding.ivDownArrow
                     .setImageResource(R.drawable.ic_arrow_down)
-               binding.rv.visibility = View.VISIBLE
+                binding.rv.visibility = View.VISIBLE
                 count++
             } else {
                 binding.ivDownArrow
@@ -89,10 +90,19 @@ class LocationScreen : Fragment(R.layout.screen_location) {
         }
 
         binding.switchCompatLoc.setOnClickListener {
-            if (binding.switchCompatLoc.isChecked){
+            if (binding.switchCompatLoc.isChecked) {
+
+                binding.switchCompatLoc.thumbTintList =
+                    ColorStateList.valueOf(resources.getColor(R.color.background))
+                binding.switchCompatLoc.trackTintList =
+                    ColorStateList.valueOf(resources.getColor(R.color.for_switch_true))
                 checkLocationPermission()
-            }else{
-                Toast.makeText(requireContext(), "Asss", Toast.LENGTH_SHORT).show()
+            } else {
+
+                binding.switchCompatLoc.thumbTintList =
+                    ColorStateList.valueOf(resources.getColor(R.color.card_background_day))
+                binding.switchCompatLoc.trackTintList =
+                    ColorStateList.valueOf(resources.getColor(R.color.for_switch_false))
             }
         }
 
@@ -192,7 +202,8 @@ class LocationScreen : Fragment(R.layout.screen_location) {
                     val address = geocoder.getFromLocation(location.latitude, location.longitude, 1)
                     val address_line = address?.get(0)?.getAddressLine(0)
                     //   binding.tvLocalation.setText(address_line)
-                    Toast.makeText(requireContext(), "${location.latitude}", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), "${location.latitude}", Toast.LENGTH_SHORT)
+                        .show()
                     val address_location = address?.get(0)?.getAddressLine(0)
 //                    findNavController().navigate(R.id.homeScreen)
                     // openLocation(address_location.toString())
@@ -283,6 +294,7 @@ class LocationScreen : Fragment(R.layout.screen_location) {
         }
         }*/
     }
+
     private fun bottomSheet() {
         val bottomSheet = layoutInflater.inflate(R.layout.bottomsheet, null)
         bottomSheet1 = BottomSheetDialog(requireContext(), R.style.BottomSheetDialogTheme)
