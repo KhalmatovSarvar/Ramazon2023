@@ -113,9 +113,7 @@ class LocationScreen : Fragment(R.layout.screen_location) {
                 binding.switchCompatLoc.trackTintList =
                     ColorStateList.valueOf(resources.getColor(R.color.for_switch_true))
                 checkLocationPermission()
-
             } else {
-
                 binding.switchCompatLoc.thumbTintList =
                     ColorStateList.valueOf(resources.getColor(R.color.card_background_day))
                 binding.switchCompatLoc.trackTintList =
@@ -134,10 +132,16 @@ class LocationScreen : Fragment(R.layout.screen_location) {
             checkGPS()
 
         } else {
+            binding.switchCompatLoc.isChecked=false
+            binding.switchCompatLoc.thumbTintList =
+                ColorStateList.valueOf(resources.getColor(R.color.card_background_day))
+            binding.switchCompatLoc.trackTintList =
+                ColorStateList.valueOf(resources.getColor(R.color.for_switch_false))
             ActivityCompat.requestPermissions(
                 requireActivity(),
                 arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
                 100
+
             )
         }
     }
@@ -251,11 +255,11 @@ class LocationScreen : Fragment(R.layout.screen_location) {
                         // Handle error
                         val errorMessage = uiState.message
                         Log.d("LocationScreen", "setUpObserversError: $errorMessage ")
-                        Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show()
+
                     }
                     UiStateObject.LOADING -> {
                         // Show loading indicator
-                        Toast.makeText(requireContext(), "LOADING", Toast.LENGTH_SHORT).show()
+
                     }
                     UiStateObject.EMPTY -> {
                         // Handle empty state
@@ -285,11 +289,11 @@ class LocationScreen : Fragment(R.layout.screen_location) {
                         // Handle error
                         val errorMessage = prayerTimeInDB.message
                         Log.d("LocationScreen", "setUpObserversError: $errorMessage ")
-                        Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show()
+
                     }
                     UiStateList.LOADING -> {
                         // Show loading indicator
-                        Toast.makeText(requireContext(), "LOADING", Toast.LENGTH_SHORT).show()
+
                     }
                     UiStateList.EMPTY -> {
                         // Handle empty state

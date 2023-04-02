@@ -3,12 +3,16 @@ package com.shersar.ramazon2023.ui.settings
 import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
 import android.content.res.ColorStateList
+import android.media.MediaPlayer
+import android.media.SoundPool
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.shersar.ramazon2023.R
 import com.shersar.ramazon2023.databinding.ScreenSoundBinding
+import com.shersar.ramazon2023.databinding.ScreenTasbehBinding
+import com.shersar.ramazon2023.ui.tasbeh.TasbehScreen
 import viewBinding
 
 
@@ -16,11 +20,12 @@ class SoundScreen : Fragment(R.layout.screen_sound) {
 
 
     private val binding by viewBinding { ScreenSoundBinding.bind(it) }
-
+    val tasbehScreenbinding by viewBinding { ScreenTasbehBinding.bind(it) }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         initView()
+
 
     }
 
@@ -28,6 +33,7 @@ class SoundScreen : Fragment(R.layout.screen_sound) {
         binding.ivBack.setOnClickListener {
             findNavController().navigateUp()
         }
+
         //  val sharedPreferences: SharedPreferences = requireContext().getSharedPreferences("my_preferences", Context.MODE_PRIVATE)
         binding.switchCompatVib.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
@@ -37,11 +43,13 @@ class SoundScreen : Fragment(R.layout.screen_sound) {
                     ColorStateList.valueOf(resources.getColor(R.color.for_switch_true))
                 // val switchState = sharedPreferences.getBoolean("switch_state", true)
                 // switch_compat_vib.isChecked = switchState
+
             } else {
                 binding.switchCompatVib.thumbTintList =
                     ColorStateList.valueOf(resources.getColor(R.color.card_background_day))
                 binding.switchCompatVib.trackTintList =
                     ColorStateList.valueOf(resources.getColor(R.color.for_switch_false))
+
                 //val switchState = sharedPreferences.getBoolean("switch_state", false)
                 // switch_compat_vib.isChecked = switchState
             }
@@ -73,6 +81,7 @@ class SoundScreen : Fragment(R.layout.screen_sound) {
                 editor.putBoolean("value", true)
                 editor.apply()
                 binding.switchCompatVib.isChecked = true
+
             } else {
                 // When switch unchecked
                 val editor: SharedPreferences.Editor =
@@ -101,5 +110,7 @@ class SoundScreen : Fragment(R.layout.screen_sound) {
                 binding.switchCompatNotific.isChecked = false
             }
         })
+
+
     }
 }
