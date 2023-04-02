@@ -1,22 +1,21 @@
 package com.shersar.ramazon2023.ui.tasbeh
 
-import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.shersar.ramazon2023.R
 import com.shersar.ramazon2023.adapters.CategoriesAdapter
 import com.shersar.ramazon2023.databinding.ScreenZikrBinding
-import com.shersar.ramazon2023.model.Item
-import com.shersar.ramazon2023.model.Zikrlar
+import com.shersar.ramazon2023.model.Zikr
 import com.shersar.ramazon2023.ui.tasbeh.viewmodel.ZikrViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import viewBinding
 
+@AndroidEntryPoint
 class ZikrScreen(private val viewModel: ZikrViewModel, private val drawerLayout: DrawerLayout) :
     Fragment(R.layout.screen_zikr) {
 
@@ -24,7 +23,7 @@ class ZikrScreen(private val viewModel: ZikrViewModel, private val drawerLayout:
 
     private val binding by viewBinding { ScreenZikrBinding.bind(it) }
     private val categories = mutableListOf(
-        Item(
+        Zikr(
             1,
             "Субҳаналлоҳ",
             "سُبْحَانَ اللَّه",
@@ -32,7 +31,7 @@ class ZikrScreen(private val viewModel: ZikrViewModel, private val drawerLayout:
             "0",
             "0"
         ),
-        Item(
+        Zikr(
             2,
             "Алҳамдулиллаҳ",
             "الْحَمْدُ لله",
@@ -40,7 +39,7 @@ class ZikrScreen(private val viewModel: ZikrViewModel, private val drawerLayout:
             "0",
             "0"
         ),
-        Item(
+        Zikr(
             3,
             "Аллоҳу акбар",
             "اأَللهُ أَکْبَرُ",
@@ -48,7 +47,7 @@ class ZikrScreen(private val viewModel: ZikrViewModel, private val drawerLayout:
             "0",
             "0"
         ),
-        Item(
+        Zikr(
             4,
             "Астағфируллоҳ",
             "أَسْتَغْفِرُ اللَّهَ",
@@ -56,7 +55,7 @@ class ZikrScreen(private val viewModel: ZikrViewModel, private val drawerLayout:
             "0",
             "0"
         ),
-        Item(
+        Zikr(
             5,
             "Астағфируллоҳ ва атувбу илайҳ",
             "أَسْتَغْفِرُ اللَّهَ وأَتُوبُ إِلَيهِ ",
@@ -64,7 +63,7 @@ class ZikrScreen(private val viewModel: ZikrViewModel, private val drawerLayout:
             "0",
             "0"
         ),
-        Item(
+        Zikr(
             6,
             "Астағфируллоҳаллазий Ла илаҳа илла ҳувал ҳаййул қоййум ва атувбу илайҳ",
             "أَسْتَغْفِرُ اللَّهَ الَّذِي لَا إِلَهَ إلَّا هُوَ الْحَيُّ الْقَيُّومُ وأَتُوبُ إِلَيهِ ",
@@ -72,7 +71,7 @@ class ZikrScreen(private val viewModel: ZikrViewModel, private val drawerLayout:
             "0",
             "0"
         ),
-        Item(
+        Zikr(
             7,
             "Субҳаналлоҳи ва биҳамдиҳи\n" +
                     "Субҳаналлоҳил ъзийм",
@@ -82,7 +81,7 @@ class ZikrScreen(private val viewModel: ZikrViewModel, private val drawerLayout:
             "0",
             "0"
         ),
-        Item(
+        Zikr(
             8,
             "Йа муқоллибал қулуб саббит қолбий ъала дийник",
             "يَا مُقَلِّبَ الْقُلُوبِ ثَبِّتْ قَلْبِي عَلَى دِيْنِكَ ",
@@ -90,7 +89,7 @@ class ZikrScreen(private val viewModel: ZikrViewModel, private val drawerLayout:
             "0",
             "0"
         ),
-        Item(
+        Zikr(
             9,
             "Ла илаҳа илла анта субҳанака инний кунту миназ золимийн",
             "لَا إِلَهَ إلَّا أَنْتَ سُبْحَانَكَ إَنِّي كُنْتُ مِنَ الظَّالِمِينَ ",
@@ -98,7 +97,7 @@ class ZikrScreen(private val viewModel: ZikrViewModel, private val drawerLayout:
             "0",
             "0"
         ),
-        Item(
+        Zikr(
             10,
             "Ла илаҳа иллаллоҳ",
             "لَا إِلَٰهَ إِلَّا الله",
@@ -106,7 +105,7 @@ class ZikrScreen(private val viewModel: ZikrViewModel, private val drawerLayout:
             "0",
             "0"
         ),
-        Item(
+        Zikr(
             11,
             "Ла ҳавла ва ла қуввата илла биллаҳ",
             "لَا حَولَ وَلَا قُوَّةَ إَلَّا بِاللَّهِ ",
@@ -114,7 +113,7 @@ class ZikrScreen(private val viewModel: ZikrViewModel, private val drawerLayout:
             "0",
             "0"
         ),
-        Item(
+        Zikr(
             12,
             "Аллоҳумма мағфиротука авсаъу мин зунубий ва роҳматука аржа ъиндий мин ъамалий",
             "اللَّهُمَّ مَغْفِرَتُكَ أَوْسَعُ مِنْ ذُنُوبِي وَرَحْمَتُكَ أَرْجَى عِنْدِي مِنْ عَمَلِي",
@@ -122,7 +121,7 @@ class ZikrScreen(private val viewModel: ZikrViewModel, private val drawerLayout:
             "0",
             "0"
         ),
-        Item(
+        Zikr(
             13,
             "Ла илаҳа иллаллоҳ Мухаммадур росуллоҳ",
             "لَا إِلَٰهَ إِلَّا الله مُحَمَّدٌ رَسُولُ اُللَّهِ",

@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.shersar.ramazon2023.data.local.entity.DailyPrayerTimesEntity
 import com.shersar.ramazon2023.repository.LocationRepository
+import com.shersar.ramazon2023.repository.TasbehRepository
 import com.shersar.ramazon2023.repository.dateTimeRepo.DateTimeRepository
 import com.shersar.ramazon2023.utils.UiStateList
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -15,7 +16,8 @@ import javax.inject.Inject
 @HiltViewModel
 class SplashViewModel @Inject constructor(
     private val dateTimeRepository: DateTimeRepository,
-    private val locationRepository: LocationRepository
+    private val locationRepository: LocationRepository,
+    private val tasbehRepository: TasbehRepository
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow<UiStateList<DailyPrayerTimesEntity>>(UiStateList.EMPTY)

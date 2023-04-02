@@ -2,9 +2,8 @@ package com.shersar.ramazon2023.ui.tasbeh.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.shersar.ramazon2023.model.Item
+import com.shersar.ramazon2023.model.Zikr
 import com.shersar.ramazon2023.utils.UiStateObject
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -12,7 +11,7 @@ import kotlinx.coroutines.launch
 class SalovatViewModel: ViewModel() {
 
     val _homeState = MutableStateFlow(
-        Item(
+        Zikr(
             1,
             "Субҳаналлоҳ",
             "سُبْحَانَ اللَّه",
@@ -24,13 +23,13 @@ class SalovatViewModel: ViewModel() {
 
 
 
-    private val _salovatState = MutableStateFlow<UiStateObject<Item>>(UiStateObject.EMPTY)
-    val zikrState: StateFlow<UiStateObject<Item>> = _salovatState
+    private val _salovatState = MutableStateFlow<UiStateObject<Zikr>>(UiStateObject.EMPTY)
+    val zikrState: StateFlow<UiStateObject<Zikr>> = _salovatState
 
     fun getZikrState() = viewModelScope.launch {
         _salovatState.value = UiStateObject.LOADING
         try {
-            _salovatState.value = UiStateObject.SUCCESS(Item(
+            _salovatState.value = UiStateObject.SUCCESS(Zikr(
                 1,
                 "Субҳаналлоҳ",
                 "سُبْحَانَ اللَّه",
@@ -43,10 +42,10 @@ class SalovatViewModel: ViewModel() {
         }
     }
 
-    fun setZikrState(item: Item) = viewModelScope.launch {
+    fun setZikrState(zikr: Zikr) = viewModelScope.launch {
         _salovatState.value = UiStateObject.LOADING
         try {
-            _salovatState.value = UiStateObject.SUCCESS(item)
+            _salovatState.value = UiStateObject.SUCCESS(zikr)
         } catch (e: Exception) {
             _salovatState.value = UiStateObject.ERROR(e.localizedMessage ?: "ERROR_MESSAGE")
         }

@@ -7,14 +7,14 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.shersar.ramazon2023.R
-import com.shersar.ramazon2023.model.Item
+import com.shersar.ramazon2023.model.Zikr
 
 class CategoriesAdapter(
     private val context: Context,
-    private val list: List<Item>,
+    private val list: List<Zikr>,
 ) : RecyclerView.Adapter<CategoriesAdapter.CategoryViewHolder>() {
 
-    var onClick: ((Item) -> Unit)? = null
+    var onClick: ((Zikr) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
         return CategoryViewHolder(
@@ -30,7 +30,7 @@ class CategoriesAdapter(
         holder.tarjima.text = Items.tarjima
         holder.todayZikr.text = Items.today_zikr
         holder.allZikr.text = Items.all_zikr
-        holder.orderNumber.text = Items.order_number.toString()
+//        holder.orderNumber.text = Items.order_number.toString()
         holder.bind(Items)
 //        holder.itemView.setOnClickListener {
 //            val fragment = Item1Screen.newInstance(list[position])
@@ -53,11 +53,11 @@ class CategoriesAdapter(
         val allZikr: TextView = view.findViewById(R.id.tv_all_zikr)
         val todayZikr: TextView = view.findViewById(R.id.tv_today_zikr)
         val orderNumber: TextView = view.findViewById(R.id.tv_number_order)
-        fun bind(item: Item) {
-            val uzb = item.uzb_zikr
+        fun bind(zikr: Zikr) {
+            val uzb = zikr.uzb_zikr
 
             itemView.setOnClickListener {
-                onClick?.invoke(item)
+                onClick?.invoke(zikr)
             }
         }
 

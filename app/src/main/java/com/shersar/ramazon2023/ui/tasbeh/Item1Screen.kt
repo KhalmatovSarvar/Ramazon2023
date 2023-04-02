@@ -6,8 +6,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import com.shersar.ramazon2023.R
 import com.shersar.ramazon2023.databinding.ScreenItem1Binding
-import com.shersar.ramazon2023.model.Item
-import com.shersar.ramazon2023.ui.tasbeh.viewmodel.SalovatViewModel
+import com.shersar.ramazon2023.model.Zikr
 import com.shersar.ramazon2023.ui.tasbeh.viewmodel.ZikrViewModel
 import viewBinding
 
@@ -16,7 +15,7 @@ class Item1Screen(val viewModel: ZikrViewModel) : Fragment(R.layout.screen_item1
     private val binding by viewBinding { ScreenItem1Binding.bind(it) }
 
     companion object {
-        fun newInstance(item: Item){}
+        fun newInstance(zikr: Zikr){}
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

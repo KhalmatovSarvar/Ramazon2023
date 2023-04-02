@@ -6,7 +6,6 @@ import android.view.Gravity
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
@@ -23,138 +22,137 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.shersar.ramazon2023.R
 import com.shersar.ramazon2023.databinding.ScreenTasbehBinding
-import com.shersar.ramazon2023.model.Item
+import com.shersar.ramazon2023.model.Zikr
 import com.shersar.ramazon2023.model.Zikrlar
-import com.shersar.ramazon2023.ui.tasbeh.viewmodel.SalovatViewModel
 import com.shersar.ramazon2023.ui.tasbeh.viewmodel.ZikrViewModel
 import com.shersar.ramazon2023.utils.CustomDialog
-import com.shersar.ramazon2023.utils.ExapleDialog
 import com.shersar.ramazon2023.utils.UiStateObject
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import me.relex.circleindicator.CircleIndicator3
 import viewBinding
+import javax.inject.Inject
 
-
+@AndroidEntryPoint
 class TasbehScreen : Fragment(R.layout.screen_tasbeh) {
-    private lateinit var tabLayout: TabLayout
-    private lateinit var recyclerView: RecyclerView
+
     private val binding by viewBinding { ScreenTasbehBinding.bind(it) }
     private val viewModelZikr by viewModels<ZikrViewModel>()
     private lateinit var adapterFragments: ViewPagerAdapter
     private lateinit var viewPagerr: ViewPager2
     var count = 0
-    private val categories = mutableListOf(
-        Zikrlar(
-            "Zikrlar",
-            Item(
-                1,
-                "Субҳаналлоҳ",
-                "سُبْحَانَ اللَّه",
-                "Маьноси: Аллоҳни поклаб ёд этаман.",
-                "0",
-                "0"
-            ),
-            Item(
-                2,
-                "Алҳамдулиллаҳ",
-                "الْحَمْدُ لله",
-                "Маьноси: Аллоҳга хамд бўлсин.",
-                "0",
-                "0"
-            ),
-            Item(
-                3,
-                "Аллоҳу акбар",
-                "اأَللهُ أَکْبَرُ",
-                "Маьноси: Аллоҳ буюкдир.",
-                "0",
-                "0"
-            ),
-            Item(
-                4,
-                "Астағфируллоҳ",
-                "أَسْتَغْفِرُ اللَّهَ",
-                "Маъноси:Аллоҳдан кечирим сўрайман.",
-                "0",
-                "0"
-            ),
-            Item(
-                5,
-                "Астағфируллоҳ ва атувбу илайҳ",
-                "أَسْتَغْفِرُ اللَّهَ وأَتُوبُ إِلَيهِ ",
-                "Маъноси:Аллоҳдан кечирим сўрайман ва Унга тавба қиламан.",
-                "0",
-                "0"
-            ),
-            Item(
-                6,
-                "Астағфируллоҳаллазий Ла илаҳа илла ҳувал ҳаййул қоййум ва атувбу илайҳ",
-                "أَسْتَغْفِرُ اللَّهَ الَّذِي لَا إِلَهَ إلَّا هُوَ الْحَيُّ الْقَيُّومُ وأَتُوبُ إِلَيهِ ",
-                "Маъноси: Барҳаёт, тирик Аллоҳдан авф этишини сўрайман ва Унга тавба қиламан.",
-                "0",
-                "0"
-            ),
-            Item(
-                6,
-                "Субҳаналлоҳи ва биҳамдиҳи\n" +
-                        "Субҳаналлоҳил ъзийм",
-                "سُبْحَانَ اللهِ وَبِحَمْدِهِ \n" +
-                        "سُبْحَانَ اللهِ الْعَظِيمِ",
-                "Маъноси: Аллоҳга ҳамд айтиш билан Уни айбу нуқсонлардан поклаб ёд етаман.",
-                "0",
-                "0"
-            ),
-            Item(
-                6,
-                "Йа муқоллибал қулуб саббит қолбий ъала дийник",
-                "يَا مُقَلِّبَ الْقُلُوبِ ثَبِّتْ قَلْبِي عَلَى دِيْنِكَ ",
-                "Маъноси: Эй қалбларни ўзгартирувчи, қалбимни динингда собит қил.",
-                "0",
-                "0"
-            ),
-            Item(
-                5,
-                "Ла илаҳа илла анта субҳанака инний кунту миназ золимийн",
-                "لَا إِلَهَ إلَّا أَنْتَ سُبْحَانَكَ إَنِّي كُنْتُ مِنَ الظَّالِمِينَ ",
-                "Маъноси: Сендан бошқа илоҳ йўқ. Сени поклаб ёд етаман. Албатта мен золимлардан бўлдим.",
-                "0",
-                "0"
-            ),
-            Item(
-                5,
-                "Ла илаҳа иллаллоҳ",
-                "لَا إِلَٰهَ إِلَّا الله",
-                "Маьноси: Аллоҳдан ўзга илоҳ йўқ.",
-                "0",
-                "0"
-            ),
-            Item(
-                5,
-                "Ла ҳавла ва ла қуввата илла биллаҳ",
-                "لَا حَولَ وَلَا قُوَّةَ إَلَّا بِاللَّهِ ",
-                "Маъноси: Куч ва қувват ёлғиз Аллоҳдандир.",
-                "0",
-                "0"
-            ),
-            Item(
-                5,
-                "Аллоҳумма мағфиротука авсаъу мин зунубий ва роҳматука аржа ъиндий мин ъамалий",
-                "اللَّهُمَّ مَغْفِرَتُكَ أَوْسَعُ مِنْ ذُنُوبِي وَرَحْمَتُكَ أَرْجَى عِنْدِي مِنْ عَمَلِي",
-                "\n" +
-                        "Маъноси:Аллоҳим, мағфиратинг гинохимдан кенгроқдир. Раҳматинг ҳузуримдаги амалимдан умидлироқдир.",
-                "0",
-                "0"
-            ),
-            Item(
-                5,
-                "Ла илаҳа иллаллоҳ Мухаммадур росуллоҳ",
-                "لَا إِلَٰهَ إِلَّا الله مُحَمَّدٌ رَسُولُ اُللَّهِ",
-                "Маьнлси: Аллоҳдан ўзга илоҳ йўқ Мухаммад унинг элчиси.",
-                "0",
-                "0"
-            ),
-        ),
-    )
+//    private val categories = mutableListOf(
+//        Zikrlar(
+//            "Zikrlar",
+//            Zikr(
+//                1,
+//                "Субҳаналлоҳ",
+//                "سُبْحَانَ اللَّه",
+//                "Маьноси: Аллоҳни поклаб ёд этаман.",
+//                "0",
+//                "0"
+//            ),
+//            Zikr(
+//                2,
+//                "Алҳамдулиллаҳ",
+//                "الْحَمْدُ لله",
+//                "Маьноси: Аллоҳга хамд бўлсин.",
+//                "0",
+//                "0"
+//            ),
+//            Zikr(
+//                3,
+//                "Аллоҳу акбар",
+//                "اأَللهُ أَکْبَرُ",
+//                "Маьноси: Аллоҳ буюкдир.",
+//                "0",
+//                "0"
+//            ),
+//            Zikr(
+//                4,
+//                "Астағфируллоҳ",
+//                "أَسْتَغْفِرُ اللَّهَ",
+//                "Маъноси:Аллоҳдан кечирим сўрайман.",
+//                "0",
+//                "0"
+//            ),
+//            Zikr(
+//                5,
+//                "Астағфируллоҳ ва атувбу илайҳ",
+//                "أَسْتَغْفِرُ اللَّهَ وأَتُوبُ إِلَيهِ ",
+//                "Маъноси:Аллоҳдан кечирим сўрайман ва Унга тавба қиламан.",
+//                "0",
+//                "0"
+//            ),
+//            Zikr(
+//                6,
+//                "Астағфируллоҳаллазий Ла илаҳа илла ҳувал ҳаййул қоййум ва атувбу илайҳ",
+//                "أَسْتَغْفِرُ اللَّهَ الَّذِي لَا إِلَهَ إلَّا هُوَ الْحَيُّ الْقَيُّومُ وأَتُوبُ إِلَيهِ ",
+//                "Маъноси: Барҳаёт, тирик Аллоҳдан авф этишини сўрайман ва Унга тавба қиламан.",
+//                "0",
+//                "0"
+//            ),
+//            Zikr(
+//                6,
+//                "Субҳаналлоҳи ва биҳамдиҳи\n" +
+//                        "Субҳаналлоҳил ъзийм",
+//                "سُبْحَانَ اللهِ وَبِحَمْدِهِ \n" +
+//                        "سُبْحَانَ اللهِ الْعَظِيمِ",
+//                "Маъноси: Аллоҳга ҳамд айтиш билан Уни айбу нуқсонлардан поклаб ёд етаман.",
+//                "0",
+//                "0"
+//            ),
+//            Zikr(
+//                6,
+//                "Йа муқоллибал қулуб саббит қолбий ъала дийник",
+//                "يَا مُقَلِّبَ الْقُلُوبِ ثَبِّتْ قَلْبِي عَلَى دِيْنِكَ ",
+//                "Маъноси: Эй қалбларни ўзгартирувчи, қалбимни динингда собит қил.",
+//                "0",
+//                "0"
+//            ),
+//            Zikr(
+//                5,
+//                "Ла илаҳа илла анта субҳанака инний кунту миназ золимийн",
+//                "لَا إِلَهَ إلَّا أَنْتَ سُبْحَانَكَ إَنِّي كُنْتُ مِنَ الظَّالِمِينَ ",
+//                "Маъноси: Сендан бошқа илоҳ йўқ. Сени поклаб ёд етаман. Албатта мен золимлардан бўлдим.",
+//                "0",
+//                "0"
+//            ),
+//            Zikr(
+//                5,
+//                "Ла илаҳа иллаллоҳ",
+//                "لَا إِلَٰهَ إِلَّا الله",
+//                "Маьноси: Аллоҳдан ўзга илоҳ йўқ.",
+//                "0",
+//                "0"
+//            ),
+//            Zikr(
+//                5,
+//                "Ла ҳавла ва ла қуввата илла биллаҳ",
+//                "لَا حَولَ وَلَا قُوَّةَ إَلَّا بِاللَّهِ ",
+//                "Маъноси: Куч ва қувват ёлғиз Аллоҳдандир.",
+//                "0",
+//                "0"
+//            ),
+//            Zikr(
+//                5,
+//                "Аллоҳумма мағфиротука авсаъу мин зунубий ва роҳматука аржа ъиндий мин ъамалий",
+//                "اللَّهُمَّ مَغْفِرَتُكَ أَوْسَعُ مِنْ ذُنُوبِي وَرَحْمَتُكَ أَرْجَى عِنْدِي مِنْ عَمَلِي",
+//                "\n" +
+//                        "Маъноси:Аллоҳим, мағфиратинг гинохимдан кенгроқдир. Раҳматинг ҳузуримдаги амалимдан умидлироқдир.",
+//                "0",
+//                "0"
+//            ),
+//            Zikr(
+//                5,
+//                "Ла илаҳа иллаллоҳ Мухаммадур росуллоҳ",
+//                "لَا إِلَٰهَ إِلَّا الله مُحَمَّدٌ رَسُولُ اُللَّهِ",
+//                "Маьнлси: Аллоҳдан ўзга илоҳ йўқ Мухаммад унинг элчиси.",
+//                "0",
+//                "0"
+//            ),
+//        ),
+//    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -193,9 +191,8 @@ class TasbehScreen : Fragment(R.layout.screen_tasbeh) {
             dialogFragment.show(parentFragmentManager, "MyDialogFragment")*/
         }
         binding.fmCount.setOnClickListener {
-            count++
-            binding.tvNowCount.text = count.toString()
-            binding.tvbeforeCount.text = count.toString()
+
+            viewModelZikr.incrementTodayAndAllZikr()
         }
     }
 
@@ -230,7 +227,7 @@ class TasbehScreen : Fragment(R.layout.screen_tasbeh) {
         val tabLayout: TabLayout = header.findViewById(R.id.tabLayout)
 
         viewPager2.adapter =
-            FragmentAdapter(requireContext() as AppCompatActivity, viewModelZikr, drawerLayout)
+            FragmentAdapter(requireActivity() as AppCompatActivity, viewModelZikr, drawerLayout)
 //        viewPager2.isUserInputEnabled = false
         TabLayoutMediator(tabLayout, viewPager2) { tab, position ->
             when (position) {
@@ -257,6 +254,9 @@ class TasbehScreen : Fragment(R.layout.screen_tasbeh) {
                             adapterFragments.fragments.add(Item1Screen(viewModelZikr))
                             adapterFragments.fragments.add(Item2Screen(viewModelZikr))
                             viewPagerr.adapter = adapterFragments
+
+                            binding.tvNowCount.text = it.data.today_zikr
+                            binding.tvbeforeCount.text =it.data.all_zikr
                         }
                         is UiStateObject.ERROR -> {
                         }
