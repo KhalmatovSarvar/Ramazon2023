@@ -222,9 +222,7 @@ class LocationScreen : Fragment(R.layout.screen_location) {
                     val geocoder = Geocoder(requireContext(), Locale.getDefault())
                     val address = geocoder.getFromLocation(location.latitude, location.longitude, 1)
                     val address_line = address?.get(0)?.getAddressLine(0)
-                    //   binding.tvLocalation.setText(address_line)
-                    Toast.makeText(requireContext(), "${location.latitude}", Toast.LENGTH_SHORT)
-                        .show()
+
                     val address_location = address?.get(0)?.getAddressLine(0)
 //                    findNavController().navigate(R.id.homeScreen)
                     // openLocation(address_location.toString())
