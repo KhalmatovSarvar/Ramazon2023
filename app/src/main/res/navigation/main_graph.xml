@@ -3,39 +3,27 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_graph"
-    app:startDestination="@id/locationScreen">
+    app:startDestination="@id/homeScreen">
 
     <fragment
         android:id="@+id/homeScreen"
         android:name="com.shersar.ramazon2023.ui.home.HomeScreen"
         android:label="screen_home"
-        app:popUpTo="@id/homeScreen"
-        app:popUpToInclusive="true"
-        tools:layout="@layout/screen_home" >
-        <action
-            android:id="@+id/action_homeScreen_to_locationScreen"
-            app:destination="@id/locationScreen" />
-    </fragment>
+        tools:layout="@layout/screen_home" />
     <fragment
         android:id="@+id/qiblaScreen"
         android:name="com.shersar.ramazon2023.ui.questions.QuestionsScreen"
         android:label="fragment_qibla_screen"
-        app:popUpTo="@id/homeScreen"
-        app:popUpToInclusive="true"
         tools:layout="@layout/fragment_questions_screen" />
     <fragment
         android:id="@+id/settingsScreen"
         android:name="com.shersar.ramazon2023.ui.settings.SettingsScreen"
         android:label="fragment_settings_screen"
-        app:popUpTo="@id/homeScreen"
-        app:popUpToInclusive="true"
         tools:layout="@layout/screen_settings" />
     <fragment
         android:id="@+id/tasbehScreen"
         android:name="com.shersar.ramazon2023.ui.tasbeh.TasbehScreen"
         android:label="fragment_tasbeh_screen"
-        app:popUpTo="@id/homeScreen"
-        app:popUpToInclusive="true"
         tools:layout="@layout/screen_tasbeh" />
     <fragment
         android:id="@+id/soundScreen"
@@ -61,11 +49,7 @@
         android:name="com.shersar.ramazon2023.ui.settings.ProjectWorkerScreen"
         android:label="ProjectWorkerScreen"
         tools:layout="@layout/screen_project_worker"/>
-    <fragment
-        android:id="@+id/locationScreen"
-        android:name="com.shersar.ramazon2023.ui.location.LocationScreen"
-        android:label="LocationScreen"
-        tools:layout="@layout/screen_location"/>
+
 
 
 </navigation>

@@ -30,6 +30,7 @@ import com.shersar.ramazon2023.databinding.ScreenSettingsBinding
 import com.shersar.ramazon2023.model.Bottomsheet
 import com.shersar.ramazon2023.utils.UiStateList
 import com.shersar.ramazon2023.utils.UiStateObject
+import com.shersar.ramazon2023.utils.navigateSafely
 import com.shersar.ramazon2023.viewmodel.LocationViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -76,7 +77,7 @@ class LocationScreen : Fragment(R.layout.screen_location) {
         super.onViewCreated(view, savedInstanceState)
 
         initView()
-        setUpObserversDB()
+        setUpObservers()
 
     }
 
@@ -243,7 +244,8 @@ class LocationScreen : Fragment(R.layout.screen_location) {
                         // Update UI with data
                         val data = uiState.data // list of HijriCalendarResponse objects
                         Log.d("LocationScreen", "setUpObserversSuccess: ${data} ")
-                        findNavController().navigate(R.id.homeScreen)
+                        findNavController().navigateSafely(R.id.action_global_mainFlowFragment)
+//                        findNavController().navigate(R.id.homeScreen)
                     }
                     is UiStateObject.ERROR -> {
                         // Handle error

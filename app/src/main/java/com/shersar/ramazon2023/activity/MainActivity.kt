@@ -1,17 +1,13 @@
 package com.shersar.ramazon2023.activity
 
-import android.app.Activity
-import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.view.Gravity
 import android.view.WindowManager
-import android.widget.ImageView
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
@@ -40,61 +36,35 @@ class MainActivity : AppCompatActivity() {
 
 
         val navHostFragment =
-            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
-        navController = navHostFragment.findNavController()
-        //setting up bottom nav with navController
-        binding.bottomNavigation.setupWithNavController(navController)
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment_main) as NavHostFragment
+        navController = navHostFragment.navController
+
+        val navGraph = navController.navInflater.inflate(R.navigation.nav_graph)
+
+        navController.graph = navGraph
 
     }
 
 
-    override fun onBackPressed() {
-        if (binding.bottomNavigation.selectedItemId == R.id.homeScreen) {
-            if (isTaskRoot) {
-                if (backPressedCounter >= 1) {
-                    finishAffinity()
-                } else {
+//    override fun onBackPressed() {
+//        if (binding.bottomNavigation.selectedItemId == R.id.homeScreen) {
+//            if (isTaskRoot) {
+//                if (backPressedCounter >= 1) {
+//                    finishAffinity()
+//                } else {
 //                    Toast.makeText(this, "Dasturdan chiqish uchun yana bir marta bosing", Toast.LENGTH_SHORT).show()
-                    Toast(this).showCustomToast(
-                        R.drawable.ic_logo_islam,
-                        "Dasturdan chiqish uchun yana bir bor orqaga tugmasini bosing.",
-                        this
-                    )
-                    backPressedCounter++
-                    Handler(Looper.getMainLooper()).postDelayed({
-                        backPressedCounter = 0
-                    }, 2000)
-                }
-            } else {
-                super.onBackPressed()
-            }
-        } else {
-            super.onBackPressed()
-        }
-    }
-    fun Toast.showCustomToast( imageView: Int,message: String, activity: Activity) {
-        val layout = activity.layoutInflater.inflate(
-            R.layout.custom_toast,
-            activity.findViewById(R.id.custom_toast)
-        )
-
-        // set the text of the TextView of the message
-        val textView = layout.findViewById<TextView>(R.id.tv_toast)
-        textView.text = message
-
-        val img = layout.findViewById<ImageView>(R.id.iv_toast)
-        img.setImageResource(imageView)
-
-
-        // use the application extension function
-        this.apply {
-            setGravity(Gravity.BOTTOM, 0, 340)
-
-            duration = Toast.LENGTH_SHORT
-            view = layout
-            show()
-        }
-    }
+//                    backPressedCounter++
+//                    Handler(Looper.getMainLooper()).postDelayed({
+//                        backPressedCounter = 0
+//                    }, 2000)
+//                }
+//            } else {
+//                super.onBackPressed()
+//            }
+//        } else {
+//            super.onBackPressed()
+//        }
+//    }
 
 
 }

@@ -107,7 +107,7 @@ class HomeScreen : Fragment(R.layout.screen_home) {
             }
         }
 
-        lifecycleScope.launch {
+        viewLifecycleOwner.lifecycleScope.launchWhenCreated {
             homeViewModel.currentTime.collect { pair ->
                 val (def, text) = pair
                 binding.tvDayLeft.text = def // update a TextView with the current time
