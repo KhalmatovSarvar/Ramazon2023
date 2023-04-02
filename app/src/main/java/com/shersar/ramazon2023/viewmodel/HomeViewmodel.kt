@@ -98,14 +98,6 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    fun timeToMillis(timeString: String): Long {
-        val timeParts = timeString.split(":")
-        val hours = timeParts[0].toLong()
-        val minutes = timeParts[1].toLong()
-        val seconds = timeParts[2].toLong()
-        return ((hours * 3600) + (minutes * 60) + seconds) * 1000
-    }
-
 }
 
 
