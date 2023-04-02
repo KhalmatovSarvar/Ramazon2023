@@ -31,7 +31,7 @@ class HomeViewModel @Inject constructor(
         viewModelScope.launch {
             _prayerTimeByDayState.value = UiStateObject.LOADING
             try {
-                val response = locationRepository.getPrayerTimesByDay(date.split("-")[2])
+                val response = locationRepository.getPrayerTimesByDate(date)
                 _prayerTimeByDayState.value = UiStateObject.SUCCESS(response)
 
             }catch (e: Exception){
@@ -96,14 +96,6 @@ class HomeViewModel @Inject constructor(
                 _currentTime.value = Pair("00:00:00", "Saharlikka qoldi")
             }
         }
-    }
-
-    fun timeToMillis(timeString: String): Long {
-        val timeParts = timeString.split(":")
-        val hours = timeParts[0].toLong()
-        val minutes = timeParts[1].toLong()
-        val seconds = timeParts[2].toLong()
-        return ((hours * 3600) + (minutes * 60) + seconds) * 1000
     }
 
 }

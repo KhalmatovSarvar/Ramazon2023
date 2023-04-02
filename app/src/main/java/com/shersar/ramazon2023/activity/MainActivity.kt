@@ -7,6 +7,7 @@ import android.view.WindowManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
@@ -35,33 +36,35 @@ class MainActivity : AppCompatActivity() {
 
 
         val navHostFragment =
-            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
-        navController = navHostFragment.findNavController()
-        //setting up bottom nav with navController
-        binding.bottomNavigation.setupWithNavController(navController)
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment_main) as NavHostFragment
+        navController = navHostFragment.navController
+
+        val navGraph = navController.navInflater.inflate(R.navigation.nav_graph)
+
+        navController.graph = navGraph
 
     }
 
 
-    override fun onBackPressed() {
-        if (binding.bottomNavigation.selectedItemId == R.id.homeScreen) {
-            if (isTaskRoot) {
-                if (backPressedCounter >= 1) {
-                    finishAffinity()
-                } else {
-                    Toast.makeText(this, "Dasturdan chiqish uchun yana bir marta bosing", Toast.LENGTH_SHORT).show()
-                    backPressedCounter++
-                    Handler(Looper.getMainLooper()).postDelayed({
-                        backPressedCounter = 0
-                    }, 2000)
-                }
-            } else {
-                super.onBackPressed()
-            }
-        } else {
-            super.onBackPressed()
-        }
-    }
+//    override fun onBackPressed() {
+//        if (binding.bottomNavigation.selectedItemId == R.id.homeScreen) {
+//            if (isTaskRoot) {
+//                if (backPressedCounter >= 1) {
+//                    finishAffinity()
+//                } else {
+//                    Toast.makeText(this, "Dasturdan chiqish uchun yana bir marta bosing", Toast.LENGTH_SHORT).show()
+//                    backPressedCounter++
+//                    Handler(Looper.getMainLooper()).postDelayed({
+//                        backPressedCounter = 0
+//                    }, 2000)
+//                }
+//            } else {
+//                super.onBackPressed()
+//            }
+//        } else {
+//            super.onBackPressed()
+//        }
+//    }
 
 
 }

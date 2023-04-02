@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".ui.home.HomeScreen">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -16,27 +17,27 @@
         <FrameLayout
             android:id="@+id/frameLayout"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
+            android:layout_height="330dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="250dp">
+                android:layout_height="280dp">
 
                 <ImageView
                     android:id="@+id/iv_india_morning"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="fitXY"
-                    android:src="@drawable/india_day1" />
+                    android:src="@drawable/im_india_day" />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:alpha="0.35"
-                    android:background="@android:color/black" />
+<!--                <View-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:alpha="0.35"-->
+<!--                    android:background="@android:color/black" />-->
 
                 <ImageView
                     android:layout_width="match_parent"
@@ -207,14 +208,13 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="8dp"
-            android:backgroundTint="@color/background"
+            android:backgroundTint="@color/item_indicator_bg"
             app:cardCornerRadius="4dp"
             app:layout_constraintEnd_toStartOf="@id/guideline"
             app:layout_constraintHorizontal_bias="0.3"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintHorizontal_weight="1"
             app:layout_constraintStart_toStartOf="parent"
-
             app:layout_constraintTop_toBottomOf="@id/frameLayout">
 
             <LinearLayout
@@ -228,7 +228,8 @@
                     android:layout_marginVertical="21dp"
                     android:layout_marginLeft="12dp"
                     android:layout_weight="1"
-                    android:src="@drawable/ic_saharlik" />
+                    android:src="@drawable/ic_saharlik"
+                    app:tint="@color/item_indicator_img" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -238,11 +239,12 @@
                     android:paddingHorizontal="10dp">
 
                     <TextView
+                        android:id="@+id/tv_saharlik_txt"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
                         android:text="Saharlik"
-                        android:textColor="@color/card_text_color"
+                        android:textColor="@color/item_indicator_text_05"
                         android:textSize="14sp" />
 
                     <TextView
@@ -251,7 +253,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:text="06:59"
-                        android:textColor="@color/white"
+                        android:textColor="@color/item_indicator_text"
                         android:textSize="20sp"
                         android:textStyle="bold" />
                 </LinearLayout>
@@ -266,7 +268,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="16dp"
-            android:backgroundTint="@color/card_background_day"
+            android:backgroundTint="@color/item_indicator_bg"
             app:cardCornerRadius="4dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_chainStyle="packed"
@@ -285,6 +287,7 @@
                     android:layout_marginVertical="21dp"
                     android:layout_marginLeft="12dp"
                     android:layout_weight="1"
+                    app:tint="@color/item_indicator_img"
                     android:src="@drawable/ic_quyosh" />
 
                 <LinearLayout
@@ -295,11 +298,12 @@
                     android:paddingHorizontal="10dp">
 
                     <TextView
+                        android:id="@+id/tv_quyosh_txt"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
                         android:text="Quyosh"
-                        android:textColor="@color/card_text_color_unselected"
+                        android:textColor="@color/item_indicator_text_05"
                         android:textSize="14sp" />
 
                     <TextView
@@ -309,7 +313,7 @@
                         android:layout_marginTop="10dp"
                         android:gravity="start"
                         android:text="06:59"
-                        android:textColor="@color/black"
+                        android:textColor="@color/item_indicator_text"
                         android:textSize="20sp"
                         android:textStyle="bold" />
                 </LinearLayout>
@@ -331,7 +335,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="8dp"
-            android:backgroundTint="@color/card_background_day"
+            android:backgroundTint="@color/item_indicator_bg"
             app:cardCornerRadius="4dp"
             app:layout_constraintEnd_toStartOf="@id/guideline"
             app:layout_constraintHorizontal_chainStyle="packed"
@@ -350,6 +354,7 @@
                     android:layout_marginVertical="21dp"
                     android:layout_marginLeft="12dp"
                     android:layout_weight="1"
+                    app:tint="@color/item_indicator_img"
                     android:src="@drawable/ic_iftorlik" />
 
                 <LinearLayout
@@ -360,11 +365,12 @@
                     android:paddingHorizontal="10dp">
 
                     <TextView
+                        android:id="@+id/tv_iftorlik_txt"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
                         android:text="Iftorlik"
-                        android:textColor="@color/card_text_color_unselected"
+                        android:textColor="@color/item_indicator_text_05"
                         android:textSize="14sp" />
 
                     <TextView
@@ -374,7 +380,7 @@
                         android:layout_marginTop="10dp"
                         android:gravity="start"
                         android:text="18:59"
-                        android:textColor="@color/black"
+                        android:textColor="@color/item_indicator_text"
                         android:textSize="20sp"
                         android:textStyle="bold" />
                 </LinearLayout>
@@ -390,7 +396,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="16dp"
-            android:backgroundTint="@color/card_background_day"
+            android:backgroundTint="@color/item_indicator_bg"
             app:cardCornerRadius="4dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_chainStyle="packed"
@@ -409,6 +415,7 @@
                     android:layout_marginVertical="21dp"
                     android:layout_marginLeft="12dp"
                     android:layout_weight="1"
+                    app:tint="@color/item_indicator_img"
                     android:src="@drawable/ic_taroveh" />
 
                 <LinearLayout
@@ -423,7 +430,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
                         android:text="Taroveh"
-                        android:textColor="@color/card_text_color_unselected"
+                        android:textColor="@color/item_indicator_text_05"
                         android:textSize="14sp" />
 
                     <TextView
@@ -432,7 +439,7 @@
                         android:layout_marginTop="10dp"
                         android:gravity="start"
                         android:text="20:45"
-                        android:textColor="@color/black"
+                        android:textColor="@color/item_indicator_text"
                         android:textSize="20sp"
                         android:textStyle="bold" />
                 </LinearLayout>

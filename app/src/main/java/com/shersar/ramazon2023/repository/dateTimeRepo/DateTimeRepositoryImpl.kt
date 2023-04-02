@@ -8,7 +8,7 @@ class DateTimeRepositoryImpl @Inject constructor() : DateTimeRepository {
 
     override fun getCurrentDateTime(): Pair<String, String> {
         val calendar = Calendar.getInstance()
-        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        val dateFormat = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
         val timeFormat = SimpleDateFormat("HH:mm:ss", Locale.getDefault())
         val date = dateFormat.format(calendar.time)
         val time = timeFormat.format(calendar.time)
