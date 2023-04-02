@@ -48,7 +48,21 @@ class LocationScreen : Fragment(R.layout.screen_location) {
     lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     private var list = arrayListOf<Bottomsheet>()
     private var data =
-        arrayOf("Toshkent", "Andijon", "Namangan", "Xorazm", "Navoiy", "Bekobod", "Jizzax")
+        arrayOf(
+            "Toshkent",
+            "Andijon",
+            "Namangan",
+            "Farg'ona",
+            "Jizzax",
+            "Sirdaryo",
+            "Samarqand",
+            "Qashqadaryo",
+            "Surxondaryo",
+            "Navoiy",
+            "Xiva",
+            "Urganch",
+            "Buxoro"
+        )
     private val binding by viewBinding { ScreenLocationBinding.bind(it) }
     private lateinit var bottomSheet1: BottomSheetDialog
 
@@ -57,6 +71,7 @@ class LocationScreen : Fragment(R.layout.screen_location) {
 
         locationViewModel.getAllPrayerTimesFromDb()
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -74,6 +89,7 @@ class LocationScreen : Fragment(R.layout.screen_location) {
         adapter = BottomSheetAdapter(getData())
         recyclerView.adapter = adapter
         var count = 1
+
         binding.llChoose.setOnClickListener {
             if (count % 2 == 1) {
                 binding.ivDownArrow
@@ -96,6 +112,7 @@ class LocationScreen : Fragment(R.layout.screen_location) {
                 binding.switchCompatLoc.trackTintList =
                     ColorStateList.valueOf(resources.getColor(R.color.for_switch_true))
                 checkLocationPermission()
+
             } else {
 
                 binding.switchCompatLoc.thumbTintList =
@@ -114,6 +131,7 @@ class LocationScreen : Fragment(R.layout.screen_location) {
             ) == PackageManager.PERMISSION_GRANTED
         ) {
             checkGPS()
+
         } else {
             ActivityCompat.requestPermissions(
                 requireActivity(),
@@ -131,7 +149,7 @@ class LocationScreen : Fragment(R.layout.screen_location) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
         Log.d("Permission", "Granted")
-        if (requestCode == 100){
+        if (requestCode == 100) {
             checkLocationPermission()
         }
     }
@@ -155,7 +173,6 @@ class LocationScreen : Fragment(R.layout.screen_location) {
                 val response = task.getResult(
                     ApiException::class.java
                 )
-
                 getUserLocation()
             } catch (e: ApiException) {
                 e.printStackTrace()
@@ -214,7 +231,7 @@ class LocationScreen : Fragment(R.layout.screen_location) {
         }
     }
 
-    private fun openHomePage(lat: Double, long: Double){
+    private fun openHomePage(lat: Double, long: Double) {
         locationViewModel.getHijriCalendar(lat, long)
     }
 
@@ -255,9 +272,9 @@ class LocationScreen : Fragment(R.layout.screen_location) {
                         // Update UI with data
                         val data = prayerTimeInDB.data // list of HijriCalendarResponse objects
                         Log.d("LocationScreen", "setUpObserversSuccess: ${data} ")
-                        if (data.isEmpty()){
+                        if (data.isEmpty()) {
                             setUpObservers()
-                        } else{
+                        } else {
                             findNavController().navigate(R.id.homeScreen)
                         }
 

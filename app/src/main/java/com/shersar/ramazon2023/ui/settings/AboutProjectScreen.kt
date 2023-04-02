@@ -1,5 +1,6 @@
 package com.shersar.ramazon2023.ui.settings
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -31,6 +32,12 @@ class AboutProjectScreen : Fragment(R.layout.screen_about_project) {
         }
         binding.llAboutProject.setOnClickListener {
             findNavController().navigate(R.id.inAboutProjectScreen)
+        }
+        binding.llShare.setOnClickListener {
+            val shareIntent = Intent(Intent.ACTION_SEND)
+            shareIntent.type = "text/plain"
+            shareIntent.putExtra(Intent.EXTRA_TEXT, "https://play.google.com/store/apps/details?id=com.shersar.ramazon2023")
+            startActivity(Intent.createChooser(shareIntent, "Ulashing..."))
         }
     }
 }
