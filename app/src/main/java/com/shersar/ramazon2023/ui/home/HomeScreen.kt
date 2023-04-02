@@ -12,6 +12,8 @@ import com.shersar.ramazon2023.R
 import com.shersar.ramazon2023.data.local.entity.DailyPrayerTimesEntity
 import com.shersar.ramazon2023.databinding.ScreenHomeBinding
 import com.shersar.ramazon2023.utils.UiStateObject
+import com.shersar.ramazon2023.utils.activityNavController
+import com.shersar.ramazon2023.utils.navigateSafely
 import com.shersar.ramazon2023.viewmodel.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
@@ -39,7 +41,6 @@ class HomeScreen : Fragment(R.layout.screen_home) {
     }
 
 
-
     private fun initView() {
         binding.apply {
             flOgizYopish.setOnClickListener {
@@ -56,13 +57,22 @@ class HomeScreen : Fragment(R.layout.screen_home) {
                     tvOgizOchishArab.visibility = View.GONE
                 }
             }
+
+            llLocation.setOnClickListener {
+                activityNavController().navigateSafely(R.id.action_mainFlowFragment_to_locationScreen)
+            }
         }
     }
 
     @SuppressLint("SetTextI18n")
-    private fun setUpTimes(day: DailyPrayerTimesEntity){
+    private fun setUpTimes(day: DailyPrayerTimesEntity) {
         binding.apply {
-            tvDayHijriy.text = "${String.format("%02d", day.day.toInt())}.${String.format("%02d", day.monthNumber)}.${day.year}"
+            tvDayHijriy.text = "${String.format("%02d", day.day.toInt())}.${
+                String.format(
+                    "%02d",
+                    day.monthNumber
+                )
+            }.${day.year}"
             tvDayQamariy.text = "${day.dayHijri} ${day.monthNameEN} ${day.yearHijri}"
 
             tvSaharlik.text = day.fajr.split(" ")[0]
@@ -74,6 +84,7 @@ class HomeScreen : Fragment(R.layout.screen_home) {
             tvAsrTime.text = day.Asr.split(" ")[0]
             tvShomTime.text = day.Maghrib.split(" ")[0]
             tvIshaTime.text = day.Isha.split(" ")[0]
+            tvTahajjud.text = day.Lastthird.split(" ")[0]
         }
     }
 
@@ -109,10 +120,26 @@ class HomeScreen : Fragment(R.layout.screen_home) {
 
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
             homeViewModel.currentTime.collect { pair ->
-                val (def, text) = pair
+                val (def, text, state) = pair
                 binding.tvDayLeft.text = def // update a TextView with the current time
                 binding.tvDownCountTimer.text = text
+
+
+
+                binding.apply {
+                    cvSaharlik.isActivated = state == "bomdod"
+                    tvSaharlikTxt.isActivated = state == "bomdod"
+                    tvSaharlik.isActivated = state == "bomdod"
+                    ivSaharlik.isActivated = state == "bomdod"
+
+                    cvIftorlik.isActivated = state == "shom"
+                    tvIftorlikTxt.isActivated = state == "shom"
+                    tvIftorlik.isActivated = state == "shom"
+                    ivIftorlik.isActivated = state == "shom"
+                }
             }
+
+
         }
 
     }
