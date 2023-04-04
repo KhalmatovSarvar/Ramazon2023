@@ -9,9 +9,9 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layoutDescription="@xml/motion_scene_home"
-        app:constraintSetStart="@+id/start"
         app:constraintSetEnd="@+id/end"
+        app:constraintSetStart="@+id/start"
+        app:layoutDescription="@xml/motion_scene_home"
         app:layout_constraintHorizontal_bias="0.5">
 
         <FrameLayout
@@ -33,11 +33,11 @@
                     android:scaleType="fitXY"
                     android:src="@drawable/im_india_day" />
 
-<!--                <View-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="match_parent"-->
-<!--                    android:alpha="0.35"-->
-<!--                    android:background="@android:color/black" />-->
+                <!--                <View-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="match_parent"-->
+                <!--                    android:alpha="0.35"-->
+                <!--                    android:background="@android:color/black" />-->
 
                 <ImageView
                     android:layout_width="match_parent"
@@ -48,10 +48,10 @@
                 <LinearLayout
                     android:layout_width="111dp"
                     android:layout_height="40dp"
-                    android:background="@drawable/bg_location"
                     android:layout_gravity="top|end"
                     android:layout_marginTop="30dp"
                     android:layout_marginEnd="16dp"
+                    android:background="@drawable/bg_location"
                     android:orientation="horizontal">
 
                     <ImageView
@@ -59,8 +59,9 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:paddingLeft="5dp"
-                        app:tint="@color/white"
-                        android:src="@drawable/ic_location" />
+                        android:src="@drawable/ic_location"
+                        app:tint="@color/white" />
+
                     <TextView
                         android:id="@+id/tv_location"
                         android:layout_width="wrap_content"
@@ -72,46 +73,13 @@
                         android:textColor="@color/white"
                         android:textSize="16sp" />
                 </LinearLayout>
-<!--                <androidx.cardview.widget.CardView-->
-<!--                    android:layout_width="111dp"-->
-<!--                    android:layout_height="40dp"-->
-<!--                    android:layout_gravity="top|right"-->
-<!--                    android:layout_marginTop="30dp"-->
-<!--                    android:layout_marginRight="16dp"-->
-<!--                    android:backgroundTint="#19000000">-->
 
-<!--                    <LinearLayout-->
-<!--                        android:id="@+id/ll_location"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="match_parent"-->
-<!--                        android:orientation="horizontal">-->
-
-<!--                        <ImageView-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:layout_gravity="center_vertical"-->
-<!--                            android:paddingLeft="5dp"-->
-<!--                            android:src="@drawable/ic_location" />-->
-
-<!--                        <TextView-->
-<!--                            android:id="@+id/tv_location"-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:layout_gravity="center_vertical"-->
-<!--                            android:layout_weight="1"-->
-<!--                            android:text="Tashkent"-->
-<!--                            android:textColor="@color/white"-->
-<!--                            android:textSize="16sp" />-->
-<!--                    </LinearLayout>-->
-
-<!--                </androidx.cardview.widget.CardView>-->
 
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="25dp"
                     android:layout_gravity="bottom"
                     android:background="@drawable/cardview_top_corners_rounded" />
-
 
             </FrameLayout>
 
@@ -287,8 +255,8 @@
                     android:layout_marginVertical="21dp"
                     android:layout_marginLeft="12dp"
                     android:layout_weight="1"
-                    app:tint="@color/item_indicator_img"
-                    android:src="@drawable/ic_quyosh" />
+                    android:src="@drawable/ic_quyosh"
+                    app:tint="@color/item_indicator_img" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -354,8 +322,8 @@
                     android:layout_marginVertical="21dp"
                     android:layout_marginLeft="12dp"
                     android:layout_weight="1"
-                    app:tint="@color/item_indicator_img"
-                    android:src="@drawable/ic_iftorlik" />
+                    android:src="@drawable/ic_iftorlik"
+                    app:tint="@color/item_indicator_img" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -415,8 +383,8 @@
                     android:layout_marginVertical="21dp"
                     android:layout_marginLeft="12dp"
                     android:layout_weight="1"
-                    app:tint="@color/item_indicator_img"
-                    android:src="@drawable/ic_taroveh" />
+                    android:src="@drawable/ic_taroveh"
+                    app:tint="@color/item_indicator_img" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -479,6 +447,12 @@
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_duo"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
                 <LinearLayout
                     android:id="@+id/tv_ogiz_yopish"
                     android:layout_width="match_parent"
@@ -668,8 +642,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="start|center_vertical"
-                            android:textColor="#99263238"
                             android:text="Bomdod/Fajr"
+                            android:textColor="#99263238"
                             android:textSize="14sp" />
 
                         <TextView
@@ -694,8 +668,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="start|center_vertical"
-                            android:textColor="#99263238"
                             android:text="Peshin/Zuhr"
+                            android:textColor="#99263238"
                             android:textSize="14sp" />
 
                         <TextView
@@ -720,8 +694,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="start|center_vertical"
-                            android:textColor="#99263238"
                             android:text="Asr/Asr"
+                            android:textColor="#99263238"
                             android:textSize="14sp" />
 
                         <TextView
@@ -746,8 +720,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="start|center_vertical"
-                            android:textColor="#99263238"
                             android:text="Shom/Mag`rib"
+                            android:textColor="#99263238"
                             android:textSize="14sp" />
 
                         <TextView
@@ -771,8 +745,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="start|center_vertical"
-                            android:textColor="#99263238"
                             android:text="Xufton/Isha"
+                            android:textColor="#99263238"
                             android:textSize="14sp" />
 
                         <TextView

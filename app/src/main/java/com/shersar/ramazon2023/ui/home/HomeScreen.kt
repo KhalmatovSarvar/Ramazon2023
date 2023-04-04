@@ -41,7 +41,6 @@ class HomeScreen : Fragment(R.layout.screen_home) {
     }
 
 
-
     private fun initView() {
         val imageView = binding.ivIndiaMorning
         val calendar = Calendar.getInstance()
@@ -70,9 +69,14 @@ class HomeScreen : Fragment(R.layout.screen_home) {
     }
 
     @SuppressLint("SetTextI18n")
-    private fun setUpTimes(day: DailyPrayerTimesEntity){
+    private fun setUpTimes(day: DailyPrayerTimesEntity) {
         binding.apply {
-            tvDayHijriy.text = "${String.format("%02d", day.day.toInt())}.${String.format("%02d", day.monthNumber)}.${day.year}"
+            tvDayHijriy.text = "${String.format("%02d", day.day.toInt())}.${
+                String.format(
+                    "%02d",
+                    day.monthNumber
+                )
+            }.${day.year}"
             tvDayQamariy.text = "${day.dayHijri} ${day.monthNameEN} ${day.yearHijri}"
 
             tvSaharlik.text = day.fajr.split(" ")[0]
