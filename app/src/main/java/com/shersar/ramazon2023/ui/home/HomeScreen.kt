@@ -20,6 +20,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import viewBinding
+import java.util.*
 
 @AndroidEntryPoint
 class HomeScreen : Fragment(R.layout.screen_home) {
@@ -45,6 +46,13 @@ class HomeScreen : Fragment(R.layout.screen_home) {
 
     private fun initView() {
         location = requireActivity().getSharedPreferences("MyPref", Context.MODE_PRIVATE).getString("location", "Tashkent") ?: "Tashkent"
+        val imageView = binding.ivIndiaMorning
+        val calendar = Calendar.getInstance()
+        when (calendar.get(Calendar.HOUR_OF_DAY)) {
+            in 6..12 -> imageView.setImageResource(R.drawable.im_india_day)
+            in 13..19 -> imageView.setImageResource(R.drawable.im_india_sunset)
+            else -> imageView.setImageResource(R.drawable.im_india_night)
+        }
         binding.apply {
             tvLocation.text = location
             flOgizYopish.setOnClickListener {

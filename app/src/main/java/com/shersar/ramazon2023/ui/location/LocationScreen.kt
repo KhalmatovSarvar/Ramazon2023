@@ -18,6 +18,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.content.ContextCompat.registerReceiver
 import androidx.fragment.app.Fragment
@@ -149,31 +150,29 @@ class LocationScreen : Fragment(R.layout.screen_location) {
         binding.llChoose.setOnClickListener {
             if (count % 2 == 1) {
                 binding.ivDownArrow
-                    .setImageResource(R.drawable.ic_arrow_down)
-                binding.rv.visibility = View.VISIBLE
+                    .setImageResource(R.drawable.ic_downn)
+                binding.nested.visibility = View.VISIBLE
+                binding.tvLocationn.visibility = View.VISIBLE
+                binding.img.visibility = View.GONE
+                binding.tvLocation.visibility = View.GONE
                 count++
             } else {
                 binding.ivDownArrow
-                    .setImageResource(R.drawable.ic_up_arrow)
-                binding.rv.visibility = View.GONE
+                    .setImageResource(R.drawable.ic_upp)
+                binding.ivDownArrow.setColorFilter(ContextCompat.getColor(requireContext(), R.color.writter))
+                binding.nested.visibility = View.GONE
+                binding.tvLocationn.visibility = View.GONE
+                binding.img.visibility = View.VISIBLE
+                binding.tvLocation.visibility = View.VISIBLE
                 count++
             }
         }
 
         binding.switchCompatLoc.setOnClickListener {
-            if (binding.switchCompatLoc.isChecked) {
-
-                binding.switchCompatLoc.thumbTintList =
-                    ColorStateList.valueOf(resources.getColor(R.color.background))
-                binding.switchCompatLoc.trackTintList =
-                    ColorStateList.valueOf(resources.getColor(R.color.for_switch_true))
-                checkLocationPermission()
-            } else {
-                binding.switchCompatLoc.thumbTintList =
-                    ColorStateList.valueOf(resources.getColor(R.color.card_background_day))
-                binding.switchCompatLoc.trackTintList =
-                    ColorStateList.valueOf(resources.getColor(R.color.for_switch_false))
-            }
+            checkLocationPermission()
+        }
+        binding.tvOpenMap.setOnClickListener {
+            Toast.makeText(requireContext(), "Tez kunda", Toast.LENGTH_SHORT).show()
         }
 
     }
@@ -436,4 +435,5 @@ class LocationScreen : Fragment(R.layout.screen_location) {
         }
         return list
     }
+
 }

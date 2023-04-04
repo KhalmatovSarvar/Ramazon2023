@@ -73,46 +73,13 @@
                         android:textColor="@color/white"
                         android:textSize="16sp" />
                 </LinearLayout>
-<!--                <androidx.cardview.widget.CardView-->
-<!--                    android:layout_width="111dp"-->
-<!--                    android:layout_height="40dp"-->
-<!--                    android:layout_gravity="top|right"-->
-<!--                    android:layout_marginTop="30dp"-->
-<!--                    android:layout_marginRight="16dp"-->
-<!--                    android:backgroundTint="#19000000">-->
 
-<!--                    <LinearLayout-->
-<!--                        android:id="@+id/ll_location"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="match_parent"-->
-<!--                        android:orientation="horizontal">-->
-
-<!--                        <ImageView-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:layout_gravity="center_vertical"-->
-<!--                            android:paddingLeft="5dp"-->
-<!--                            android:src="@drawable/ic_location" />-->
-
-<!--                        <TextView-->
-<!--                            android:id="@+id/tv_location"-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:layout_gravity="center_vertical"-->
-<!--                            android:layout_weight="1"-->
-<!--                            android:text="Tashkent"-->
-<!--                            android:textColor="@color/white"-->
-<!--                            android:textSize="16sp" />-->
-<!--                    </LinearLayout>-->
-
-<!--                </androidx.cardview.widget.CardView>-->
 
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="25dp"
                     android:layout_gravity="bottom"
                     android:background="@drawable/cardview_top_corners_rounded" />
-
 
             </FrameLayout>
 
@@ -483,6 +450,12 @@
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_duo"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
                 <LinearLayout
                     android:id="@+id/tv_ogiz_yopish"
                     android:layout_width="match_parent"
