@@ -1,10 +1,12 @@
 package com.shersar.ramazon2023.data.local.entity
 
+import android.os.Parcel
+import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "zikr")
-data class ZikrEntity(
+data class Zikr(
     @PrimaryKey(autoGenerate = true)
     val id: Int,
     val uzb_zikr: String,

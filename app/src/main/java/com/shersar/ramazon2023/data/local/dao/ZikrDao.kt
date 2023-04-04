@@ -1,22 +1,21 @@
 package com.shersar.ramazon2023.data.local.dao
 
 import androidx.room.*
-import com.shersar.ramazon2023.data.local.entity.ZikrEntity
-import com.shersar.ramazon2023.model.Zikr
+import com.shersar.ramazon2023.data.local.entity.Zikr
 
 
 @Dao
 interface ZikrDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertZikr(zikr:ZikrEntity)
+    suspend fun insertZikr(zikr: Zikr)
 
-    @Update
-    suspend fun updateCount(zikr:ZikrEntity)
+    @Update(entity = Zikr::class)
+    suspend fun updateCount(zikr: Zikr)
 
     @Query("SELECT * FROM zikr where id=:id")
-    suspend fun getZikrByID(id:Int):Zikr
+    suspend fun getZikrByID(id: Int): Zikr
 
     @Query("SELECT * FROM zikr")
-    suspend fun getAllZikr():List<Zikr>
+    suspend fun getAllZikr(): List<Zikr>
 
 }

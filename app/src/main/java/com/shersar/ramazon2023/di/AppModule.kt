@@ -3,13 +3,20 @@ package com.shersar.ramazon2023.di
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
+import androidx.appcompat.app.AppCompatActivity
+import androidx.drawerlayout.widget.DrawerLayout
+import androidx.hilt.lifecycle.ViewModelInject
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
+import com.shersar.ramazon2023.R
 import com.shersar.ramazon2023.data.local.AppDatabase
 import com.shersar.ramazon2023.data.local.dao.PrayerTimesDao
 import com.shersar.ramazon2023.data.local.dao.ZikrDao
+import com.shersar.ramazon2023.repository.TasbehRepository
 import com.shersar.ramazon2023.repository.dateTimeRepo.DateTimeRepository
 import com.shersar.ramazon2023.repository.dateTimeRepo.DateTimeRepositoryImpl
+import com.shersar.ramazon2023.ui.tasbeh.FragmentAdapter
+import com.shersar.ramazon2023.ui.tasbeh.viewmodel.TasbehViewmodel
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -53,6 +60,17 @@ object AppModule {
         return DateTimeRepositoryImpl()
     }
 
+    @Provides
+    fun provideTasbehRepostory(zikrDao: ZikrDao):TasbehRepository{
+        return TasbehRepository(zikrDao)
+    }
+
+
+    @Provides
+    fun provideTasbehViewmodel(tasbehRepository: TasbehRepository): TasbehViewmodel {
+        return TasbehViewmodel(tasbehRepository)
+    }
+
 
     @Module
     @InstallIn(SingletonComponent::class)
@@ -63,6 +81,20 @@ object AppModule {
         fun provideSharedPreferences(@ApplicationContext context: Context): SharedPreferences {
             return context.getSharedPreferences("MyPrefs", MODE_PRIVATE)
         }
+    }
+
+    @Provides
+    @Singleton
+    fun provideDrawerLayout(context: Context): DrawerLayout {
+        return (context as AppCompatActivity).findViewById(R.id.drawerlayout)
+    }
+
+    @Provides
+    fun provideFragmentAdapter(
+        activity: AppCompatActivity,
+        drawerLayout: DrawerLayout
+    ): FragmentAdapter {
+        return FragmentAdapter(drawerLayout,activity)
     }
 
 

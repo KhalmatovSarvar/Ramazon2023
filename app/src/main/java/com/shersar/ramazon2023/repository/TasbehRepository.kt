@@ -1,9 +1,7 @@
 package com.shersar.ramazon2023.repository
 
-import com.shersar.ramazon2023.data.local.dao.PrayerTimesDao
 import com.shersar.ramazon2023.data.local.dao.ZikrDao
-import com.shersar.ramazon2023.data.local.entity.ZikrEntity
-import com.shersar.ramazon2023.model.Zikr
+import com.shersar.ramazon2023.data.local.entity.Zikr
 import javax.inject.Inject
 
 class TasbehRepository @Inject constructor(
@@ -21,12 +19,11 @@ class TasbehRepository @Inject constructor(
     }
 
     suspend fun updateCount(zikr:Zikr){
-
-        zikrDao.updateCount(zikr as ZikrEntity)
+        zikrDao.updateCount(zikr)
     }
 
     suspend fun addZikr(zikr:Zikr){
-        zikrDao.insertZikr(zikr as ZikrEntity)
+        zikrDao.insertZikr(zikr)
     }
 
 

@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.shersar.ramazon2023.R
-import com.shersar.ramazon2023.model.Zikr
+import com.shersar.ramazon2023.data.local.entity.Zikr
 
 class ItemsAdapter(
     private val context: Context,
