@@ -25,6 +25,7 @@ class LocationRepository @Inject constructor(
             Log.d("LocationRepository", "getMonthlyCalendarFromApi: I am in locationRepo")
 
             if (response.isSuccessful) { // Check if the response is successful
+                prayerTimesDao.clearTimes()
                 val items = response.body() // Extract the list of items from the response body
                 if (items != null && items.data!!.isNotEmpty()) {
                     // Save the list of items to the Room database
@@ -33,7 +34,6 @@ class LocationRepository @Inject constructor(
                     for (i in 0 until items.data.size) {
 
                         Log.d("OBJECTPRAYERTIME", "getMonthlyCalendarFromApi: ${items.data[i]?.date?.gregorian.toString()}")
-
 
                         val prayerTime = DailyPrayerTime(
                             monthNumber = items.data[i]?.date?.gregorian?.month?.number!!.toInt(),

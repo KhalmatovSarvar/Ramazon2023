@@ -16,6 +16,7 @@ import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.content.ContextCompat.registerReceiver
@@ -28,6 +29,12 @@ import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.karumi.dexter.Dexter
+import com.karumi.dexter.PermissionToken
+import com.karumi.dexter.listener.PermissionDeniedResponse
+import com.karumi.dexter.listener.PermissionGrantedResponse
+import com.karumi.dexter.listener.PermissionRequest
+import com.karumi.dexter.listener.single.PermissionListener
 import com.shersar.ramazon2023.R
 import com.shersar.ramazon2023.adapters.BottomSheetAdapter
 import com.shersar.ramazon2023.databinding.ScreenLocationBinding
@@ -83,8 +90,12 @@ class LocationScreen : Fragment(R.layout.screen_location) {
                 checkInternetConnection()
             }
         }
-        requireContext().registerReceiver(connectivityReceiver, IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION))
+        requireContext().registerReceiver(
+            connectivityReceiver,
+            IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION)
+        )
     }
+
     override fun onDestroy() {
         super.onDestroy()
         requireContext().unregisterReceiver(connectivityReceiver)
@@ -96,10 +107,12 @@ class LocationScreen : Fragment(R.layout.screen_location) {
         checkInternetConnection()
         initView()
         setUpObservers()
-        preferences = requireActivity().getSharedPreferences("MyPref", Context.MODE_PRIVATE).edit()}
+        preferences = requireActivity().getSharedPreferences("MyPref", Context.MODE_PRIVATE).edit()
+    }
 
     private fun checkInternetConnection() {
-        val connectivityManager = requireActivity().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val connectivityManager =
+            requireActivity().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val networkInfo = connectivityManager.activeNetworkInfo
         if (networkInfo != null && networkInfo.isConnected) {
             // Internet connection is available
@@ -115,8 +128,7 @@ class LocationScreen : Fragment(R.layout.screen_location) {
             builder.setCancelable(false) // Prevent dialog from being dismissed
             builder.show()
         }
-
-
+    }
 
     private fun initView() {
 
@@ -167,27 +179,69 @@ class LocationScreen : Fragment(R.layout.screen_location) {
     }
 
     private fun checkLocationPermission() {
-        if (ActivityCompat.checkSelfPermission(
-                requireActivity(),
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) == PackageManager.PERMISSION_GRANTED
-        ) {
-            checkGPS()
-            binding.loading.visibility=View.VISIBLE
+        Dexter.withContext(requireContext())
+            .withPermission(Manifest.permission.ACCESS_FINE_LOCATION)
+            .withListener(object : PermissionListener {
+                override fun onPermissionGranted(p0: PermissionGrantedResponse?) {
+                    checkGPS()
+                    binding.loading.visibility = View.VISIBLE
+                }
 
-        } else {
-            binding.switchCompatLoc.isChecked = false
-            binding.switchCompatLoc.thumbTintList =
-                ColorStateList.valueOf(resources.getColor(R.color.card_background_day))
-            binding.switchCompatLoc.trackTintList =
-                ColorStateList.valueOf(resources.getColor(R.color.for_switch_false))
-            ActivityCompat.requestPermissions(
-                requireActivity(),
-                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                100
+                override fun onPermissionDenied(p0: PermissionDeniedResponse?) {
+                    if (p0!!.isPermanentlyDenied) {
+                        val dialog = AlertDialog.Builder(requireActivity()).apply {
+                            setTitle("Permission Denied")
+                            setMessage("Permission to access device location is permanently denied. You need to go to setting to allow to the permission.")
+                            setNegativeButton("Cancel", null)
+                            setPositiveButton(
+                                "Ok"
+                            ) { dialog, which ->
+//                                val intent = Intent().apply {
+//                                    action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
+//                                    data = Uri.fromParts("package", requireActivity().packageName, null)
+//                                }
+                            }
+                        }
+                        dialog.create().show()
+                    } else {
+                        Toast.makeText(
+                            requireContext(),
+                            "Permission denied",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
 
-            )
-        }
+                override fun onPermissionRationaleShouldBeShown(
+                    p0: PermissionRequest?,
+                    p1: PermissionToken?
+                ) {
+                    p1!!.continuePermissionRequest()
+                }
+            }).check()
+
+//        if (ActivityCompat.checkSelfPermission(
+//                requireActivity(),
+//                Manifest.permission.ACCESS_FINE_LOCATION
+//            ) == PackageManager.PERMISSION_GRANTED
+//        ) {
+//            checkGPS()
+//            binding.loading.visibility=View.VISIBLE
+//
+//        } else {
+//            binding.switchCompatLoc.isChecked = false
+//            binding.switchCompatLoc.thumbTintList =
+//                ColorStateList.valueOf(resources.getColor(R.color.card_background_day))
+//            binding.switchCompatLoc.trackTintList =
+//                ColorStateList.valueOf(resources.getColor(R.color.for_switch_false))
+//            ActivityCompat.requestPermissions(
+//                requireActivity(),
+//                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+//                100
+//
+//            )
+//        }
+
     }
 
     private fun checkGPS() {
@@ -254,7 +308,10 @@ class LocationScreen : Fragment(R.layout.screen_location) {
                     val address = geocoder.getFromLocation(location.latitude, location.longitude, 1)
                     val address_line = address?.get(0)?.getAddressLine(0)
 
-                    Log.d("Address", "Addresss heree : ${address_line} - ${address?.get(0)?.locality}")
+                    Log.d(
+                        "Address",
+                        "Addresss heree : ${address_line} - ${address?.get(0)?.locality}"
+                    )
 
                     val address_location = address?.get(0)?.getAddressLine(0)
 //                    findNavController().navigate(R.id.homeScreen)

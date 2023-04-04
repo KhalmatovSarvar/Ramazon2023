@@ -1,9 +1,6 @@
 package com.shersar.ramazon2023.data.local.dao
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.shersar.ramazon2023.data.local.entity.DailyPrayerTimesEntity
 
 @Dao
@@ -20,5 +17,8 @@ interface PrayerTimesDao {
 
     @Query("SELECT * FROM Daily_prayer_times where id=:id")
     suspend fun getPrayerTimesById(id: Int): DailyPrayerTimesEntity
+
+    @Query("DELETE FROM Daily_prayer_times")
+    suspend fun clearTimes()
 
 }
