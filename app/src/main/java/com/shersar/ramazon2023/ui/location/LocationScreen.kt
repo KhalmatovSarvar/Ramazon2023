@@ -15,6 +15,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.content.ContextCompat.registerReceiver
 import androidx.fragment.app.Fragment
@@ -142,6 +143,7 @@ class LocationScreen : Fragment(R.layout.screen_location) {
             } else {
                 binding.ivDownArrow
                     .setImageResource(R.drawable.ic_upp)
+                binding.ivDownArrow.setColorFilter(ContextCompat.getColor(requireContext(), R.color.writter))
                 binding.nested.visibility = View.GONE
                 binding.tvLocationn.visibility = View.GONE
                 binding.img.visibility = View.VISIBLE

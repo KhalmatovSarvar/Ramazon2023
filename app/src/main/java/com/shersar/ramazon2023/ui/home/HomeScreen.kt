@@ -17,12 +17,14 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import viewBinding
+import java.util.*
 
 @AndroidEntryPoint
 class HomeScreen : Fragment(R.layout.screen_home) {
 
     private val homeViewModel: HomeViewModel by viewModels()
     private val binding by viewBinding { ScreenHomeBinding.bind(it) }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,6 +43,13 @@ class HomeScreen : Fragment(R.layout.screen_home) {
 
 
     private fun initView() {
+        val imageView = binding.ivIndiaMorning
+        val calendar = Calendar.getInstance()
+        when (calendar.get(Calendar.HOUR_OF_DAY)) {
+            in 6..12 -> imageView.setImageResource(R.drawable.im_india_day)
+            in 13..19 -> imageView.setImageResource(R.drawable.im_india_sunset)
+            else -> imageView.setImageResource(R.drawable.im_india_night)
+        }
         binding.apply {
             flOgizYopish.setOnClickListener {
                 if (tvOgizYopishArab.visibility != View.VISIBLE) {
@@ -56,6 +65,7 @@ class HomeScreen : Fragment(R.layout.screen_home) {
                     tvOgizOchishArab.visibility = View.GONE
                 }
             }
+
         }
     }
 
