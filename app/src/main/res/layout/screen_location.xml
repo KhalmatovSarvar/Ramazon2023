@@ -103,10 +103,10 @@
                 android:id="@+id/iv_down_arrow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_up_arrow"
                 android:layout_gravity="center"
                 android:layout_marginEnd="23dp"
-                app:tint="@color/writter"/>
+                android:src="@drawable/ic_up_arrow"
+                app:tint="@color/writter" />
         </LinearLayout>
 
         <androidx.core.widget.NestedScrollView
@@ -123,22 +123,17 @@
         </androidx.core.widget.NestedScrollView>
     </LinearLayout>
 
+    <com.airbnb.lottie.LottieAnimationView
+        android:visibility="gone"
+        android:id="@+id/loading"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginBottom="60dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/loading_kk" />
 </androidx.constraintlayout.widget.ConstraintLayout>
-    <!--    android:id="@+id/btn_location"-->
-    <!--<TextView-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_marginBottom="20dp"-->
-    <!--android:maxLines="3"-->
-    <!--android:id="@+id/tv_localation"-->
-    <!--android:textSize="16sp"-->
-    <!--android:textColor="@color/black"/>-->
-    <!--<Button-->
 
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_marginHorizontal="70dp"-->
-    <!--app:backgroundTint="@color/background"-->
-    <!--android:text="Mintaqangizni tanlang"-->
-    <!--android:textAllCaps="false"-->
-    <!--    />-->
