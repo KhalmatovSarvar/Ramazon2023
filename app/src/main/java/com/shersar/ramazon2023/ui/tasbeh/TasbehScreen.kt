@@ -197,7 +197,7 @@ class TasbehScreen : Fragment(R.layout.screen_tasbeh) {
     }
 
     private fun initViewPager() {
-//        viewPagerr = binding.viewpager2
+        viewPagerr = binding.viewpager2
         adapterFragments = ViewPagerAdapter(requireActivity())
         val circleIndicator: CircleIndicator3 = binding.circleIndicator
         viewPagerr.adapter = adapterFragments
