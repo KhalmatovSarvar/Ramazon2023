@@ -13,6 +13,7 @@ import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.content.ContextCompat.registerReceiver
@@ -79,8 +80,12 @@ class LocationScreen : Fragment(R.layout.screen_location) {
                 checkInternetConnection()
             }
         }
-        requireContext().registerReceiver(connectivityReceiver, IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION))
+        requireContext().registerReceiver(
+            connectivityReceiver,
+            IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION)
+        )
     }
+
     override fun onDestroy() {
         super.onDestroy()
         requireContext().unregisterReceiver(connectivityReceiver)
@@ -95,7 +100,8 @@ class LocationScreen : Fragment(R.layout.screen_location) {
     }
 
     private fun checkInternetConnection() {
-        val connectivityManager = requireActivity().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val connectivityManager =
+            requireActivity().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val networkInfo = connectivityManager.activeNetworkInfo
         if (networkInfo != null && networkInfo.isConnected) {
             // Internet connection is available
@@ -127,33 +133,29 @@ class LocationScreen : Fragment(R.layout.screen_location) {
         binding.llChoose.setOnClickListener {
             if (count % 2 == 1) {
                 binding.ivDownArrow
-                    .setImageResource(R.drawable.ic_arrow_down)
-                binding.rv.visibility = View.VISIBLE
+                    .setImageResource(R.drawable.ic_downn)
+                binding.nested.visibility = View.VISIBLE
+                binding.tvLocationn.visibility = View.VISIBLE
+                binding.img.visibility = View.GONE
+                binding.tvLocation.visibility = View.GONE
                 count++
             } else {
                 binding.ivDownArrow
-                    .setImageResource(R.drawable.ic_up_arrow)
-                binding.rv.visibility = View.GONE
+                    .setImageResource(R.drawable.ic_upp)
+                binding.nested.visibility = View.GONE
+                binding.tvLocationn.visibility = View.GONE
+                binding.img.visibility = View.VISIBLE
+                binding.tvLocation.visibility = View.VISIBLE
                 count++
             }
         }
 
         binding.switchCompatLoc.setOnClickListener {
-            if (binding.switchCompatLoc.isChecked) {
-
-                binding.switchCompatLoc.thumbTintList =
-                    ColorStateList.valueOf(resources.getColor(R.color.background))
-                binding.switchCompatLoc.trackTintList =
-                    ColorStateList.valueOf(resources.getColor(R.color.for_switch_true))
-                checkLocationPermission()
-            } else {
-                binding.switchCompatLoc.thumbTintList =
-                    ColorStateList.valueOf(resources.getColor(R.color.card_background_day))
-                binding.switchCompatLoc.trackTintList =
-                    ColorStateList.valueOf(resources.getColor(R.color.for_switch_false))
-            }
+            checkLocationPermission()
         }
-
+        binding.tvOpenMap.setOnClickListener {
+            Toast.makeText(requireContext(), "Tez kunda", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun checkLocationPermission() {
@@ -164,14 +166,9 @@ class LocationScreen : Fragment(R.layout.screen_location) {
         ) {
             checkGPS()
             setUpObservers()
-            binding.loading.visibility=View.VISIBLE
+            binding.loading.visibility = View.VISIBLE
 
         } else {
-            binding.switchCompatLoc.isChecked = false
-            binding.switchCompatLoc.thumbTintList =
-                ColorStateList.valueOf(resources.getColor(R.color.card_background_day))
-            binding.switchCompatLoc.trackTintList =
-                ColorStateList.valueOf(resources.getColor(R.color.for_switch_false))
             ActivityCompat.requestPermissions(
                 requireActivity(),
                 arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
@@ -241,13 +238,6 @@ class LocationScreen : Fragment(R.layout.screen_location) {
                 Manifest.permission.ACCESS_COARSE_LOCATION
             ) != PackageManager.PERMISSION_GRANTED
         ) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
             return
         }
         fusedLocationProviderClient.lastLocation.addOnCompleteListener { task ->
