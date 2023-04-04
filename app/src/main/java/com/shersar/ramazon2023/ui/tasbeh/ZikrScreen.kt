@@ -46,10 +46,13 @@ class ZikrScreen @Inject constructor(
 
         setUpObservers()
         updateZikrObserver()
+
+
+        binding.recyclerView.adapter = categoryAdapter
     }
 
     private fun updateZikrObserver(){
-        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+        lifecycleScope.launchWhenStarted {
         tasbehViewmodel.zikrState.collect{ zikr ->
             when(zikr){
                 is UiStateObject.SUCCESS -> {
@@ -70,7 +73,7 @@ class ZikrScreen @Inject constructor(
 
 
     private fun setUpObservers() {
-        viewLifecycleOwner.lifecycleScope.launch {
+        lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 tasbehViewmodel.zikrListState.collect {
                     when (it) {
@@ -78,6 +81,7 @@ class ZikrScreen @Inject constructor(
 
                         }
                         is UiStateList.SUCCESS -> {
+                            list.clear()
                             list.addAll(it.data)
                             categoryAdapter.submitData(list)
                             categoryAdapter.onClick = {
@@ -85,7 +89,6 @@ class ZikrScreen @Inject constructor(
                                 drawerLayout.closeDrawer(GravityCompat.END)
 //                                tasbehViewmodel.getZikrState()
                             }
-                            binding.recyclerView.adapter = categoryAdapter
                         }
                         is UiStateList.ERROR -> {
                         }
