@@ -173,18 +173,14 @@ class TasbehScreen : Fragment(R.layout.screen_tasbeh) {
 
 
     private fun initCounts() {
-
-
         Log.d("@@@@", "Main tasbeh Screen ")
 
         binding.ivMoreVerDot.setOnClickListener {
             val customDialog = CustomDialog(requireContext())
             customDialog.setTitle("Custom Dialog Title")
             customDialog.show()
-
             val window: Window? = customDialog.window
             val wlp: WindowManager.LayoutParams = window!!.attributes
-
             wlp.gravity = Gravity.BOTTOM
             wlp.gravity = Gravity.END
             wlp.flags = wlp.flags and WindowManager.LayoutParams.FLAG_DIM_BEHIND.inv()
@@ -192,6 +188,7 @@ class TasbehScreen : Fragment(R.layout.screen_tasbeh) {
           /** val dialogFragment = ExapleDialog()
             dialogFragment.show(parentFragmentManager, "MyDialogFragment")*/
         }
+
         binding.fmCount.setOnClickListener {
             count++
             binding.tvNowCount.text = count.toString()
@@ -200,15 +197,13 @@ class TasbehScreen : Fragment(R.layout.screen_tasbeh) {
     }
 
     private fun initViewPager() {
-        viewPagerr = binding.viewpager2
+//        viewPagerr = binding.viewpager2
         adapterFragments = ViewPagerAdapter(requireActivity())
-        var circleIndicator: CircleIndicator3 = binding.circleIndicator
-
-
+        val circleIndicator: CircleIndicator3 = binding.circleIndicator
         viewPagerr.adapter = adapterFragments
-
         // Set the CircleIndicator with ViewPager2
-        circleIndicator.setViewPager(viewPagerr)
+        Toast.makeText(requireContext(), "jhgj", Toast.LENGTH_SHORT).show()
+        binding.circleIndicator.setViewPager(binding.viewpager2)
     }
 
     private fun initview() {
@@ -305,7 +300,6 @@ class ViewPagerAdapter(activity: FragmentActivity) : FragmentStateAdapter(activi
         return fragments[position]
     }
 }
-
 
 class FragmentAdapter(
     activity: AppCompatActivity,

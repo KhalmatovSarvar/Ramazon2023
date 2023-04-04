@@ -9,7 +9,7 @@ import com.shersar.ramazon2023.databinding.ScreenItem2Binding
 import com.shersar.ramazon2023.ui.tasbeh.viewmodel.ZikrViewModel
 import viewBinding
 
-class Item2Screen(val viewModel: ZikrViewModel) : Fragment(R.layout.screen_item2) {
+class Item2Screen(private val viewModel: ZikrViewModel) : Fragment(R.layout.screen_item2) {
 
     private val binding by viewBinding { ScreenItem2Binding.bind(it) }
 

@@ -11,7 +11,7 @@ import com.shersar.ramazon2023.ui.tasbeh.viewmodel.SalovatViewModel
 import com.shersar.ramazon2023.ui.tasbeh.viewmodel.ZikrViewModel
 import viewBinding
 
-class Item1Screen(val viewModel: ZikrViewModel) : Fragment(R.layout.screen_item1) {
+class Item1Screen(private val viewModel: ZikrViewModel) : Fragment(R.layout.screen_item1) {
     private var itemText: String? = null
     private val binding by viewBinding { ScreenItem1Binding.bind(it) }
 

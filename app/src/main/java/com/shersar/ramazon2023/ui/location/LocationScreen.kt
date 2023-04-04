@@ -1,19 +1,21 @@
 package com.shersar.ramazon2023.ui.location
 
 import android.Manifest
-import android.app.Activity
-import android.content.Intent
-import android.content.IntentSender
+import android.content.*
+import android.net.ConnectivityManager
+import androidx.appcompat.app.AlertDialog
 import android.content.pm.PackageManager
 import android.content.res.ColorStateList
 import android.location.Geocoder
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
-import android.widget.Toast
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat.getSystemService
+import androidx.core.content.ContextCompat.registerReceiver
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -26,7 +28,6 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.shersar.ramazon2023.R
 import com.shersar.ramazon2023.adapters.BottomSheetAdapter
 import com.shersar.ramazon2023.databinding.ScreenLocationBinding
-import com.shersar.ramazon2023.databinding.ScreenSettingsBinding
 import com.shersar.ramazon2023.model.Bottomsheet
 import com.shersar.ramazon2023.utils.UiStateList
 import com.shersar.ramazon2023.utils.UiStateObject
@@ -45,6 +46,7 @@ class LocationScreen : Fragment(R.layout.screen_location) {
     private val locationViewModel: LocationViewModel by viewModels()
     private lateinit var adapter: BottomSheetAdapter
     private lateinit var recyclerView: RecyclerView
+    private lateinit var connectivityReceiver: BroadcastReceiver
     lateinit var locationRequest: LocationRequest
     lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     private var list = arrayListOf<Bottomsheet>()
@@ -71,15 +73,46 @@ class LocationScreen : Fragment(R.layout.screen_location) {
         super.onCreate(savedInstanceState)
 
         locationViewModel.getAllPrayerTimesFromDb()
+        // Register broadcast receiver to listen for network changes
+        connectivityReceiver = object : BroadcastReceiver() {
+            override fun onReceive(context: Context?, intent: Intent?) {
+                checkInternetConnection()
+            }
+        }
+        requireContext().registerReceiver(connectivityReceiver, IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION))
+    }
+    override fun onDestroy() {
+        super.onDestroy()
+        requireContext().unregisterReceiver(connectivityReceiver)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        checkInternetConnection()
         initView()
-        setUpObservers()
 
     }
+
+    private fun checkInternetConnection() {
+        val connectivityManager = requireActivity().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val networkInfo = connectivityManager.activeNetworkInfo
+        if (networkInfo != null && networkInfo.isConnected) {
+            // Internet connection is available
+            // Your code to handle the internet connection
+        } else {
+            // Internet connection is not available
+            val builder = AlertDialog.Builder(requireContext())
+            builder.setTitle("Internet aloqasi mavjud emas!")
+            builder.setMessage("Internetga ulanish yo'q, aloqa holatini tekshiring.")
+            builder.setPositiveButton("OK") { dialog, which ->
+                checkInternetConnection() // Recursively check for internet connection
+            }
+            builder.setCancelable(false) // Prevent dialog from being dismissed
+            builder.show()
+        }
+    }
+
 
     private fun initView() {
 
@@ -130,9 +163,11 @@ class LocationScreen : Fragment(R.layout.screen_location) {
             ) == PackageManager.PERMISSION_GRANTED
         ) {
             checkGPS()
+            setUpObservers()
+            binding.loading.visibility=View.VISIBLE
 
         } else {
-            binding.switchCompatLoc.isChecked=false
+            binding.switchCompatLoc.isChecked = false
             binding.switchCompatLoc.thumbTintList =
                 ColorStateList.valueOf(resources.getColor(R.color.card_background_day))
             binding.switchCompatLoc.trackTintList =
@@ -344,4 +379,5 @@ class LocationScreen : Fragment(R.layout.screen_location) {
         }
         return list
     }
+
 }
