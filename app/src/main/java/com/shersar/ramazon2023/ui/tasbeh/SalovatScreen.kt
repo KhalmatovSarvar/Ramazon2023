@@ -18,6 +18,7 @@ import com.shersar.ramazon2023.data.local.entity.Zikr
 import com.shersar.ramazon2023.databinding.ScreenSalovatBinding
 import com.shersar.ramazon2023.ui.tasbeh.viewmodel.TasbehViewmodel
 import com.shersar.ramazon2023.utils.UiStateList
+import com.shersar.ramazon2023.utils.UiStateObject
 import kotlinx.coroutines.launch
 import viewBinding
 import javax.inject.Inject
@@ -34,10 +35,12 @@ class SalovatScreen@Inject constructor(
         binding.apply {
             recyclerView.adapter = adapter
         }
+
         tasbehViewmodel.getAllZikr()
         setUpObservers()
-
+      //  updateZikrObservers()
     }
+
 
     private fun setUpObservers() {
 

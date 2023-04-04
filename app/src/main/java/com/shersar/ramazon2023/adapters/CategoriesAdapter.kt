@@ -29,7 +29,6 @@ class CategoriesAdapter (
     }
 
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
-         holder.bind(dif.currentList[position])
         val Items = dif.currentList[position]
         holder.uzb.text = Items.uzb_zikr
         holder.arab.text = Items.arab_zikr
@@ -54,7 +53,7 @@ class CategoriesAdapter (
 
     fun submitData(list: List<Zikr>) {
         dif.submitList(list)
-        Log.d("DIFLIST", "submitData: ${list[1].today_zikr}")
+        Log.d("DIFLIST", "submitData: ${list}")
     }
 
     inner class CategoryViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -76,11 +75,8 @@ class CategoriesAdapter (
     companion object {
         private val ITEM_DIF = object : DiffUtil.ItemCallback<Zikr>() {
 
-            override fun areItemsTheSame(
-                oldItem: Zikr,
-                newItem: Zikr
-            ): Boolean =
-                oldItem == newItem
+            override fun areItemsTheSame(oldItem: Zikr, newItem: Zikr): Boolean =
+                oldItem.id == newItem.id && oldItem.today_zikr == newItem.today_zikr
 
             override fun areContentsTheSame(
                 oldItem: Zikr,

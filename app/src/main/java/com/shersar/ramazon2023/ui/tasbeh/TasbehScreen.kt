@@ -160,7 +160,6 @@ class TasbehScreen : Fragment(R.layout.screen_tasbeh) {
 
     override fun onResume() {
         super.onResume()
-        viewModelTasbeh.getAllZikr()
         Log.d("@@@", "Tasbeh on resume")
     }
 

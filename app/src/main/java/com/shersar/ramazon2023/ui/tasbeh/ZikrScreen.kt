@@ -21,6 +21,7 @@ import com.shersar.ramazon2023.utils.UiStateList
 import com.shersar.ramazon2023.utils.UiStateObject
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import viewBinding
 import javax.inject.Inject
@@ -31,51 +32,42 @@ class ZikrScreen @Inject constructor(
 ) :
     Fragment(R.layout.screen_zikr) {
     private val tasbehViewmodel: TasbehViewmodel by activityViewModels()
-    private val adapter by lazy { CategoriesAdapter() }
+    private val categoryAdapter by lazy { CategoriesAdapter() }
     private var list = mutableListOf<Zikr>()
     private val binding by viewBinding { ScreenZikrBinding.bind(it) }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        tasbehViewmodel.getAllZikr()
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.apply {
-            recyclerView.adapter = adapter
-        }
 
         setUpObservers()
-        updateZikrObservers()
+        updateZikrObserver()
     }
 
-    override fun onResume() {
-        super.onResume()
-        Log.d("TAG", "onResume: ok")
-        tasbehViewmodel.getAllZikr()
-    }
-
-     private fun updateZikrObservers(){
-         viewLifecycleOwner.lifecycleScope.launch{
-             repeatOnLifecycle(Lifecycle.State.STARTED){
-                 tasbehViewmodel.zikrState.collect{zikr ->
-                    when(zikr){
-                        is UiStateObject.SUCCESS -> {
-                            list.firstOrNull {it == zikr.data}?.let { zikr2 ->
-                                val updatedZikr = zikr2.copy(
-                                    id = zikr2.id,
-                                    today_zikr = zikr2.today_zikr
-                                )
-                                list[list.indexOf(zikr2)] = updatedZikr
-                                adapter.submitData(list)
-                            }
-                        }
+    private fun updateZikrObserver(){
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+        tasbehViewmodel.zikrState.collect{ zikr ->
+            when(zikr){
+                is UiStateObject.SUCCESS -> {
+                    list.find {it.id == zikr.data.id}?.let { zikr2 ->
+                        val updatedZikr = zikr2.copy(
+                            id = zikr.data.id,
+                            today_zikr = zikr.data.today_zikr
+                        )
+                        list[list.indexOf(zikr2)] = updatedZikr
+                        categoryAdapter.submitData(list)
                     }
-                 }
-             }
-         }
-     }
+                    binding.recyclerView.adapter = categoryAdapter
+                }
+            }
+        }
+        }
+    }
+
 
     private fun setUpObservers() {
         viewLifecycleOwner.lifecycleScope.launch {
@@ -87,14 +79,13 @@ class ZikrScreen @Inject constructor(
                         }
                         is UiStateList.SUCCESS -> {
                             list.addAll(it.data)
-                            adapter.submitData(list)
-                            adapter.onClick = {
-                            Log.d("ZIKRSCREEN", "${it.today_zikr.toString()}")
+                            categoryAdapter.submitData(list)
+                            categoryAdapter.onClick = {
                                 tasbehViewmodel.setZikrState(it)
-                                Log.d("ZIKRSCREEN", "CODE reached here: ")
                                 drawerLayout.closeDrawer(GravityCompat.END)
 //                                tasbehViewmodel.getZikrState()
                             }
+                            binding.recyclerView.adapter = categoryAdapter
                         }
                         is UiStateList.ERROR -> {
                         }
@@ -102,6 +93,8 @@ class ZikrScreen @Inject constructor(
                     }
 
                 }
+
+
             }
         }
 
