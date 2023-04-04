@@ -1,7 +1,7 @@
 package com.shersar.ramazon2023.model
 
 class Bottomsheet(
-    var city_name: String,
+    var city_name: Location,
     var isSelected: Boolean
 
 ) {

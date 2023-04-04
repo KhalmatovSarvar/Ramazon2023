@@ -47,10 +47,11 @@
 
                 <LinearLayout
                     android:id="@+id/ll_location"
-                    android:layout_width="111dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="40dp"
                     android:background="@drawable/bg_location"
                     android:layout_gravity="top|end"
+                    android:paddingHorizontal="8dp"
                     android:layout_marginTop="30dp"
                     android:layout_marginEnd="16dp"
                     android:orientation="horizontal">
@@ -59,12 +60,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:paddingLeft="5dp"
                         app:tint="@color/white"
                         android:src="@drawable/ic_location" />
                     <TextView
                         android:id="@+id/tv_location"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_marginStart="10.5dp"

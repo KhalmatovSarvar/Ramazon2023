@@ -1,6 +1,7 @@
 package com.shersar.ramazon2023.ui.home
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -25,6 +26,7 @@ class HomeScreen : Fragment(R.layout.screen_home) {
 
     private val homeViewModel: HomeViewModel by viewModels()
     private val binding by viewBinding { ScreenHomeBinding.bind(it) }
+    private lateinit var location: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,7 +44,9 @@ class HomeScreen : Fragment(R.layout.screen_home) {
 
 
     private fun initView() {
+        location = requireActivity().getSharedPreferences("MyPref", Context.MODE_PRIVATE).getString("location", "Tashkent") ?: "Tashkent"
         binding.apply {
+            tvLocation.text = location
             flOgizYopish.setOnClickListener {
                 if (tvOgizYopishArab.visibility != View.VISIBLE) {
                     tvOgizYopishArab.visibility = View.VISIBLE

@@ -1,9 +1,9 @@
 package com.shersar.ramazon2023.ui.location
 
 import android.Manifest
-import android.app.Activity
-import android.content.Intent
+import android.content.Context
 import android.content.IntentSender
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.content.res.ColorStateList
 import android.location.Geocoder
@@ -12,7 +12,6 @@ import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
-import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -26,14 +25,13 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.shersar.ramazon2023.R
 import com.shersar.ramazon2023.adapters.BottomSheetAdapter
 import com.shersar.ramazon2023.databinding.ScreenLocationBinding
-import com.shersar.ramazon2023.databinding.ScreenSettingsBinding
 import com.shersar.ramazon2023.model.Bottomsheet
+import com.shersar.ramazon2023.model.Location
 import com.shersar.ramazon2023.utils.UiStateList
 import com.shersar.ramazon2023.utils.UiStateObject
 import com.shersar.ramazon2023.utils.navigateSafely
 import com.shersar.ramazon2023.viewmodel.LocationViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 import viewBinding
 import java.io.IOException
 import java.util.*
@@ -41,6 +39,7 @@ import kotlin.collections.ArrayList
 
 @AndroidEntryPoint
 class LocationScreen : Fragment(R.layout.screen_location) {
+    private lateinit var preferences: SharedPreferences.Editor
 
     private val locationViewModel: LocationViewModel by viewModels()
     private lateinit var adapter: BottomSheetAdapter
@@ -50,19 +49,19 @@ class LocationScreen : Fragment(R.layout.screen_location) {
     private var list = arrayListOf<Bottomsheet>()
     private var data =
         arrayOf(
-            "Toshkent",
-            "Andijon",
-            "Namangan",
-            "Farg'ona",
-            "Jizzax",
-            "Sirdaryo",
-            "Samarqand",
-            "Qashqadaryo",
-            "Surxondaryo",
-            "Navoiy",
-            "Xiva",
-            "Urganch",
-            "Buxoro"
+            Location("Toshkent", 41.2842, 69.2441),
+            Location("Andijon", 40.7814, 72.3578),
+            Location("Namangan", 41.0522, 71.6465),
+            Location("Farg'ona", 40.3694, 71.7989),
+            Location("Jizzax", 40.1214, 67.9031),
+            Location("Sirdaryo", 40.8346, 68.6783),
+            Location("Samarqand", 39.7483, 66.8888),
+            Location("Qashqadaryo", 38.8555, 65.7783),
+            Location("Surxondaryo", 37.2880, 67.3164),
+            Location("Navoiy", 40.1012, 65.3885),
+            Location("Xiva", 41.3906, 60.3481),
+            Location("Urganch", 41.5352, 60.6313),
+            Location("Buxoro", 39.7669, 64.4587)
         )
     private val binding by viewBinding { ScreenLocationBinding.bind(it) }
     private lateinit var bottomSheet1: BottomSheetDialog
@@ -78,6 +77,7 @@ class LocationScreen : Fragment(R.layout.screen_location) {
 
         initView()
         setUpObservers()
+        preferences = requireActivity().getSharedPreferences("MyPref", Context.MODE_PRIVATE).edit()
 
     }
 
@@ -88,6 +88,12 @@ class LocationScreen : Fragment(R.layout.screen_location) {
 
         recyclerView = binding.rv
         adapter = BottomSheetAdapter(getData())
+        adapter.onClick = {
+            preferences.putString("location", it.address)
+            preferences.apply()
+            openHomePage(it.lat, it.long)
+        }
+
         recyclerView.adapter = adapter
         var count = 1
 
@@ -145,20 +151,6 @@ class LocationScreen : Fragment(R.layout.screen_location) {
             )
         }
     }
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-
-        Log.d("Permission", "Granted")
-        if (requestCode == 100) {
-            checkLocationPermission()
-        }
-    }
-
 
     private fun checkGPS() {
         locationRequest = LocationRequest.create()
@@ -220,13 +212,18 @@ class LocationScreen : Fragment(R.layout.screen_location) {
             if (location != null) {
                 try {
                     val geocoder = Geocoder(requireContext(), Locale.getDefault())
+
                     val address = geocoder.getFromLocation(location.latitude, location.longitude, 1)
                     val address_line = address?.get(0)?.getAddressLine(0)
+
+                    Log.d("Address", "Addresss heree : ${address_line} - ${address?.get(0)?.locality}")
 
                     val address_location = address?.get(0)?.getAddressLine(0)
 //                    findNavController().navigate(R.id.homeScreen)
                     // openLocation(address_location.toString())
 
+                    preferences.putString("location", address?.get(0)?.locality)
+                    preferences.apply()
                     openHomePage(location.latitude, location.longitude)
                 } catch (e: IOException) {
                 }
