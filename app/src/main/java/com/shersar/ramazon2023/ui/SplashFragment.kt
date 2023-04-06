@@ -11,6 +11,7 @@ import androidx.annotation.RequiresApi
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.shersar.ramazon2023.R
+import com.shersar.ramazon2023.activity.MainActivity
 import com.shersar.ramazon2023.data.local.entity.Zikr
 import com.shersar.ramazon2023.databinding.FragmentSplashBinding
 import com.shersar.ramazon2023.utils.UiStateList
@@ -31,12 +32,12 @@ class SplashFragment : Fragment(R.layout.fragment_splash) {
         super.onCreate(savedInstanceState)
 
         splashViewModel.getAllPrayerTimesFromDb()
+        splashViewModel.getAllZikr()
     }
 
     @RequiresApi(Build.VERSION_CODES.P)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         setUpObservers()
     }
 
@@ -81,9 +82,13 @@ class SplashFragment : Fragment(R.layout.fragment_splash) {
         //zikrObservers
 
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
-            splashViewModel.zikrListState.collect { zikrSate ->
-                when(zikrSate){
+            splashViewModel.zikrListState.collect { zikrListSate ->
+                when(zikrListSate){
                     is UiStateList.SUCCESS ->{
+                        Log.d("SPLASHFRAGMENT", "setUpObservers: i am success ")
+                        for (i in 0 until zikrList.size){
+//                           splashViewModel.resetCurrentZikr(i)
+                        }
 
                     }
                     is UiStateList.LOADING->{
@@ -91,11 +96,13 @@ class SplashFragment : Fragment(R.layout.fragment_splash) {
                     }
                     is UiStateList.ERROR->{
                         // Handle error
-                        val errorMessage = zikrSate.message
-                        Log.d("ZIKRSTATE", "setUpObserversError: $errorMessage ")
+                        val errorMessage = zikrListSate.message
+                        Log.d("SPLASHFRAGMENT", "setUpObserversError: $errorMessage ")
                     }
                     UiStateList.EMPTY -> {
+                        Log.d("SPLASHFRAGMENT", "setUpObservers: i am empty ")
                             splashViewModel.addZikrToDB(zikrList)
+                        (requireActivity() as MainActivity).viewModel.setZikrState(zikrList[0])
 
                     }
 
@@ -104,8 +111,6 @@ class SplashFragment : Fragment(R.layout.fragment_splash) {
         }
 
     }
-
-
     private val zikrList = mutableListOf(
         Zikr(
             1,
@@ -113,7 +118,9 @@ class SplashFragment : Fragment(R.layout.fragment_splash) {
             "سُبْحَانَ اللَّه",
             "Маьноси: Аллоҳни поклаб ёд этаман.",
             "0",
-            "0"
+            "0",
+            "0",
+            ""
         ),
         Zikr(
             2,
@@ -121,7 +128,9 @@ class SplashFragment : Fragment(R.layout.fragment_splash) {
             "الْحَمْدُ لله",
             "Маьноси: Аллоҳга хамд бўлсин.",
             "0",
-            "0"
+            "0",
+            "0",
+            ""
         ),
         Zikr(
             3,
@@ -129,7 +138,9 @@ class SplashFragment : Fragment(R.layout.fragment_splash) {
             "اأَللهُ أَکْبَرُ",
             "Маьноси: Аллоҳ буюкдир.",
             "0",
-            "0"
+            "0",
+            "0",
+            ""
         ),
         Zikr(
             4,
@@ -137,7 +148,9 @@ class SplashFragment : Fragment(R.layout.fragment_splash) {
             "أَسْتَغْفِرُ اللَّهَ",
             "Маъноси: Аллоҳдан кечирим сўрайман.",
             "0",
-            "0"
+            "0",
+            "0",
+            ""
         ),
         Zikr(
             5,
@@ -145,7 +158,9 @@ class SplashFragment : Fragment(R.layout.fragment_splash) {
             "أَسْتَغْفِرُ اللَّهَ وأَتُوبُ إِلَيهِ ",
             "Маъноси: Аллоҳдан кечирим сўрайман ва Унга тавба қиламан.",
             "0",
-            "0"
+            "0",
+            "0",
+            ""
         ),
         Zikr(
             6,
@@ -153,7 +168,9 @@ class SplashFragment : Fragment(R.layout.fragment_splash) {
             "أَسْتَغْفِرُ اللَّهَ الَّذِي لَا إِلَهَ إلَّا هُوَ الْحَيُّ الْقَيُّومُ وأَتُوبُ إِلَيهِ ",
             "Маъноси: Барҳаёт, тирик Аллоҳдан авф этишини сўрайман ва Унга тавба қиламан.",
             "0",
-            "0"
+            "0",
+            "0",
+            ""
         ),
         Zikr(
             7,
@@ -163,7 +180,9 @@ class SplashFragment : Fragment(R.layout.fragment_splash) {
                     "سُبْحَانَ اللهِ الْعَظِيمِ",
             "Маъноси: Аллоҳга ҳамд айтиш билан Уни айбу нуқсонлардан поклаб ёд етаман.",
             "0",
-            "0"
+            "0",
+            "0",
+            ""
         ),
         Zikr(
             8,
@@ -171,7 +190,9 @@ class SplashFragment : Fragment(R.layout.fragment_splash) {
             "يَا مُقَلِّبَ الْقُلُوبِ ثَبِّتْ قَلْبِي عَلَى دِيْنِكَ ",
             "Маъноси: Эй қалбларни ўзгартирувчи, қалбимни динингда собит қил.",
             "0",
-            "0"
+            "0",
+            "0",
+            ""
         ),
         Zikr(
             9,
@@ -179,7 +200,9 @@ class SplashFragment : Fragment(R.layout.fragment_splash) {
             "لَا إِلَهَ إلَّا أَنْتَ سُبْحَانَكَ إَنِّي كُنْتُ مِنَ الظَّالِمِينَ ",
             "Маъноси: Сендан бошқа илоҳ йўқ. Сени поклаб ёд етаман. Албатта мен золимлардан бўлдим.",
             "0",
-            "0"
+            "0",
+            "0",
+            ""
         ),
         Zikr(
             10,
@@ -187,7 +210,9 @@ class SplashFragment : Fragment(R.layout.fragment_splash) {
             "لَا إِلَٰهَ إِلَّا الله",
             "Маьноси: Аллоҳдан ўзга илоҳ йўқ.",
             "0",
-            "0"
+            "0",
+            "0",
+            ""
         ),
         Zikr(
             11,
@@ -195,7 +220,9 @@ class SplashFragment : Fragment(R.layout.fragment_splash) {
             "لَا حَولَ وَلَا قُوَّةَ إَلَّا بِاللَّهِ ",
             "Маъноси: Куч ва қувват ёлғиз Аллоҳдандир.",
             "0",
-            "0"
+            "0",
+            "0",
+            ""
         ),
         Zikr(
             12,
@@ -203,7 +230,9 @@ class SplashFragment : Fragment(R.layout.fragment_splash) {
             "اللَّهُمَّ مَغْفِرَتُكَ أَوْسَعُ مِنْ ذُنُوبِي وَرَحْمَتُكَ أَرْجَى عِنْدِي مِنْ عَمَلِي",
             "Маъноси: Аллоҳим, мағфиратинг гинохимдан кенгроқдир. Раҳматинг ҳузуримдаги амалимдан умидлироқдир.",
             "0",
-            "0"
+            "0",
+            "0",
+            ""
         ),
         Zikr(
             13,
@@ -211,7 +240,9 @@ class SplashFragment : Fragment(R.layout.fragment_splash) {
             "لَا إِلَٰهَ إِلَّا الله مُحَمَّدٌ رَسُولُ اُللَّهِ",
             "Маьнлси: Аллоҳдан ўзга илоҳ йўқ Мухаммад унинг элчиси.",
             "0",
-            "0"
+            "0",
+            "0",
+            ""
         ),
     )
 }

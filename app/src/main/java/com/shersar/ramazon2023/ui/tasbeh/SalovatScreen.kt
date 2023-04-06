@@ -13,6 +13,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.RecyclerView
 import com.shersar.ramazon2023.R
+import com.shersar.ramazon2023.activity.MainActivity
 import com.shersar.ramazon2023.adapters.CategoriesAdapter
 import com.shersar.ramazon2023.data.local.entity.Zikr
 import com.shersar.ramazon2023.databinding.ScreenSalovatBinding
@@ -27,7 +28,6 @@ class SalovatScreen@Inject constructor(
     private val drawerLayout: DrawerLayout
 ) :
     Fragment(R.layout.screen_salovat) {
-    private val tasbehViewmodel: TasbehViewmodel by activityViewModels()
     private val adapter by lazy { CategoriesAdapter() }
     private val binding by viewBinding { ScreenSalovatBinding.bind(it) }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -36,7 +36,7 @@ class SalovatScreen@Inject constructor(
             recyclerView.adapter = adapter
         }
 
-        tasbehViewmodel.getAllZikr()
+        (requireActivity() as MainActivity).viewModel.getAllZikr()
         setUpObservers()
       //  updateZikrObservers()
     }
@@ -46,7 +46,7 @@ class SalovatScreen@Inject constructor(
 
             viewLifecycleOwner.lifecycleScope.launch {
                 viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                    tasbehViewmodel.zikrListState.collect {
+                    (requireActivity() as MainActivity).viewModel.zikrListState.collect {
                         when (it) {
                             is UiStateList.LOADING -> {
 
@@ -54,10 +54,10 @@ class SalovatScreen@Inject constructor(
                             is UiStateList.SUCCESS -> {
                                 adapter.submitData( it.data)
                                 adapter.onClick = {
-                                    tasbehViewmodel.setZikrState(it)
+                                    (requireActivity() as MainActivity).viewModel.setZikrState(it)
                                     Log.d("@@@", "Here -> ${it.uzb_zikr} : ")
                                     drawerLayout.closeDrawer(GravityCompat.END)
-//                                tasbehViewmodel.getZikrState()
+//                                (requireActivity() as MainActivity).viewModel.getZikrState()
                                 }
 
                             }

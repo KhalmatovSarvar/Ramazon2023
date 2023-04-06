@@ -19,7 +19,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
-    private val viewModel: TasbehViewmodel by lazy {
+     val viewModel: TasbehViewmodel by lazy {
         ViewModelProvider(this).get(TasbehViewmodel::class.java)
     }
     private var backPressedCounter = 0
@@ -32,6 +32,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         initView()
+        viewModel.getZikrState()
         //this is initView
     }
 

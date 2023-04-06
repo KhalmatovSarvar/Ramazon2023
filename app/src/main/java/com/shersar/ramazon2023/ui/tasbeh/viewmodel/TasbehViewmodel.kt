@@ -18,7 +18,7 @@ import javax.inject.Inject
 @HiltViewModel
 class TasbehViewmodel @Inject constructor(
     private val tasbehRepository: TasbehRepository
-): ViewModel()  {
+) : ViewModel() {
 
     val _selectedZikr = MutableStateFlow(
         Zikr(
@@ -27,7 +27,9 @@ class TasbehViewmodel @Inject constructor(
             "سُبْحَانَ اللَّه",
             "Маьноси: Аллоҳни поклаб ёд этаман.",
             "0",
-            "0"
+            "0",
+            "0",
+            ""
         )
     )
 
@@ -54,14 +56,7 @@ class TasbehViewmodel @Inject constructor(
         _zikrState.value = UiStateObject.LOADING
         try {
             _zikrState.value = UiStateObject.SUCCESS(
-                Zikr(
-                1,
-                "Субҳаналлоҳ",
-                "سُبْحَانَ اللَّه",
-                "Маьноси: Аллоҳни поклаб ёд этаман.",
-                "0",
-                "0"
-            )
+                tasbehRepository.getZikr(1)
             )
         } catch (e: Exception) {
             _zikrState.value = UiStateObject.ERROR(e.localizedMessage ?: "ERROR_MESSAGE")
@@ -84,6 +79,7 @@ class TasbehViewmodel @Inject constructor(
             if (currentZikrState is UiStateObject.SUCCESS) {
                 val currentZikr = currentZikrState.data
                 val updatedZikr = currentZikr.copy(
+                    current_zikr = (currentZikr.current_zikr.toInt() + 1).toString(),
                     today_zikr = (currentZikr.today_zikr.toInt() + 1).toString(),
                     all_zikr = (currentZikr.all_zikr.toInt() + 1).toString()
                 )
@@ -105,11 +101,30 @@ class TasbehViewmodel @Inject constructor(
         try {
             val listZikr = tasbehRepository.getAllZikrFromDB()
             _zikrListState.value = UiStateList.SUCCESS(listZikr)
-        }catch (e: Exception) {
+        } catch (e: Exception) {
             _zikrListState.value = UiStateList.ERROR(e.localizedMessage ?: "ERROR_MESSAGE")
         }
     }
 
 
+    fun resetTodayZikr(currentDate: String) =
+        viewModelScope.launch {
+            tasbehRepository.resetTodayZikr(currentDate)
+        }
+
+    fun resetCurrentZikr(id: Int) =
+        viewModelScope.launch {
+            val zikr = tasbehRepository.getZikr(id)
+            zikr.current_zikr = "0"
+            tasbehRepository.updateCount(zikr)
+            setZikrState(zikr)
+        }
+
+    fun resetAllCurrentZikrs() =
+        viewModelScope.launch {
+            tasbehRepository.resetAllCurrentZikrs()
+        }
 
 }
+
+

@@ -41,7 +41,7 @@ class SplashViewModel @Inject constructor(
     }
 
 
-    private val _zikrListState = MutableStateFlow<UiStateList<Zikr>>(UiStateList.EMPTY)
+    private val  _zikrListState = MutableStateFlow<UiStateList<Zikr>>(UiStateList.EMPTY)
     val zikrListState: StateFlow<UiStateList<Zikr>>
         get() = _zikrListState
 
@@ -51,6 +51,32 @@ class SplashViewModel @Inject constructor(
                 tasbehRepository.addZikr(zikrList[i])
                 Log.d("ADD ZIK", "addZikrToDB: ${zikrList}")
             }
+        }
+    }
+
+    fun getAllZikr() = viewModelScope.launch {
+        _zikrListState.value = UiStateList.LOADING
+
+        try {
+            val listZikr = tasbehRepository.getAllZikrFromDB()
+            if (listZikr.isEmpty()){
+                _zikrListState.value = UiStateList.EMPTY
+            }else{
+            _zikrListState.value = UiStateList.SUCCESS(listZikr)
+            }
+        }catch (e: Exception) {
+            _zikrListState.value = UiStateList.ERROR(e.localizedMessage ?: "ERROR_MESSAGE")
+        }
+    }
+
+
+    fun resetCurrentZikr(id: Int) = viewModelScope.launch {
+
+        val zikr = tasbehRepository.getZikr(id)
+        Log.d("SplashVIewmodel", "resetCurrentZikr: ${zikr}")
+        zikr.let {
+            it.current_zikr = "0"
+            tasbehRepository.updateCount(it)
         }
     }
 

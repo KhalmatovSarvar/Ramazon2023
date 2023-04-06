@@ -18,4 +18,11 @@ interface ZikrDao {
     @Query("SELECT * FROM zikr")
     suspend fun getAllZikr(): List<Zikr>
 
+    @Query("UPDATE zikr SET today_zikr = '0'")
+    suspend fun updateTodayZikrToZero()
+
+    //This query will update the today_zikr field to 0 for
+    // all records in the zikr table where the date field is not equal to the currentDate parameter.
+    @Query("UPDATE zikr SET today_zikr = '0', date = :currentDate WHERE date != :currentDate")
+    fun resetTodayZikr(currentDate: String)
 }

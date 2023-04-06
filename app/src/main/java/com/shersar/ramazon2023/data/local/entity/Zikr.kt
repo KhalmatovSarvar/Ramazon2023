@@ -12,6 +12,8 @@ data class Zikr(
     val uzb_zikr: String,
     val arab_zikr: String,
     val tarjima: String,
+    var current_zikr: String,
     val today_zikr: String,
-    val all_zikr: String
+    val all_zikr: String,
+    val date:String
 )

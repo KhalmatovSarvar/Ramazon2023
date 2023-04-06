@@ -8,6 +8,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.shersar.ramazon2023.R
+import com.shersar.ramazon2023.activity.MainActivity
 import com.shersar.ramazon2023.data.local.entity.Zikr
 import com.shersar.ramazon2023.databinding.ScreenItem1Binding
 import com.shersar.ramazon2023.ui.tasbeh.viewmodel.TasbehViewmodel
@@ -21,29 +22,28 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class Item1Screen @Inject constructor(
 ) : Fragment(R.layout.screen_item1) {
-    private val tasbehViewmodel: TasbehViewmodel by activityViewModels()
     private var itemText: String? = null
     private val binding by viewBinding { ScreenItem1Binding.bind(it) }
 
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        tasbehViewmodel.getZikrState()
-    }
+//    override fun onCreate(savedInstanceState: Bundle?) {
+//        super.onCreate(savedInstanceState)
+//        (requireActivity() as MainActivity).viewModel.getZikrState()
+//    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         setUpObservers()
 
-//        Log.d("@@@@", "Item 1 Screen ${tasbehViewmodel._homeState.value.uzb_zikr}")
+//        Log.d("@@@@", "Item 1 Screen ${(requireActivity() as MainActivity).viewModel._homeState.value.uzb_zikr}")
 
     }
 
 
     private fun setUpObservers() {
         lifecycleScope.launch {
-            tasbehViewmodel.zikrState.collect { zikr ->
+            (requireActivity() as MainActivity).viewModel.zikrState.collect { zikr ->
                 when(zikr) {
                     is UiStateObject.SUCCESS ->{
                         binding.apply {

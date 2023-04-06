@@ -1,5 +1,6 @@
 package com.shersar.ramazon2023.ui.tasbeh
 
+import android.icu.text.SimpleDateFormat
 import android.os.Bundle
 import android.util.Log
 import android.view.Gravity
@@ -10,38 +11,37 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.shersar.ramazon2023.R
+import com.shersar.ramazon2023.activity.MainActivity
 import com.shersar.ramazon2023.adapters.ViewPagerAdapter
 import com.shersar.ramazon2023.data.local.entity.Zikr
 import com.shersar.ramazon2023.databinding.ScreenTasbehBinding
-import com.shersar.ramazon2023.ui.tasbeh.viewmodel.TasbehViewmodel
 import com.shersar.ramazon2023.utils.CustomDialog
 import com.shersar.ramazon2023.utils.UiStateObject
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.screen_item1.*
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import me.relex.circleindicator.CircleIndicator3
 import viewBinding
+import java.util.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class TasbehScreen : Fragment(R.layout.screen_tasbeh) {
 
     private val binding by viewBinding { ScreenTasbehBinding.bind(it) }
-    private val viewModelTasbeh: TasbehViewmodel by activityViewModels()
     private lateinit var adapterFragments: ViewPagerAdapter
     private lateinit var viewPagerr: ViewPager2
 
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        (requireActivity() as MainActivity).viewModel.resetAllCurrentZikrs()
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -54,12 +54,23 @@ class TasbehScreen : Fragment(R.layout.screen_tasbeh) {
         initCounts()
         setupDarweLayout()
         setupZikrObservers()
+        deleteTodayZikr()
+    }
+
+    private fun deleteTodayZikr() {
+        // Get the current date and format it to match the date field in your Zikr object
+        val currentDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
+
+        // Call the resetTodayZikr function in your ViewModel
+        (requireActivity() as MainActivity).viewModel.resetTodayZikr(currentDate)
+
     }
 
     private fun initview() {
         val header: View
         binding.ivVerMore.setOnClickListener {
             binding.drawerlayout.openDrawer(GravityCompat.END)
+            Log.d("RRR", "Drawer OPENED Tasbeh ${binding.drawerlayout.isDrawerOpen(GravityCompat.END)}")
         }
         binding.apply {
             header = navView.getHeaderView(0)
@@ -121,17 +132,18 @@ class TasbehScreen : Fragment(R.layout.screen_tasbeh) {
         binding.fmCount.setOnClickListener {
             Log.d("UpdatedZikr", "incrementTodayAndAllZikr: button clicked")
 
-            viewModelTasbeh.incrementParams()
+            (requireActivity() as MainActivity).viewModel.incrementParams()
         }
 
     }
 
     private fun setupZikrObservers() {
         lifecycleScope.launch {
-            viewModelTasbeh.zikrState.collect{zikrState->
+            (requireActivity() as MainActivity).viewModel.zikrState.collect{zikrState->
                 when(zikrState){
                     is UiStateObject.SUCCESS->{
                         Log.d("ZIKRSTATE", "setupZikrObservers: ${zikrState.data}")
+                        Log.d("TasbehScreen", "deleteTodayZikr: i reache dhere")
                         showSelectedZikrFields(zikrState.data)
                     }
             }
@@ -142,13 +154,13 @@ class TasbehScreen : Fragment(R.layout.screen_tasbeh) {
     // This method is called when an item is clicked in the RecyclerView
 //    private fun onZikrSelected(zikr: Zikr) {
         // Set the selected Zikr object in the ViewModel
-//        viewModelTasbeh.onZikrSelected(zikr)
+//        (requireActivity() as MainActivity).viewModel.onZikrSelected(zikr)
 //    }
 
     private fun showSelectedZikrFields(zikr: Zikr) {
         binding.apply {
-                tvNowCount.text = zikr.today_zikr
-                tvbeforeCount.text = zikr.all_zikr
+                tvNowCount.text = zikr.current_zikr
+                tvbeforeCount.text = zikr.today_zikr
         }
     }
 
@@ -162,6 +174,7 @@ class TasbehScreen : Fragment(R.layout.screen_tasbeh) {
     override fun onResume() {
         super.onResume()
         Log.d("@@@", "Tasbeh on resume")
+
     }
 
     override fun onStart() {
