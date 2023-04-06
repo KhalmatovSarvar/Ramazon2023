@@ -186,406 +186,406 @@ class QuestionsScreen : Fragment(R.layout.fragment_questions_screen) {
                 "Savol:  Ro’za tutishga qiynaladigan insonlar kimlar? ",
                 "Javob: \nYoshlari ulug’ bo’lib, ro’za tutishga yaramay qolgan kishilar!"
             ),
-            Question(
-                "Savol: Ulamolarimiz ro’za tutishda qiynaladiganlar safiga  kimlarni ham kiritgan?",
-                "Javob: \nTuzalmaydigan,surunkali kasali bor kishilarni!"
-            ),
-            Question(
-                "Savol: Ro’za tutish orqali erishiladigan yaxshiliklarni toping?",
-                "Javob: \n1.Jannatga kirish\n" +
-                        "2.Oliy maqomlarga erishish\n" +
-                        "3.Irodaning kuchli bo’lishi\n" +
-                        "4.Rahm-shavqat sifatining kuchayishi\n" +
-                        "5.Taqvo hissining uyg’onishi\n" +
-                        "6. Sog’lik va salomatlik \n"
-            ),
-            Question(
-                "Savol: . Ro’za farz qilingan sanoqli kunlar qaysi? ",
-                "Javob: \nRamazon oyi!"
-            ),
-            Question(
-                "Savol: Qur’on nozil qilingan oy- …? ",
-                "Javob: \nRamazon oyi!"
-            ),
-            Question(
-                "Savol: Ramazon oyida odamlarga qanday ochiq-oydin hujjatlar bor? ",
-                "Javob: \nHidoyat hamda hidoyatu furqondan iborat ochiq-oydin hujjatlar!"
-            ),
-            Question(
-                "Savol:  Islom shariati qanday  asosga bino qilingan?",
-                "Javob: \nOsonlikka!"
-            ),
-            Question(
-                "Savol: “Yorug’likning ufqda tarqalishi” ni bildiradigan payt qanday nomlanadi?",
-                "Javob: \nFajri sodiq!"
-            ),
-            Question(
-                "Savol: Shariatda Allohga yaqinlik hosil qilish niyatida masjidda ibodatni lozim tutish nima deyiladi? ",
-                "Javob: \n“E’tikof”!"
-            ),
-            Question(
-                "Savol: . “E’tikof” so’zi qanday ma’noni  anglatadi? ",
-                "Javob: \n“Bir narsani lozim tutish”!"
-            ),
-            Question(
-                "Savol: Ro’zaning son-sanoqsiz foydalari ichida  birinchi o’rinda turadiganini toping?",
-                "Javob: \nRo’zaning ro’zadorda taqvo hissini mustahkamlashi!"
-            ),
-            Question(
-                "Savol: . Ro’za ibodatini ado etgan banda jannatga qaysi eshikdan kirish huquqini qo’lga kiritadi? ",
-                "Javob: \n“Rayon” eshigidan!"
-            ),
-            Question(
-                "Savol: Ro’zaga berilgan ta’riflar ...",
-                "Javob: \n1. Alloh taologa qilinadifan toat-ibodat\n" +
-                        "2. Ilkan axloq maktabi\n" +
-                        "3. Nafs balosiga qarshi kurash\n" +
-                        "4.Insonni man qilingan narsalarga sabr qilishga o’rgatadigan amal\n" +
-                        "5.Inson hayotida keladigan mashaqqatlarga chidashga malaka hosil qildiradigan amal\n"
-            ),
-            Question(
-                "Savol: Ro’zaning foydalari ...",
-                " Javob: \n1.\tRo’za tutgan kishing taqvodorligi oshadi. \n" +
-                        "2.\tRo’zador insonga sog’liq ato etiladi.\n" +
-                        "3.\tRo’za havoyi nafsni sindiradi.\n" +
-                        "4.\tRo’za tutish orqali shaytonga  qahr ko’rsatiladi.\n" +
-                        "5.\tRo’za insonning irodasini, qat’iyatini mustahkamlaydi.\n" +
-                        "6.\tRo’za insonni tartib intizomga o’rgatadi.\n"
-            ),
-            Question(
-                "Savol: …- ro’za tutsin ",
-                "Javob: \n1.\tKim qalbi musaffo bo’lishi xohlasa\n" +
-                        "2.\tKim farishtakar safiga ega bo’lishni xohlasa\n" +
-                        "3.\tKim sabr-bardoshl bo’lmoqchi bo’lsa\n" +
-                        "4.\tKim o’zida rahm-shafqat sifatini shakllantirish va mustahkamlashni xohlasa\n"
-            ),
-            Question(
-                "Savol: Tavba surasi 112-oyatida keltirilgan mo’minlarning sifatlari quydagilar ...",
-                "Javob: \n1.\tTavba qiluvchilar\n" +
-                        "2.\tIbodat qiluvchilar\n" +
-                        "3.\tHamd aytuvchilar\n" +
-                        "4.\tRo’za tutuvchilar\n" +
-                        "5.\tRuku qiluvchilar, sajda qiluvchilar \n" +
-                        "6.\tMa’rufga buyurib mukardan qaytaruvchilar\n" +
-                        "7.\tAllohning chegarasida turuvchilar \n"
-            ),
-            Question(
-                "Savol: Ro’zadorning hadisi sharifda keltirilgan ikki hursandchiligi ...",
-                "Javob: \nIftor qilganida hursand bo’ladi va Robbiga ro’baro’ bo’lganida ro’zasi sababli hursand  bo’ladi."
-            ),
-            Question(
-                "Savol: Hadisi sharifga ko’ra ro’zador o’g’zining hidi Alloh uchun qanday hiddan ham yoqimliroqdir.",
-                "Javob: \nMushk hididan ham"
-            ),
-            Question(
-                "Savol:  Qiyomat kuni faqat ro’zadorlar kiradigan Jannat eshigining nomini toping?",
-                "Javob: \nRayyon"
-            ),
-            Question(
-                "Savol: Hadisi sharifga ko’ra, ro’zador odam qanday holatda ibodatda bo’ladi? ",
-                "Javob: \nBiror musulmonni g’iybat qilmasa, ozor bermasa"
-            ),
-            Question(
-                "Savol: Abu Hurayra roziyallohu anhudan rivoyat qilingan ushbu hadisi sharifda tushurib qoldirilgan so’zlarni toping?" +
-                        "“Rasululloh sollallohu alayhi vasallam:\n" +
-                        "“ Kim … ni va …ni qo’ymasa, Alloh uning taoimi va ichimligini tark etishiga muhtoj emas”, deganlar” Buxoriy rivoyat qilgan.\n",
-                "Javob: \nYolg’on gapirishni va unga amal qilishni  qo’ymasa"
-            ),
-            Question(
-                "Savol: Jobir roziyallohu anhudan rivoyat qilingan ushbu hadisi sharifda tushurib qoldirilgan so’zni toping?" +
-                        "“Bir odam Nabiy sollallohu alayhi vasallamga: “Ayting-chi, farz namozlarini o’qisam,Ramazon ro’zasini" +
-                        " tutsam, halolni halol, haromni harom deb balsam va bunga hech narsani ziyoda qilmasam, Jannatga kiramanmi?” dedi." +
-                        " U Zot: “…”,dedilar. “Allohga qasamki,unga hech narsani ziyoda qilmayman”, dedi”. Muslim rivoyat qilgan.",
-                "Javob: \nHa "
-            ),
-            Question(
-                "Savol: Ahli haqning oldida ro’zaning darajasi nechta?",
-                "Javob: \n3 ta: Ommaning ro’zasi, xoslarning ro’zasi va xoslardan ham xoslarning ro’zasi "
-            ),
-            Question(
-                "Savol: “Qorin va farjning istak-xohishlaridan tiyilish” ro’zaning qaysi darajasi? ",
-                "Javob: \nOmmaning ro’zasi "
-            ),
-            Question(
-                "Savol: “Birinchi darajadan ko’ra ziyoda o’laroq ko’z,  quloq, tilni, oyoq qo’l va boshqa narsalarni ham gunohlardan tiyish” ro’zaning qaysi darajasi?",
-                "Javob: \nXoslarning ro’zasi "
-            ),
-            Question(
-                "Savol: “Ikki darajadan ham ziyoda o’laroq, qalbni behuda qiziqishlardan, dunyoviy fikrlardan" +
-                        " va Alloh taolodan boshqa narsalardan tiyishdan iborat” bo’lgan ro’za darajasini toping. ",
-                "Javob: \nXoslardan ham xoslarning ro’zasi"
-            ),
-            Question(
-                "Savol: Xoslarning ro’zasi yana qanday nom nilan ham nomlanadi? ",
-                "Javob: \nSolihlar ro’zasi "
-            ),
-            Question(
-                "Savol: Bishr ibn Horis rahmarullohi alayhdan rivoyat qilinishicha, Sufyon Savriy qanday amal ro’zani buzishi haqida ta’kidlaganlar? ",
-                "Javob: \nG’iybat "
-            ),
-            Question(
-                "Savol: Mujohid qanday  2 xislat ro’zani buzishi haqida ta’kidlaganlar?  ",
-                "Javob: \nG’iybat va yolg’on"
-            ),
-            Question(
-                "Savol: Ushbu oyat qaysi suradan olinganligni toping: \n" +
-                        "“Yolg’onga ko’p quloq soluvchilar, haromni ko’p yeyuvchilardir” \n",
-                "Javob: \nMoida surasi, 42-oyat"
-            ),
-            Question(
-                "Savol: Iftordan so’ng qalb qanday holatdan bo’lishi lozim? ",
-                "Javob: \nXavf  va rajo orasida bo’lishi lozim."
-            ),
-            Question(
-                "Savol: Hasan Basriy rahmatullohi alayh kulib o’tirgan qavm oldidan o’tayotib, “Alloh azza va jalla " +
-                        "Ramazon oyini O’z bandalarini chiniqtirish uchun, U Zotning toatida musobaqa qilishlari uchun" +
-                        " joriy qilgan.Bir qavmlar o’zib ketib najot topishdi.Boshqalari esa ortda qolib,noumid bo’ldilar. " +
-                        "O’zganlar najot topib, ahli botillar noumid bo’lgan kunda  kimlarga  hayronman”, dedi. ",
-                "Javob: \nO’ynab-kulganlarga"
-            ),
-            Question(
-                "Savol: Hadisda qanday amal ko’ngilning taqvosi dya aytilgan?",
-                "Javob: \nHaromga qaramaslik"
-            ),
-            Question(
-                "Savol: Ro’za durust bo’lishi uchun necha xil shart topilishi lozim? ",
-                "Javob: \n3 xil"
-            ),
-            Question(
-                "Savol: Ro’za lozim bo’lishing birinchi sharti qanday nomlanadi?",
-                "Javob: \nZimmaga lozim bo’lish shartlari"
-            ),
-            Question(
-                "Savol: Ro’za lozim bo’lishing ikkinchi sharti qanday nomlanadi?",
-                "Javob: \nRo’zani ado etish uchun lozim shartlar"
-            ),
-            Question(
-                "Savol: Ro’za lozim bo’lishing uchunchi sharti qanday nomlanadi?",
-                "Javob: \nRo’zaning to’gri bo’lish shartlari"
-            ),
-            Question(
-                "Savol: Zimmaga lozim bo’lish shartlari nechta va ularni sanang?",
-                "Javob: \n3 ta: Islom, aql, balog’at"
-            ),
-            Question(
-                "Savol: Ro’zani ado etish uchun lozim shartlar nechta va ular qaysilar? ",
-                "Javob: \n2 ta: Sog’lom bo’lish, muqim bo’lish"
-            ),
-            Question(
-                "Savol:  Ro’zaning to’gri bo’lish shartlari nechta ? ",
-                "Javob: \n3 ta"
-            ),
-            Question(
-                "Savol: Qilinishi lozim bo’lgan amalni shariatda belgilangan vaqtda qilish nima deyiladi? ",
-                "Javob: \nAdo"
-            ),
-            Question(
-                "Savol: Qilinishi lozim bo’lgan amalni belgilangan vaqtidan keyin bajarish nima deyiladi? ",
-                "Javob: \nQazo"
-            ),
-            Question(
-                "Savol: Ramazon ro’zasini vaqtida ado qilish qanday amal? ",
-                "Javob: \nFarz"
-            ),
-            Question(
-                "Savol: Ramazon ro’zasini vaqtida ado qilinmagan bo’lsa, qazosini tutish qanday amal? ",
-                "Javob: \nFarz"
-            ),
-            Question(
-                "Savol: Qaysi oyat  Ramazon ro’zasini vaqtida ado qilish farzligiga dalildir? ",
-                "Javob: \nBaqara  surasi, 185-oyat"
-            ),
-            Question(
-                "Savol: Qaysi suraning nechinchi oyati Ramazon ro’zasini qazosini tutish farzligiga dalildir? ",
-                "Javob: \nBaqara  surasi, 185-oyat"
-            ),
-            Question(
-                "Savol: Kafforat ro’zalari qanday amal? ",
-                "Javob: \nVojib"
-            ),
-            Question(
-                "Savol: Tong otgandan (subhi sodiqdan) boshlanib, quyosh botguncha davom etadigan kunduz qanday kunduz hisoblanadi. ",
-                "Javob: \nShar’iy kunduz "
-            ),
-            Question(
-                "Savol: Quyosh chiqqandan boshlab botguncha davom etadigan va shar’iy bo’lmagan kunduz nima deb nomlanadi?",
-                "Javob: \nLug’aviy kunduz"
-            ),
-            Question(
-                "Savol: Ro’za tutmoqchi bo’lgan kishi tong otgandan boshlab kunduzning yarmigacha niyat qilib olsa,ro’zasi to’g’ri bo’ladimi? ",
-                "Javob: \nHa, to’g’ri bo’ladi."
-            ),
-            Question(
-                "Savol: Ro’zaning turlari nechta va ularni qaysilar? ",
-                "Javob: \n4 ta: Lozim ro’za, Harom ro’za, Makruh ro’za, Ixtiyoriy ro’za "
-            ),
-            Question(
-                "Savol: Lozim ro’za necha turga bo’linadi va ular qaysilar?  ",
-                "Javob: \n2 turga bo’linadi: farz va vojib"
-            ),
-            Question(
-                "Savol: Farz ro’zaning 2 turini ayting. ",
-                "Javob: \nTayin qilingan va tayin qilinmagan farz ro’za "
-            ),
-            Question(
-                "Savol: Qaysi ro’za tayin qilingan farz ro’za hisoblanadi? ",
-                "Javob: \nQur’on, sunnat va ulamolar ijmo’i bilan sobit bo’lgan Ramazon ro’zasi "
-            ),
-            Question(
-                "Savol: Qaysi ro’za tayin qilinmagan farz ro’za hisoblanadi? ",
-                "Javob: \nRamazonning qazosi va kafforati "
-            ),
-            Question(
-                "Savol: Vojib ro’zaning 2 turini ayting. ",
-                "Javob: \nTayin qilingan va tayin qilinmagan vojib ro’za"
-            ),
-            Question(
-                "Savol: Qaysi ro’za tayin qilingan vojib ro’za hisoblanadi?",
-                "Javob: \nMuayyan nazr (tayin kun) ro’za  va Ramazon oyining hilolini ko’rib, shahodati qabul qilinmagan kishining ro’zasi. "
-            ),
-            Question(
-                "Savol: Ushbu oyat qaysi suradan olingan:\n" +
-                        "“…nazrlariga vafo qilsinlar”  \n",
-                "Javob: \nHaj surasi, 29-oyat"
-            ),
-            Question(
-                "Savol:  Musulmon kishi qanday holatda ro’za tutishni o’ziga vojib qilib olgan bo’ladi? ",
-                "Javob: \nRo’za tutishni nazr qilganida"
-            ),
-            Question(
-                "Savol: Tayin qilinmagan vojib ro’za necha turlidir? ",
-                "Javob: \n9 turlidir  "
-            ),
-            Question(
-                "Savol: Kimning ro’zasi nazr ro’za yoki mutlaq ro’za deyiladi? ",
-                "Javob: \nKunini tayin qilmasdan, bir kun ro’za tutishni nazr qilgan kishining ro’zasi.\n" +
-                        "Masalan, “Falon ishim amalga oshsa, bir kun ro’za tutishni nazr qildim” deyilgani kabi.  \n"
-            ),
-            Question(
-                "Savol: Muayyan kunda ro’za tutishni nazr qilib, tuta olmagan kishining qazo ro’zasi qanday ro’za hisoblanadi? ",
-                "Javob: \nTayin qilinmagan vojib ro’za  "
-            ),
-            Question(
-                "Savol: Ro’za tutishga qasam ichib, zimmasiga ro’zani vojib qilib olgan kishining ro’zasi vojib ro’zaning qanday turiga kiradi? ",
-                "Javob: \nTayin qilinmagan vojib ro’za "
-            ),
-            Question(
-                "Savol: Nafl ro’zani tutishni boshlab, oxiriga yetkazmay,ochib yuborgan kishining o’sha kuni uchun tutadigan  qazo ro’zasi qanday ro’za turiga kiradi?  ",
-                "Javob: \nTayin qilinmagan vojib ro’za"
-            ),
-            Question(
-                "Savol: Zihor, qatl, Ramazonning ro’zasini qasddan ochib yuborish va qasamni buzganining kafforati uchun tutiladigan ro’zalar vojib ro’zaning qanday turiga kiradi?",
-                "Javob: \nVojib ro’zaning tayin qilinmagan turiga kiradi."
-            ),
-            Question(
-                "Savol: Tamattu’ va qiron uchun ehromga kirib qurbonlik qila olmagan kishining 10 kunlik ro’zasi qanday ro’za turiga kiradi? ",
-                "Javob: \nVojib ro’zaning tayin qilinmagan turiga kiradi "
-            ),
-            Question(
-                "Savol: Ehromdalik chog’ida, vaqti kirmasdan oldin soch oldirgan kishining kafforat uchun tutadigan 3 kunlik ro’zasi qanday ro’za hisoblanadi?",
-                "Javob: \nTayin qilinmagan vojib ro’za "
-            ),
-            Question(
-                "Savol: Haramda ov qilishning jazosi uchun tutiladigan ro’za qanday ro’za hisoblanadi? ",
-                "Javob: \nTayin qilinmagan vojib ro’za "
-            ),
-            Question(
-                "Savol: E’tikofini buzib qo’ygan kishining qazo ro’zasi qanday ro’za hisoblanadi?  ",
-                "Javob: \nTayin qilinmagan vojib ro’za"
-            ),
-            Question(
-                "Savol: Xursandchilik kunlari bo’lganligi uchun ro’za tutish harom bo’lgan kunlar qaysi kunlar? ",
-                "Javob: \nIydul fitr kuni, Iydul azho kuni va undan keyingi 3 kun   "
-            ),
-            Question(
-                "Savol: Abu Hurayra roziyallohu anhudan rivoyat qilinadi:\n" +
-                        "“Nabiy sollallohu alayhi vasallam 2 kunning - … va  …\n" +
-                        "kunining ro’zasidan qaytardilar”\n" +
-                        "Buxoriy, Muslim, Abu Dovud, Termiziy va Nasoiy rivoyat qilishgan.\n" +
-                        "Ushbu hadisga ko’ra,  Nabiy sollallohu alayhi vasallam qaysi 2 kunning ro’zasidan qaytarganligini toping.\n",
-                "Javob: \nAzho va Fitr kunining ro’zasidan qaytarganlar "
-            ),
-            Question(
-                "Savol: Uqba ibn Omir roziyallohu anhudan rivoyat qilingan hadisda Nabiiy sollalohu alayhi vasallam qaysi kunlarni “Bu kunlar bizning-ahli Islomning bayramimizdir. Bu kunlar yeb-ichish kunlaridir”, deya  aytganligini toping.\n" +
-                        " “Sunan” egalari rivoyat qilishgan\n ",
-                "Javob: \nArafa kuni, qurbonlik kuni, tashriq kunlari"
-            ),
-            Question(
-                "Savol: Ro’za tutish harom qilingan Ramazon kirishidan oldingi kun qanday kun?",
-                "Javob: \nShak kuni"
-            ),
-            Question(
-                "Savol: Ro’za tutsa halok bo’lishini bilaturib ro’za tutish mumkinmi?",
-                "Javob: \nYo’q, bu harom hisoblanadi."
-            ),
-            Question(
-                "Savol: Ro’za tutsa halok bo’lishini bilaturib ro’za tutish haromligini asoslovchi ushbu oyat qaysi suradan olingan:\n" +
-                        "   “…(O’zingizni) o’z qo’lingiz bilan halokatga tashlamang…” \n",
-                "Javob: \nBaqara surasi, 195-oyat"
-            ),
-            Question(
-                "Savol: Ro’za tutish harom hisoblanib, faqat ayollarga xos bo’lgan kunlar qaysilar?",
-                "Javob: \nAyollarning hayz va nifos ko’rgan kunlari"
-            ),
-            Question(
-                "Savol: Ayol kishining erining iznisiz yoki roziligini bilmay turib nafl ro’za tutishi mumkinmi?",
-                "Javob: \nYo’q bu makruh hisoblanadi."
-            ),
-            Question(
-                "Savol: Ayol kishining erining iznisiz yoki roziligini bilmay turib nafl ro’za tutishi qanday holatlarda makruh bo’lmaydi?",
-                "Javob: \nAgar er yaqinlikka ojizlik qiladigan darajada bemor bo’lsa, yoki ro’zador bo’lsa, yoxud haj yo umraga ehrom bog’lagan bo’lsa makruh bo’lmaydi."
-            ),
-            Question(
-                "Savol: Ashuro kunining yolg’iz o’zida ro’za tutish mumkunmi?",
-                "Javob: \nYo’q, makruh hisoblanadi."
-            ),
-            Question(
-                "Savol: Juma kunini xoslab, shanba kunini ulug’lab, yakshanba kunini ulug’lab, Navro’z kuni va Mehrjon kuni.\n" +
-                        "Ushbu kunlarning qaysi birida ro’za tutsa bo’ladi? \n ",
-                "Javob: \nUshbu kunlarning hammasida ro’za tutish makruh hisoblanadi."
-            ),
-            Question(
-                "Savol: Ushbu holatlarning qay birida ro’za tutish makruh hisoblanmaasligini toping:\n" +
-                        "-Uzluksiz har kuni ro’za tutish; \n" +
-                        "-Gapirmasdan ro’za tutish;\n" +
-                        "-Ulab(saharlik qilmay) ro’za tutish;\n" +
-                        "-Musofirning qiynalib ro’za tutishi.\n",
-                "Javob: \nUshbu holatlarning barchasida ro’za tutish makruh hisoblanadi."
-            ),
-            Question(
-                "Savol: Hanafiy mazhabida ixtiyoriy ro’za nechta turga bo’linadi va ular qaysilar?",
-                "Javob: \n3 turga bo’linadi: Sunnat, mandub, nafl. "
-            ),
-            Question(
-                "Savol: Sunnat ro’za qaysi ixtiyoriy ro’zalar hisoblanadi?",
-                "Javob: \nRasululloh sollallohu alayhi vasallam doimiy tutib yurgan ixtiyoriy ro’zalar"
-            ),
-            Question(
-                "Savol: Mandub yoki mustahab ro’zalar qaysi ixtiyoriy ro’zalardir?",
-                "Javob: \nRasululloh sollallohu alayhi vasallam doimiy tutmagan ixtiyoriy ro’zalar"
-            ),
-            Question(
-                "Savol: Mandub yoki mustahab ro’zalar qaysilar?",
-                "Javob: \n1.\tBir kun tutib, bir kun ochib yurish.\n" +
-                        "2.\tHar oyda 3 kun ro’za tutish.\n" +
-                        "3.\tHaftaning dushanba va payshanba kunlari ro’za tutish.\n" +
-                        "4.\tShavvol oyida 6 kun ro’za tutish.\n" +
-                        "5.\tArafa kuni ro’za tutish.\n" +
-                        "6.\tArafadan oldingi 8 kunda ro’za tutish.\n" +
-                        "7.\tSha’bon oyida ro’za tutish.\n"
-            ),
-            Question(
-                "Savol: Qanday ro’zaga nafl ro’za deyiladi? ",
-                "Javob: \nDinimizda ularni ham tutish targ’ib qilingan, sunnat va mandub (yoki mustahab) ro’zalardan boshqa ixtiyoriy ro’zalar."
-            ),
-            Question(
-                "Savol: “Niyat” so’zi lug’atda qanday ma’no anglatadi?",
-                "Javob: \n“Qasd qilish” ma’nosini anglatadi."
-            ),
-            Question(
-                "Savol: Tayin qilinmagan vojib ro’za necha turlidir? ",
-                "Javob: \n9 turlidir  "
-            )
+//            Question(
+//                "Savol: Ulamolarimiz ro’za tutishda qiynaladiganlar safiga  kimlarni ham kiritgan?",
+//                "Javob: \nTuzalmaydigan,surunkali kasali bor kishilarni!"
+//            ),
+//            Question(
+//                "Savol: Ro’za tutish orqali erishiladigan yaxshiliklarni toping?",
+//                "Javob: \n1.Jannatga kirish\n" +
+//                        "2.Oliy maqomlarga erishish\n" +
+//                        "3.Irodaning kuchli bo’lishi\n" +
+//                        "4.Rahm-shavqat sifatining kuchayishi\n" +
+//                        "5.Taqvo hissining uyg’onishi\n" +
+//                        "6. Sog’lik va salomatlik \n"
+//            ),
+//            Question(
+//                "Savol: . Ro’za farz qilingan sanoqli kunlar qaysi? ",
+//                "Javob: \nRamazon oyi!"
+//            ),
+//            Question(
+//                "Savol: Qur’on nozil qilingan oy- …? ",
+//                "Javob: \nRamazon oyi!"
+//            ),
+//            Question(
+//                "Savol: Ramazon oyida odamlarga qanday ochiq-oydin hujjatlar bor? ",
+//                "Javob: \nHidoyat hamda hidoyatu furqondan iborat ochiq-oydin hujjatlar!"
+//            ),
+//            Question(
+//                "Savol:  Islom shariati qanday  asosga bino qilingan?",
+//                "Javob: \nOsonlikka!"
+//            ),
+//            Question(
+//                "Savol: “Yorug’likning ufqda tarqalishi” ni bildiradigan payt qanday nomlanadi?",
+//                "Javob: \nFajri sodiq!"
+//            ),
+//            Question(
+//                "Savol: Shariatda Allohga yaqinlik hosil qilish niyatida masjidda ibodatni lozim tutish nima deyiladi? ",
+//                "Javob: \n“E’tikof”!"
+//            ),
+//            Question(
+//                "Savol: . “E’tikof” so’zi qanday ma’noni  anglatadi? ",
+//                "Javob: \n“Bir narsani lozim tutish”!"
+//            ),
+//            Question(
+//                "Savol: Ro’zaning son-sanoqsiz foydalari ichida  birinchi o’rinda turadiganini toping?",
+//                "Javob: \nRo’zaning ro’zadorda taqvo hissini mustahkamlashi!"
+//            ),
+//            Question(
+//                "Savol: . Ro’za ibodatini ado etgan banda jannatga qaysi eshikdan kirish huquqini qo’lga kiritadi? ",
+//                "Javob: \n“Rayon” eshigidan!"
+//            ),
+//            Question(
+//                "Savol: Ro’zaga berilgan ta’riflar ...",
+//                "Javob: \n1. Alloh taologa qilinadifan toat-ibodat\n" +
+//                        "2. Ilkan axloq maktabi\n" +
+//                        "3. Nafs balosiga qarshi kurash\n" +
+//                        "4.Insonni man qilingan narsalarga sabr qilishga o’rgatadigan amal\n" +
+//                        "5.Inson hayotida keladigan mashaqqatlarga chidashga malaka hosil qildiradigan amal\n"
+//            ),
+//            Question(
+//                "Savol: Ro’zaning foydalari ...",
+//                " Javob: \n1.\tRo’za tutgan kishing taqvodorligi oshadi. \n" +
+//                        "2.\tRo’zador insonga sog’liq ato etiladi.\n" +
+//                        "3.\tRo’za havoyi nafsni sindiradi.\n" +
+//                        "4.\tRo’za tutish orqali shaytonga  qahr ko’rsatiladi.\n" +
+//                        "5.\tRo’za insonning irodasini, qat’iyatini mustahkamlaydi.\n" +
+//                        "6.\tRo’za insonni tartib intizomga o’rgatadi.\n"
+//            ),
+//            Question(
+//                "Savol: …- ro’za tutsin ",
+//                "Javob: \n1.\tKim qalbi musaffo bo’lishi xohlasa\n" +
+//                        "2.\tKim farishtakar safiga ega bo’lishni xohlasa\n" +
+//                        "3.\tKim sabr-bardoshl bo’lmoqchi bo’lsa\n" +
+//                        "4.\tKim o’zida rahm-shafqat sifatini shakllantirish va mustahkamlashni xohlasa\n"
+//            ),
+//            Question(
+//                "Savol: Tavba surasi 112-oyatida keltirilgan mo’minlarning sifatlari quydagilar ...",
+//                "Javob: \n1.\tTavba qiluvchilar\n" +
+//                        "2.\tIbodat qiluvchilar\n" +
+//                        "3.\tHamd aytuvchilar\n" +
+//                        "4.\tRo’za tutuvchilar\n" +
+//                        "5.\tRuku qiluvchilar, sajda qiluvchilar \n" +
+//                        "6.\tMa’rufga buyurib mukardan qaytaruvchilar\n" +
+//                        "7.\tAllohning chegarasida turuvchilar \n"
+//            ),
+//            Question(
+//                "Savol: Ro’zadorning hadisi sharifda keltirilgan ikki hursandchiligi ...",
+//                "Javob: \nIftor qilganida hursand bo’ladi va Robbiga ro’baro’ bo’lganida ro’zasi sababli hursand  bo’ladi."
+//            ),
+//            Question(
+//                "Savol: Hadisi sharifga ko’ra ro’zador o’g’zining hidi Alloh uchun qanday hiddan ham yoqimliroqdir.",
+//                "Javob: \nMushk hididan ham"
+//            ),
+//            Question(
+//                "Savol:  Qiyomat kuni faqat ro’zadorlar kiradigan Jannat eshigining nomini toping?",
+//                "Javob: \nRayyon"
+//            ),
+//            Question(
+//                "Savol: Hadisi sharifga ko’ra, ro’zador odam qanday holatda ibodatda bo’ladi? ",
+//                "Javob: \nBiror musulmonni g’iybat qilmasa, ozor bermasa"
+//            ),
+//            Question(
+//                "Savol: Abu Hurayra roziyallohu anhudan rivoyat qilingan ushbu hadisi sharifda tushurib qoldirilgan so’zlarni toping?" +
+//                        "“Rasululloh sollallohu alayhi vasallam:\n" +
+//                        "“ Kim … ni va …ni qo’ymasa, Alloh uning taoimi va ichimligini tark etishiga muhtoj emas”, deganlar” Buxoriy rivoyat qilgan.\n",
+//                "Javob: \nYolg’on gapirishni va unga amal qilishni  qo’ymasa"
+//            ),
+//            Question(
+//                "Savol: Jobir roziyallohu anhudan rivoyat qilingan ushbu hadisi sharifda tushurib qoldirilgan so’zni toping?" +
+//                        "“Bir odam Nabiy sollallohu alayhi vasallamga: “Ayting-chi, farz namozlarini o’qisam,Ramazon ro’zasini" +
+//                        " tutsam, halolni halol, haromni harom deb balsam va bunga hech narsani ziyoda qilmasam, Jannatga kiramanmi?” dedi." +
+//                        " U Zot: “…”,dedilar. “Allohga qasamki,unga hech narsani ziyoda qilmayman”, dedi”. Muslim rivoyat qilgan.",
+//                "Javob: \nHa "
+//            ),
+//            Question(
+//                "Savol: Ahli haqning oldida ro’zaning darajasi nechta?",
+//                "Javob: \n3 ta: Ommaning ro’zasi, xoslarning ro’zasi va xoslardan ham xoslarning ro’zasi "
+//            ),
+//            Question(
+//                "Savol: “Qorin va farjning istak-xohishlaridan tiyilish” ro’zaning qaysi darajasi? ",
+//                "Javob: \nOmmaning ro’zasi "
+//            ),
+//            Question(
+//                "Savol: “Birinchi darajadan ko’ra ziyoda o’laroq ko’z,  quloq, tilni, oyoq qo’l va boshqa narsalarni ham gunohlardan tiyish” ro’zaning qaysi darajasi?",
+//                "Javob: \nXoslarning ro’zasi "
+//            ),
+//            Question(
+//                "Savol: “Ikki darajadan ham ziyoda o’laroq, qalbni behuda qiziqishlardan, dunyoviy fikrlardan" +
+//                        " va Alloh taolodan boshqa narsalardan tiyishdan iborat” bo’lgan ro’za darajasini toping. ",
+//                "Javob: \nXoslardan ham xoslarning ro’zasi"
+//            ),
+//            Question(
+//                "Savol: Xoslarning ro’zasi yana qanday nom nilan ham nomlanadi? ",
+//                "Javob: \nSolihlar ro’zasi "
+//            ),
+//            Question(
+//                "Savol: Bishr ibn Horis rahmarullohi alayhdan rivoyat qilinishicha, Sufyon Savriy qanday amal ro’zani buzishi haqida ta’kidlaganlar? ",
+//                "Javob: \nG’iybat "
+//            ),
+//            Question(
+//                "Savol: Mujohid qanday  2 xislat ro’zani buzishi haqida ta’kidlaganlar?  ",
+//                "Javob: \nG’iybat va yolg’on"
+//            ),
+//            Question(
+//                "Savol: Ushbu oyat qaysi suradan olinganligni toping: \n" +
+//                        "“Yolg’onga ko’p quloq soluvchilar, haromni ko’p yeyuvchilardir” \n",
+//                "Javob: \nMoida surasi, 42-oyat"
+//            ),
+//            Question(
+//                "Savol: Iftordan so’ng qalb qanday holatdan bo’lishi lozim? ",
+//                "Javob: \nXavf  va rajo orasida bo’lishi lozim."
+//            ),
+//            Question(
+//                "Savol: Hasan Basriy rahmatullohi alayh kulib o’tirgan qavm oldidan o’tayotib, “Alloh azza va jalla " +
+//                        "Ramazon oyini O’z bandalarini chiniqtirish uchun, U Zotning toatida musobaqa qilishlari uchun" +
+//                        " joriy qilgan.Bir qavmlar o’zib ketib najot topishdi.Boshqalari esa ortda qolib,noumid bo’ldilar. " +
+//                        "O’zganlar najot topib, ahli botillar noumid bo’lgan kunda  kimlarga  hayronman”, dedi. ",
+//                "Javob: \nO’ynab-kulganlarga"
+//            ),
+//            Question(
+//                "Savol: Hadisda qanday amal ko’ngilning taqvosi dya aytilgan?",
+//                "Javob: \nHaromga qaramaslik"
+//            ),
+//            Question(
+//                "Savol: Ro’za durust bo’lishi uchun necha xil shart topilishi lozim? ",
+//                "Javob: \n3 xil"
+//            ),
+//            Question(
+//                "Savol: Ro’za lozim bo’lishing birinchi sharti qanday nomlanadi?",
+//                "Javob: \nZimmaga lozim bo’lish shartlari"
+//            ),
+//            Question(
+//                "Savol: Ro’za lozim bo’lishing ikkinchi sharti qanday nomlanadi?",
+//                "Javob: \nRo’zani ado etish uchun lozim shartlar"
+//            ),
+//            Question(
+//                "Savol: Ro’za lozim bo’lishing uchunchi sharti qanday nomlanadi?",
+//                "Javob: \nRo’zaning to’gri bo’lish shartlari"
+//            ),
+//            Question(
+//                "Savol: Zimmaga lozim bo’lish shartlari nechta va ularni sanang?",
+//                "Javob: \n3 ta: Islom, aql, balog’at"
+//            ),
+//            Question(
+//                "Savol: Ro’zani ado etish uchun lozim shartlar nechta va ular qaysilar? ",
+//                "Javob: \n2 ta: Sog’lom bo’lish, muqim bo’lish"
+//            ),
+//            Question(
+//                "Savol:  Ro’zaning to’gri bo’lish shartlari nechta ? ",
+//                "Javob: \n3 ta"
+//            ),
+//            Question(
+//                "Savol: Qilinishi lozim bo’lgan amalni shariatda belgilangan vaqtda qilish nima deyiladi? ",
+//                "Javob: \nAdo"
+//            ),
+//            Question(
+//                "Savol: Qilinishi lozim bo’lgan amalni belgilangan vaqtidan keyin bajarish nima deyiladi? ",
+//                "Javob: \nQazo"
+//            ),
+//            Question(
+//                "Savol: Ramazon ro’zasini vaqtida ado qilish qanday amal? ",
+//                "Javob: \nFarz"
+//            ),
+//            Question(
+//                "Savol: Ramazon ro’zasini vaqtida ado qilinmagan bo’lsa, qazosini tutish qanday amal? ",
+//                "Javob: \nFarz"
+//            ),
+//            Question(
+//                "Savol: Qaysi oyat  Ramazon ro’zasini vaqtida ado qilish farzligiga dalildir? ",
+//                "Javob: \nBaqara  surasi, 185-oyat"
+//            ),
+//            Question(
+//                "Savol: Qaysi suraning nechinchi oyati Ramazon ro’zasini qazosini tutish farzligiga dalildir? ",
+//                "Javob: \nBaqara  surasi, 185-oyat"
+//            ),
+//            Question(
+//                "Savol: Kafforat ro’zalari qanday amal? ",
+//                "Javob: \nVojib"
+//            ),
+//            Question(
+//                "Savol: Tong otgandan (subhi sodiqdan) boshlanib, quyosh botguncha davom etadigan kunduz qanday kunduz hisoblanadi. ",
+//                "Javob: \nShar’iy kunduz "
+//            ),
+//            Question(
+//                "Savol: Quyosh chiqqandan boshlab botguncha davom etadigan va shar’iy bo’lmagan kunduz nima deb nomlanadi?",
+//                "Javob: \nLug’aviy kunduz"
+//            ),
+//            Question(
+//                "Savol: Ro’za tutmoqchi bo’lgan kishi tong otgandan boshlab kunduzning yarmigacha niyat qilib olsa,ro’zasi to’g’ri bo’ladimi? ",
+//                "Javob: \nHa, to’g’ri bo’ladi."
+//            ),
+//            Question(
+//                "Savol: Ro’zaning turlari nechta va ularni qaysilar? ",
+//                "Javob: \n4 ta: Lozim ro’za, Harom ro’za, Makruh ro’za, Ixtiyoriy ro’za "
+//            ),
+//            Question(
+//                "Savol: Lozim ro’za necha turga bo’linadi va ular qaysilar?  ",
+//                "Javob: \n2 turga bo’linadi: farz va vojib"
+//            ),
+//            Question(
+//                "Savol: Farz ro’zaning 2 turini ayting. ",
+//                "Javob: \nTayin qilingan va tayin qilinmagan farz ro’za "
+//            ),
+//            Question(
+//                "Savol: Qaysi ro’za tayin qilingan farz ro’za hisoblanadi? ",
+//                "Javob: \nQur’on, sunnat va ulamolar ijmo’i bilan sobit bo’lgan Ramazon ro’zasi "
+//            ),
+//            Question(
+//                "Savol: Qaysi ro’za tayin qilinmagan farz ro’za hisoblanadi? ",
+//                "Javob: \nRamazonning qazosi va kafforati "
+//            ),
+//            Question(
+//                "Savol: Vojib ro’zaning 2 turini ayting. ",
+//                "Javob: \nTayin qilingan va tayin qilinmagan vojib ro’za"
+//            ),
+//            Question(
+//                "Savol: Qaysi ro’za tayin qilingan vojib ro’za hisoblanadi?",
+//                "Javob: \nMuayyan nazr (tayin kun) ro’za  va Ramazon oyining hilolini ko’rib, shahodati qabul qilinmagan kishining ro’zasi. "
+//            ),
+//            Question(
+//                "Savol: Ushbu oyat qaysi suradan olingan:\n" +
+//                        "“…nazrlariga vafo qilsinlar”  \n",
+//                "Javob: \nHaj surasi, 29-oyat"
+//            ),
+//            Question(
+//                "Savol:  Musulmon kishi qanday holatda ro’za tutishni o’ziga vojib qilib olgan bo’ladi? ",
+//                "Javob: \nRo’za tutishni nazr qilganida"
+//            ),
+//            Question(
+//                "Savol: Tayin qilinmagan vojib ro’za necha turlidir? ",
+//                "Javob: \n9 turlidir  "
+//            ),
+//            Question(
+//                "Savol: Kimning ro’zasi nazr ro’za yoki mutlaq ro’za deyiladi? ",
+//                "Javob: \nKunini tayin qilmasdan, bir kun ro’za tutishni nazr qilgan kishining ro’zasi.\n" +
+//                        "Masalan, “Falon ishim amalga oshsa, bir kun ro’za tutishni nazr qildim” deyilgani kabi.  \n"
+//            ),
+//            Question(
+//                "Savol: Muayyan kunda ro’za tutishni nazr qilib, tuta olmagan kishining qazo ro’zasi qanday ro’za hisoblanadi? ",
+//                "Javob: \nTayin qilinmagan vojib ro’za  "
+//            ),
+//            Question(
+//                "Savol: Ro’za tutishga qasam ichib, zimmasiga ro’zani vojib qilib olgan kishining ro’zasi vojib ro’zaning qanday turiga kiradi? ",
+//                "Javob: \nTayin qilinmagan vojib ro’za "
+//            ),
+//            Question(
+//                "Savol: Nafl ro’zani tutishni boshlab, oxiriga yetkazmay,ochib yuborgan kishining o’sha kuni uchun tutadigan  qazo ro’zasi qanday ro’za turiga kiradi?  ",
+//                "Javob: \nTayin qilinmagan vojib ro’za"
+//            ),
+//            Question(
+//                "Savol: Zihor, qatl, Ramazonning ro’zasini qasddan ochib yuborish va qasamni buzganining kafforati uchun tutiladigan ro’zalar vojib ro’zaning qanday turiga kiradi?",
+//                "Javob: \nVojib ro’zaning tayin qilinmagan turiga kiradi."
+//            ),
+//            Question(
+//                "Savol: Tamattu’ va qiron uchun ehromga kirib qurbonlik qila olmagan kishining 10 kunlik ro’zasi qanday ro’za turiga kiradi? ",
+//                "Javob: \nVojib ro’zaning tayin qilinmagan turiga kiradi "
+//            ),
+//            Question(
+//                "Savol: Ehromdalik chog’ida, vaqti kirmasdan oldin soch oldirgan kishining kafforat uchun tutadigan 3 kunlik ro’zasi qanday ro’za hisoblanadi?",
+//                "Javob: \nTayin qilinmagan vojib ro’za "
+//            ),
+//            Question(
+//                "Savol: Haramda ov qilishning jazosi uchun tutiladigan ro’za qanday ro’za hisoblanadi? ",
+//                "Javob: \nTayin qilinmagan vojib ro’za "
+//            ),
+//            Question(
+//                "Savol: E’tikofini buzib qo’ygan kishining qazo ro’zasi qanday ro’za hisoblanadi?  ",
+//                "Javob: \nTayin qilinmagan vojib ro’za"
+//            ),
+//            Question(
+//                "Savol: Xursandchilik kunlari bo’lganligi uchun ro’za tutish harom bo’lgan kunlar qaysi kunlar? ",
+//                "Javob: \nIydul fitr kuni, Iydul azho kuni va undan keyingi 3 kun   "
+//            ),
+//            Question(
+//                "Savol: Abu Hurayra roziyallohu anhudan rivoyat qilinadi:\n" +
+//                        "“Nabiy sollallohu alayhi vasallam 2 kunning - … va  …\n" +
+//                        "kunining ro’zasidan qaytardilar”\n" +
+//                        "Buxoriy, Muslim, Abu Dovud, Termiziy va Nasoiy rivoyat qilishgan.\n" +
+//                        "Ushbu hadisga ko’ra,  Nabiy sollallohu alayhi vasallam qaysi 2 kunning ro’zasidan qaytarganligini toping.\n",
+//                "Javob: \nAzho va Fitr kunining ro’zasidan qaytarganlar "
+//            ),
+//            Question(
+//                "Savol: Uqba ibn Omir roziyallohu anhudan rivoyat qilingan hadisda Nabiiy sollalohu alayhi vasallam qaysi kunlarni “Bu kunlar bizning-ahli Islomning bayramimizdir. Bu kunlar yeb-ichish kunlaridir”, deya  aytganligini toping.\n" +
+//                        " “Sunan” egalari rivoyat qilishgan\n ",
+//                "Javob: \nArafa kuni, qurbonlik kuni, tashriq kunlari"
+//            ),
+//            Question(
+//                "Savol: Ro’za tutish harom qilingan Ramazon kirishidan oldingi kun qanday kun?",
+//                "Javob: \nShak kuni"
+//            ),
+//            Question(
+//                "Savol: Ro’za tutsa halok bo’lishini bilaturib ro’za tutish mumkinmi?",
+//                "Javob: \nYo’q, bu harom hisoblanadi."
+//            ),
+//            Question(
+//                "Savol: Ro’za tutsa halok bo’lishini bilaturib ro’za tutish haromligini asoslovchi ushbu oyat qaysi suradan olingan:\n" +
+//                        "   “…(O’zingizni) o’z qo’lingiz bilan halokatga tashlamang…” \n",
+//                "Javob: \nBaqara surasi, 195-oyat"
+//            ),
+//            Question(
+//                "Savol: Ro’za tutish harom hisoblanib, faqat ayollarga xos bo’lgan kunlar qaysilar?",
+//                "Javob: \nAyollarning hayz va nifos ko’rgan kunlari"
+//            ),
+//            Question(
+//                "Savol: Ayol kishining erining iznisiz yoki roziligini bilmay turib nafl ro’za tutishi mumkinmi?",
+//                "Javob: \nYo’q bu makruh hisoblanadi."
+//            ),
+//            Question(
+//                "Savol: Ayol kishining erining iznisiz yoki roziligini bilmay turib nafl ro’za tutishi qanday holatlarda makruh bo’lmaydi?",
+//                "Javob: \nAgar er yaqinlikka ojizlik qiladigan darajada bemor bo’lsa, yoki ro’zador bo’lsa, yoxud haj yo umraga ehrom bog’lagan bo’lsa makruh bo’lmaydi."
+//            ),
+//            Question(
+//                "Savol: Ashuro kunining yolg’iz o’zida ro’za tutish mumkunmi?",
+//                "Javob: \nYo’q, makruh hisoblanadi."
+//            ),
+//            Question(
+//                "Savol: Juma kunini xoslab, shanba kunini ulug’lab, yakshanba kunini ulug’lab, Navro’z kuni va Mehrjon kuni.\n" +
+//                        "Ushbu kunlarning qaysi birida ro’za tutsa bo’ladi? \n ",
+//                "Javob: \nUshbu kunlarning hammasida ro’za tutish makruh hisoblanadi."
+//            ),
+//            Question(
+//                "Savol: Ushbu holatlarning qay birida ro’za tutish makruh hisoblanmaasligini toping:\n" +
+//                        "-Uzluksiz har kuni ro’za tutish; \n" +
+//                        "-Gapirmasdan ro’za tutish;\n" +
+//                        "-Ulab(saharlik qilmay) ro’za tutish;\n" +
+//                        "-Musofirning qiynalib ro’za tutishi.\n",
+//                "Javob: \nUshbu holatlarning barchasida ro’za tutish makruh hisoblanadi."
+//            ),
+//            Question(
+//                "Savol: Hanafiy mazhabida ixtiyoriy ro’za nechta turga bo’linadi va ular qaysilar?",
+//                "Javob: \n3 turga bo’linadi: Sunnat, mandub, nafl. "
+//            ),
+//            Question(
+//                "Savol: Sunnat ro’za qaysi ixtiyoriy ro’zalar hisoblanadi?",
+//                "Javob: \nRasululloh sollallohu alayhi vasallam doimiy tutib yurgan ixtiyoriy ro’zalar"
+//            ),
+//            Question(
+//                "Savol: Mandub yoki mustahab ro’zalar qaysi ixtiyoriy ro’zalardir?",
+//                "Javob: \nRasululloh sollallohu alayhi vasallam doimiy tutmagan ixtiyoriy ro’zalar"
+//            ),
+//            Question(
+//                "Savol: Mandub yoki mustahab ro’zalar qaysilar?",
+//                "Javob: \n1.\tBir kun tutib, bir kun ochib yurish.\n" +
+//                        "2.\tHar oyda 3 kun ro’za tutish.\n" +
+//                        "3.\tHaftaning dushanba va payshanba kunlari ro’za tutish.\n" +
+//                        "4.\tShavvol oyida 6 kun ro’za tutish.\n" +
+//                        "5.\tArafa kuni ro’za tutish.\n" +
+//                        "6.\tArafadan oldingi 8 kunda ro’za tutish.\n" +
+//                        "7.\tSha’bon oyida ro’za tutish.\n"
+//            ),
+//            Question(
+//                "Savol: Qanday ro’zaga nafl ro’za deyiladi? ",
+//                "Javob: \nDinimizda ularni ham tutish targ’ib qilingan, sunnat va mandub (yoki mustahab) ro’zalardan boshqa ixtiyoriy ro’zalar."
+//            ),
+//            Question(
+//                "Savol: “Niyat” so’zi lug’atda qanday ma’no anglatadi?",
+//                "Javob: \n“Qasd qilish” ma’nosini anglatadi."
+//            ),
+//            Question(
+//                "Savol: Tayin qilinmagan vojib ro’za necha turlidir? ",
+//                "Javob: \n9 turlidir  "
+//            )
         )
         return myList
     }

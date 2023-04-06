@@ -105,8 +105,8 @@ class TasbehScreen : Fragment(R.layout.screen_tasbeh) {
         TabLayoutMediator(tabLayout, viewPager2) { tab, position ->
             when (position) {
                 0 -> tab.text = "Zikrlar"
-                1 -> tab.text = "Salovatlar"
-                else -> tab.text = "Salovatlar"
+                //1 -> tab.text = "Salovatlar"
+                else -> tab.text = "Zikrlar"
             }
         }.attach()
 //        FragmentAdapter( drawerLayout,requireActivity() as AppCompatActivity)
@@ -199,13 +199,13 @@ class FragmentAdapter @Inject constructor(
 
 ) : FragmentStateAdapter(activity) {
     override fun getItemCount(): Int {
-        return 2
+        return 1
     }
 
     override fun createFragment(position: Int): Fragment {
         return when (position) {
             0 -> ZikrScreen( drawerLayout)
-            1 -> SalovatScreen(drawerLayout)
+         //   1 -> SalovatScreen(drawerLayout)
             else -> ZikrScreen( drawerLayout)
         }
     }

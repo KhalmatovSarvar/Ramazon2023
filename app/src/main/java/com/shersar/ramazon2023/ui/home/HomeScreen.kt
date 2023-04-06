@@ -70,9 +70,7 @@ class HomeScreen : Fragment(R.layout.screen_home) {
                 }
             }
 
-            llLocation.setOnClickListener {
-                activityNavController().navigateSafely(R.id.action_mainFlowFragment_to_locationScreen)
-            }
+
         }
     }
 
