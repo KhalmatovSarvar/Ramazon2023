@@ -103,8 +103,6 @@ dependencies {
     //Dexter for permissions
     implementation 'com.karumi:dexter:6.2.3'
 
-    // Dexter for permissions
-    implementation 'com.karumi:dexter:6.2.3'
 
 
 }

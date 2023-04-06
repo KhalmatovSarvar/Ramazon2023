@@ -1,7 +1,9 @@
 package com.shersar.ramazon2023.model
 
-class Salovatlar(val name: String, vararg item: Item) {
+import com.shersar.ramazon2023.data.local.entity.Zikr
 
-    val listOfItems: List<Item> = item.toList()
+class Salovatlar(val name: String, vararg zikr: Zikr) {
+
+    val listOfZikrs: List<Zikr> = zikr.toList()
 
 }

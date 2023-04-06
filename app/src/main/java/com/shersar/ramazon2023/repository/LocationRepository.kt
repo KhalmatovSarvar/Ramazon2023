@@ -40,7 +40,7 @@ class LocationRepository @Inject constructor(
                             monthNumberHijri = items.data[i]?.date?.hijri?.month?.number!!.toInt(),
                             monthNameEN = items.data[i]?.date?.hijri?.month?.en.toString(),
                             monthNameArabic = items.data[i]?.date?.hijri?.month?.ar.toString(),
-                            day = items.data[i]?.date?.gregorian?.day.toString(),
+                            day = items.data[i]?.date?.gregorian?.day!!.toInt(),
                             dayHijri = items.data[i]?.date?.hijri?.day.toString(),
                             year = items.data[i]?.date?.gregorian?.year.toString(),
                             yearHijri = items.data[i]?.date?.hijri?.year.toString(),
@@ -91,7 +91,101 @@ class LocationRepository @Inject constructor(
                         prayerTimesDao.insert(prayerTimesToEntity)
 
 
+
+
+
+
                     }
+                    // here we are sending second response
+                    try {
+                        val secondResponse = apiService.getMonthlyCalendar(year, month+1, latitude, longitude)
+                        Log.d("LocationRepository", "getMonthlyCalendarFromApi: I am in locationRepo")
+
+                        if (secondResponse.isSuccessful) { // Check if the secondResponse is successful
+                            val items = secondResponse.body() // Extract the list of items from the response body
+                            if (items != null && items.data!!.isNotEmpty()) {
+                                // Save the list of items to the Room database
+                                Log.d("LocationRepository", "getMonthlyCalendarFromApi: I am in locationRepo and saving")
+
+                                for (i in 0 until items.data.size) {
+
+                                    Log.d("OBJECTPRAYERTIME", "getMonthlyCalendarFromApi: ${items.data[i]?.date?.gregorian.toString()}")
+
+
+                                    val prayerTime = DailyPrayerTime(
+                                        monthNumber = items.data[i]?.date?.gregorian?.month?.number!!.toInt(),
+                                        monthNumberHijri = items.data[i]?.date?.hijri?.month?.number!!.toInt(),
+                                        monthNameEN = items.data[i]?.date?.hijri?.month?.en.toString(),
+                                        monthNameArabic = items.data[i]?.date?.hijri?.month?.ar.toString(),
+                                        day = items.data[i]?.date?.gregorian?.day!!.toInt(),
+                                        dayHijri = items.data[i]?.date?.hijri?.day.toString(),
+                                        year = items.data[i]?.date?.gregorian?.year.toString(),
+                                        yearHijri = items.data[i]?.date?.hijri?.year.toString(),
+                                        weekday = items.data[i]?.date?.gregorian?.weekday?.en.toString(),
+                                        fajr = items.data[i]?.timings?.Fajr.toString(),
+                                        sunrise = items.data[i]?.timings?.Sunrise.toString(),
+                                        dhuhr = items.data[i]?.timings?.Dhuhr.toString(),
+                                        asr = items.data[i]?.timings?.Asr.toString(),
+                                        sunset = items.data[i]?.timings?.Sunset.toString(),
+                                        maghrib = items.data[i]?.timings?.Maghrib.toString(),
+                                        isha = items.data[i]?.timings?.Isha.toString(),
+                                        imsak = items.data[i]?.timings?.Imsak.toString(),
+                                        midnight = items.data[i]?.timings?.Midnight.toString(),
+                                        firstthird = items.data[i]?.timings?.Firstthird.toString(),
+                                        lastthird = items.data[i]?.timings?.Lastthird.toString(),
+                                        date = items.data[i]?.date?.gregorian?.date.toString(),
+                                        format = items.data[i]?.date?.gregorian?.format.toString()
+                                    )
+
+                                    val prayerTimesToEntity = DailyPrayerTimesEntity(
+                                        0,
+                                        prayerTime.monthNumber,
+                                        prayerTime.monthNumberHijri,
+                                        prayerTime.monthNameEN,
+                                        prayerTime.monthNameArabic,
+                                        prayerTime.day,
+                                        prayerTime.dayHijri,
+                                        prayerTime.year,
+                                        prayerTime.yearHijri,
+                                        prayerTime.weekday,
+                                        prayerTime.fajr,
+                                        prayerTime.sunrise,
+                                        prayerTime.dhuhr,
+                                        prayerTime.asr,
+                                        prayerTime.sunset,
+                                        prayerTime.maghrib,
+                                        prayerTime.isha,
+                                        prayerTime.imsak,
+                                        prayerTime.midnight,
+                                        prayerTime.firstthird,
+                                        prayerTime.lastthird,
+                                        prayerTime.date,
+                                        prayerTime.format
+                                    )
+
+                                    Log.d("DB SAVED OBJECT ", "getMonthlyCalendarFromApi: ${prayerTimesToEntity.toString()}")
+
+                                    prayerTimesDao.insert(prayerTimesToEntity)
+
+
+
+
+                                }
+
+
+
+                            }
+                        } else {
+                            // Handle the API call failure case
+                            val errorBody = response.errorBody()?.string()
+                            // ...
+                        }
+                    } catch (e: Exception) {
+                        Log.d("LocationRepositorySecond", "getMonthlyCalendarFromApiS: ${e.message.toString()}")
+                    }
+
+
+
                 }
             } else {
                 // Handle the API call failure case

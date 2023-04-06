@@ -1,231 +1,106 @@
 package com.shersar.ramazon2023.ui.tasbeh
 
+import android.icu.text.SimpleDateFormat
 import android.os.Bundle
 import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
-import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.shersar.ramazon2023.R
+import com.shersar.ramazon2023.activity.MainActivity
+import com.shersar.ramazon2023.adapters.ViewPagerAdapter
+import com.shersar.ramazon2023.data.local.entity.Zikr
 import com.shersar.ramazon2023.databinding.ScreenTasbehBinding
-import com.shersar.ramazon2023.model.Item
-import com.shersar.ramazon2023.model.Zikrlar
-import com.shersar.ramazon2023.ui.tasbeh.viewmodel.SalovatViewModel
-import com.shersar.ramazon2023.ui.tasbeh.viewmodel.ZikrViewModel
 import com.shersar.ramazon2023.utils.CustomDialog
-import com.shersar.ramazon2023.utils.ExapleDialog
 import com.shersar.ramazon2023.utils.UiStateObject
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import me.relex.circleindicator.CircleIndicator3
 import viewBinding
+import java.util.*
+import javax.inject.Inject
 
-
+@AndroidEntryPoint
 class TasbehScreen : Fragment(R.layout.screen_tasbeh) {
-    private lateinit var tabLayout: TabLayout
-    private lateinit var recyclerView: RecyclerView
+
     private val binding by viewBinding { ScreenTasbehBinding.bind(it) }
-    private val viewModelZikr by viewModels<ZikrViewModel>()
     private lateinit var adapterFragments: ViewPagerAdapter
     private lateinit var viewPagerr: ViewPager2
-    var count = 0
-    private val categories = mutableListOf(
-        Zikrlar(
-            "Zikrlar",
-            Item(
-                1,
-                "Субҳаналлоҳ",
-                "سُبْحَانَ اللَّه",
-                "Маьноси: Аллоҳни поклаб ёд этаман.",
-                "0",
-                "0"
-            ),
-            Item(
-                2,
-                "Алҳамдулиллаҳ",
-                "الْحَمْدُ لله",
-                "Маьноси: Аллоҳга хамд бўлсин.",
-                "0",
-                "0"
-            ),
-            Item(
-                3,
-                "Аллоҳу акбар",
-                "اأَللهُ أَکْبَرُ",
-                "Маьноси: Аллоҳ буюкдир.",
-                "0",
-                "0"
-            ),
-            Item(
-                4,
-                "Астағфируллоҳ",
-                "أَسْتَغْفِرُ اللَّهَ",
-                "Маъноси:Аллоҳдан кечирим сўрайман.",
-                "0",
-                "0"
-            ),
-            Item(
-                5,
-                "Астағфируллоҳ ва атувбу илайҳ",
-                "أَسْتَغْفِرُ اللَّهَ وأَتُوبُ إِلَيهِ ",
-                "Маъноси:Аллоҳдан кечирим сўрайман ва Унга тавба қиламан.",
-                "0",
-                "0"
-            ),
-            Item(
-                6,
-                "Астағфируллоҳаллазий Ла илаҳа илла ҳувал ҳаййул қоййум ва атувбу илайҳ",
-                "أَسْتَغْفِرُ اللَّهَ الَّذِي لَا إِلَهَ إلَّا هُوَ الْحَيُّ الْقَيُّومُ وأَتُوبُ إِلَيهِ ",
-                "Маъноси: Барҳаёт, тирик Аллоҳдан авф этишини сўрайман ва Унга тавба қиламан.",
-                "0",
-                "0"
-            ),
-            Item(
-                6,
-                "Субҳаналлоҳи ва биҳамдиҳи\n" +
-                        "Субҳаналлоҳил ъзийм",
-                "سُبْحَانَ اللهِ وَبِحَمْدِهِ \n" +
-                        "سُبْحَانَ اللهِ الْعَظِيمِ",
-                "Маъноси: Аллоҳга ҳамд айтиш билан Уни айбу нуқсонлардан поклаб ёд етаман.",
-                "0",
-                "0"
-            ),
-            Item(
-                6,
-                "Йа муқоллибал қулуб саббит қолбий ъала дийник",
-                "يَا مُقَلِّبَ الْقُلُوبِ ثَبِّتْ قَلْبِي عَلَى دِيْنِكَ ",
-                "Маъноси: Эй қалбларни ўзгартирувчи, қалбимни динингда собит қил.",
-                "0",
-                "0"
-            ),
-            Item(
-                5,
-                "Ла илаҳа илла анта субҳанака инний кунту миназ золимийн",
-                "لَا إِلَهَ إلَّا أَنْتَ سُبْحَانَكَ إَنِّي كُنْتُ مِنَ الظَّالِمِينَ ",
-                "Маъноси: Сендан бошқа илоҳ йўқ. Сени поклаб ёд етаман. Албатта мен золимлардан бўлдим.",
-                "0",
-                "0"
-            ),
-            Item(
-                5,
-                "Ла илаҳа иллаллоҳ",
-                "لَا إِلَٰهَ إِلَّا الله",
-                "Маьноси: Аллоҳдан ўзга илоҳ йўқ.",
-                "0",
-                "0"
-            ),
-            Item(
-                5,
-                "Ла ҳавла ва ла қуввата илла биллаҳ",
-                "لَا حَولَ وَلَا قُوَّةَ إَلَّا بِاللَّهِ ",
-                "Маъноси: Куч ва қувват ёлғиз Аллоҳдандир.",
-                "0",
-                "0"
-            ),
-            Item(
-                5,
-                "Аллоҳумма мағфиротука авсаъу мин зунубий ва роҳматука аржа ъиндий мин ъамалий",
-                "اللَّهُمَّ مَغْفِرَتُكَ أَوْسَعُ مِنْ ذُنُوبِي وَرَحْمَتُكَ أَرْجَى عِنْدِي مِنْ عَمَلِي",
-                "\n" +
-                        "Маъноси:Аллоҳим, мағфиратинг гинохимдан кенгроқдир. Раҳматинг ҳузуримдаги амалимдан умидлироқдир.",
-                "0",
-                "0"
-            ),
-            Item(
-                5,
-                "Ла илаҳа иллаллоҳ Мухаммадур росуллоҳ",
-                "لَا إِلَٰهَ إِلَّا الله مُحَمَّدٌ رَسُولُ اُللَّهِ",
-                "Маьнлси: Аллоҳдан ўзга илоҳ йўқ Мухаммад унинг элчиси.",
-                "0",
-                "0"
-            ),
-        ),
-    )
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        viewModelZikr.getZikrState()
+        (requireActivity() as MainActivity).viewModel.resetAllCurrentZikrs()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
+        Log.d("TAG", "onViewCreated: ok")
+
         initview()
         initViewPager()
         initCounts()
+        setupDarweLayout()
         setupZikrObservers()
+        deleteTodayZikr()
     }
 
+    private fun deleteTodayZikr() {
+        // Get the current date and format it to match the date field in your Zikr object
+        val currentDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
 
-    private fun initCounts() {
-        Log.d("@@@@", "Main tasbeh Screen ")
+        // Call the resetTodayZikr function in your ViewModel
+        (requireActivity() as MainActivity).viewModel.resetTodayZikr(currentDate)
 
-        binding.ivMoreVerDot.setOnClickListener {
-            val customDialog = CustomDialog(requireContext())
-            customDialog.setTitle("Custom Dialog Title")
-            customDialog.show()
-            val window: Window? = customDialog.window
-            val wlp: WindowManager.LayoutParams = window!!.attributes
-            wlp.gravity = Gravity.BOTTOM
-            wlp.gravity = Gravity.END
-            wlp.flags = wlp.flags and WindowManager.LayoutParams.FLAG_DIM_BEHIND.inv()
-            window.attributes = wlp
-          /** val dialogFragment = ExapleDialog()
-            dialogFragment.show(parentFragmentManager, "MyDialogFragment")*/
-        }
-
-        binding.fmCount.setOnClickListener {
-            count++
-            binding.tvNowCount.text = count.toString()
-            binding.tvbeforeCount.text = count.toString()
-        }
-    }
-
-    private fun initViewPager() {
-        viewPagerr = binding.viewpager2
-        adapterFragments = ViewPagerAdapter(requireActivity())
-        val circleIndicator: CircleIndicator3 = binding.circleIndicator
-        viewPagerr.adapter = adapterFragments
-        // Set the CircleIndicator with ViewPager2
-        Toast.makeText(requireContext(), "jhgj", Toast.LENGTH_SHORT).show()
-        binding.circleIndicator.setViewPager(binding.viewpager2)
     }
 
     private fun initview() {
         val header: View
         binding.ivVerMore.setOnClickListener {
             binding.drawerlayout.openDrawer(GravityCompat.END)
+            Log.d("RRR", "Drawer OPENED Tasbeh ${binding.drawerlayout.isDrawerOpen(GravityCompat.END)}")
         }
         binding.apply {
             header = navView.getHeaderView(0)
         }
         initTabs(header, binding.drawerlayout)
+    }
 
+    private fun setupDarweLayout() {
+        adapterFragments.fragments.add(Item1Screen())
+        adapterFragments.fragments.add(Item2Screen())
+        viewPagerr.adapter = adapterFragments
+    }
 
+    private fun initViewPager() {
+        viewPagerr = binding.viewpager2
+        adapterFragments = ViewPagerAdapter(requireActivity())
+        val circleIndicator: CircleIndicator3 = binding.circleIndicator
+
+        viewPagerr.adapter = adapterFragments
+
+        // Set the CircleIndicator with ViewPager2
+        circleIndicator.setViewPager(viewPagerr)
     }
 
     private fun initTabs(header: View, drawerLayout: DrawerLayout) {
-
         val viewPager2: ViewPager2 = header.findViewById(R.id.viewpager2)
         val tabLayout: TabLayout = header.findViewById(R.id.tabLayout)
 
         viewPager2.adapter =
-            FragmentAdapter(requireContext() as AppCompatActivity, viewModelZikr, drawerLayout)
+            FragmentAdapter( drawerLayout,requireActivity() as AppCompatActivity)
 //        viewPager2.isUserInputEnabled = false
         TabLayoutMediator(tabLayout, viewPager2) { tab, position ->
             when (position) {
@@ -234,31 +109,57 @@ class TasbehScreen : Fragment(R.layout.screen_tasbeh) {
                 else -> tab.text = "Salovatlar"
             }
         }.attach()
+    }
 
+    private fun initCounts() {
+
+        binding.ivMoreVerDot.setOnClickListener {
+            val customDialog = CustomDialog(requireContext())
+            customDialog.setTitle("Custom Dialog Title")
+            customDialog.show()
+
+            val window: Window? = customDialog.window
+            val wlp: WindowManager.LayoutParams = window!!.attributes
+
+            wlp.gravity = Gravity.BOTTOM
+            wlp.gravity = Gravity.END
+            wlp.flags = wlp.flags and WindowManager.LayoutParams.FLAG_DIM_BEHIND.inv()
+            window.attributes = wlp
+        }
+
+
+        binding.fmCount.setOnClickListener {
+            Log.d("UpdatedZikr", "incrementTodayAndAllZikr: button clicked")
+
+            (requireActivity() as MainActivity).viewModel.incrementParams()
+        }
 
     }
 
     private fun setupZikrObservers() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModelZikr.zikrState.collect {
-                    when (it) {
-                        is UiStateObject.LOADING -> {
-
-                        }
-                        is UiStateObject.SUCCESS -> {
-                            Log.d("@@@", "Home ${it.data}")
-
-                            adapterFragments.fragments.add(Item1Screen(viewModelZikr))
-                            adapterFragments.fragments.add(Item2Screen(viewModelZikr))
-                            viewPagerr.adapter = adapterFragments
-                        }
-                        is UiStateObject.ERROR -> {
-                        }
-                        else -> Unit
+        lifecycleScope.launch {
+            (requireActivity() as MainActivity).viewModel.zikrState.collect{zikrState->
+                when(zikrState){
+                    is UiStateObject.SUCCESS->{
+                        Log.d("ZIKRSTATE", "setupZikrObservers: ${zikrState.data}")
+                        Log.d("TasbehScreen", "deleteTodayZikr: i reache dhere")
+                        showSelectedZikrFields(zikrState.data)
                     }
-                }
             }
+            }
+        }
+    }
+
+    // This method is called when an item is clicked in the RecyclerView
+//    private fun onZikrSelected(zikr: Zikr) {
+        // Set the selected Zikr object in the ViewModel
+//        (requireActivity() as MainActivity).viewModel.onZikrSelected(zikr)
+//    }
+
+    private fun showSelectedZikrFields(zikr: Zikr) {
+        binding.apply {
+                tvNowCount.text = zikr.current_zikr
+                tvbeforeCount.text = zikr.today_zikr
         }
     }
 
@@ -271,8 +172,8 @@ class TasbehScreen : Fragment(R.layout.screen_tasbeh) {
 
     override fun onResume() {
         super.onResume()
-
         Log.d("@@@", "Tasbeh on resume")
+
     }
 
     override fun onStart() {
@@ -288,23 +189,12 @@ class TasbehScreen : Fragment(R.layout.screen_tasbeh) {
     }
 }
 
-class ViewPagerAdapter(activity: FragmentActivity) : FragmentStateAdapter(activity) {
 
-    val fragments = mutableListOf<Fragment>()
 
-    override fun getItemCount(): Int {
-        return fragments.size
-    }
-
-    override fun createFragment(position: Int): Fragment {
-        return fragments[position]
-    }
-}
-
-class FragmentAdapter(
+class FragmentAdapter @Inject constructor(
+    private val drawerLayout: DrawerLayout,
     activity: AppCompatActivity,
-    private val viewModelZikr: ZikrViewModel,
-    private val drawerLayout: DrawerLayout
+
 ) : FragmentStateAdapter(activity) {
     override fun getItemCount(): Int {
         return 2
@@ -312,9 +202,9 @@ class FragmentAdapter(
 
     override fun createFragment(position: Int): Fragment {
         return when (position) {
-            0 -> ZikrScreen(viewModelZikr, drawerLayout)
+            0 -> ZikrScreen( drawerLayout)
             1 -> SalovatScreen(drawerLayout)
-            else -> ZikrScreen(viewModelZikr, drawerLayout)
+            else -> ZikrScreen( drawerLayout)
         }
     }
 }

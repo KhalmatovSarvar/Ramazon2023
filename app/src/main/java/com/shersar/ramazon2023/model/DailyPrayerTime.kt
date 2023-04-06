@@ -5,7 +5,7 @@ data class DailyPrayerTime(
     val monthNumberHijri: Int,
     val monthNameEN: String,
     val monthNameArabic: String,
-    val day: String,
+    val day: Int,
     val dayHijri: String,
     val year: String,
     val yearHijri: String,
