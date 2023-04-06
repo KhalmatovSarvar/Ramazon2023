@@ -2,10 +2,12 @@ package com.shersar.ramazon2023.ui.home
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -20,6 +22,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import viewBinding
+import java.time.LocalTime
 import java.util.*
 
 @AndroidEntryPoint
@@ -28,12 +31,15 @@ class HomeScreen : Fragment(R.layout.screen_home) {
     private val homeViewModel: HomeViewModel by viewModels()
     private val binding by viewBinding { ScreenHomeBinding.bind(it) }
     private lateinit var location: String
-
+    lateinit var time1: String
+    lateinit var time2: String
+    lateinit var time3: String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         homeViewModel.getPrayerTimeByDay()
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -41,11 +47,50 @@ class HomeScreen : Fragment(R.layout.screen_home) {
 
         initView()
         setUpObservers()
+        changeImagesByTime()
+    }
+
+
+    private fun changeImagesByTime() {
+        /**
+        // Split the time string into hours, minutes, and seconds
+        val imageView = binding.ivIndiaMorning
+        val parts = time1.split(":")
+        val hours = parts[0].toInt()
+        val minutes = parts[1].toInt()
+
+        val parts1 = time1.split(":")
+        val hours1= parts1[0].toInt()
+        val minutes1 = parts1[1].toInt()
+
+        val parts2 = time1.split(":")
+        val hours2 = parts2[0].toInt()
+        val minutes2 = parts2[1].toInt()
+
+
+        // Create a LocalTime object with the hour, minute, and second values
+        val localTime = LocalTime.of(hours, minutes)
+        val localTime1 = LocalTime.of(hours1, minutes1)
+        val localTime2 = LocalTime.of(hours2, minutes2)
+
+        // Check if the time is in the morning, afternoon, or evening
+        if (localTime.isBefore(LocalTime.of(hours1,minutes1))) {
+        // Set the morning image in the ImageView
+        imageView.setImageResource(R.drawable.im_india_day)
+        } else if (localTime1.isBefore(LocalTime.of(hours2, minutes2))) {
+        // Set the afternoon image in the ImageView
+        imageView.setImageResource(R.drawable.im_india_sunset)
+        } else {
+        // Set the evening image in the ImageView
+        imageView.setImageResource(R.drawable.im_india_night)
+        }
+         */
     }
 
 
     private fun initView() {
-        location = requireActivity().getSharedPreferences("MyPref", Context.MODE_PRIVATE).getString("location", "Tashkent") ?: "Tashkent"
+        location = requireActivity().getSharedPreferences("MyPref", Context.MODE_PRIVATE)
+            .getString("location", "Tashkent") ?: "Tashkent"
 //        val imageView = binding.ivIndiaMorning
 //        val calendar = Calendar.getInstance()
 //        when (calendar.get(Calendar.HOUR_OF_DAY)) {
@@ -88,13 +133,17 @@ class HomeScreen : Fragment(R.layout.screen_home) {
             tvDayQamariy.text = "${day.dayHijri} ${day.monthNameEN} ${day.yearHijri}"
 
             tvSaharlik.text = day.fajr.split(" ")[0]
+            time1 = day.fajr.split(" ")[0]//getting for image change
+
             tvQuyosh.text = day.Sunrise.split(" ")[0]
             tvIftorlik.text = day.Sunset.split(" ")[0]
 
             tvFajrTime.text = day.fajr.split(" ")[0]
             tvZuhrTime.text = day.Dhuhr.split(" ")[0]
+            time2 = day.Dhuhr.split(" ")[0]//getting for image change
             tvAsrTime.text = day.Asr.split(" ")[0]
             tvShomTime.text = day.Maghrib.split(" ")[0]
+            time3 = day.Maghrib.split(" ")[0]//getting for image change
             tvIshaTime.text = day.Isha.split(" ")[0]
             tvTahajjud.text = day.Lastthird.split(" ")[0]
         }

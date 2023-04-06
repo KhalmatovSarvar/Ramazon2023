@@ -123,7 +123,7 @@ class LocationScreen : Fragment(R.layout.screen_location) {
             val builder = AlertDialog.Builder(requireContext())
             builder.setTitle("Internet aloqasi mavjud emas!")
             builder.setMessage("Internetga ulanish yo'q, aloqa holatini tekshiring.")
-            builder.setPositiveButton("OK") { dialog, which ->
+            builder.setPositiveButton("OK") { _, _ ->
                 checkInternetConnection() // Recursively check for internet connection
             }
             builder.setCancelable(false) // Prevent dialog from being dismissed
@@ -194,7 +194,7 @@ class LocationScreen : Fragment(R.layout.screen_location) {
                             setNegativeButton("Cancel", null)
                             setPositiveButton(
                                 "Ok"
-                            ) { dialog, which ->
+                            ) { _, _ ->
 //                                val intent = Intent().apply {
 //                                    action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
 //                                    data = Uri.fromParts("package", requireActivity().packageName, null)

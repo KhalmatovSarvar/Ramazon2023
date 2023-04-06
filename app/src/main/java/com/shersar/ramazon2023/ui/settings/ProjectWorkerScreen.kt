@@ -31,25 +31,15 @@ class ProjectWorkerScreen : Fragment(R.layout.screen_project_worker) {
         }
 
         binding.ivTelegGuli.setOnClickListener {
-            val tgIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://t.me/zikr_va_d"))
-            tgIntent.`package` = "org.telegram.messenger"
-            try {
-                startActivity(tgIntent)
-            } catch (e: ActivityNotFoundException) {
-                // Telegram is not installed on the device, show an error message to the user
-                Toast.makeText(requireContext(), "Telegram is not installed on your device", Toast.LENGTH_SHORT).show()
-            }
+            val url = "https://t.me/z1kr_va_duolar"
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+            startActivity(intent)
         }
         binding.ivTelegHilola.setOnClickListener {
-            val tgIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://t.me/ilmdan_najot"))
-            tgIntent.`package` = "org.telegram.messenger"
-            try {
+            val url = "https://t.me/ilmdan_najot"
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+            startActivity(intent)
 
-                startActivity(tgIntent)
-            } catch (e: ActivityNotFoundException) {
-                // Telegram is not installed on the device, show an error message to the user
-                Toast.makeText(requireContext(), "Telegram is not installed on your device", Toast.LENGTH_SHORT).show()
-            }
         }
     }
 }
