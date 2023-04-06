@@ -7,24 +7,39 @@
     android:background="@color/card_background_day">
 
     <TextView
+        android:visibility="visible"
         android:id="@+id/tv_location"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:gravity="center"
+        android:text="Joylashuvni belgilang"
+        android:textColor="@color/writter"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/img" />
+
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/tv_locationn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
+        android:gravity="center"
         android:text="Joylashuvni belgilang"
         android:textColor="@color/writter"
         android:textSize="24dp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
+        android:id="@+id/img"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="110dp"
         android:src="@drawable/ic_loco"
-        app:layout_constraintTop_toBottomOf="@id/tv_location" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -53,41 +68,11 @@
             android:textColor="#0077BA" />
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="34.5dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Joylashuvni avtomatik belgilash"
-                android:textColor="#CC000000"
-                android:textSize="16sp" />
-
-            <androidx.appcompat.widget.SwitchCompat
-                android:id="@+id/switch_compat_loc"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:thumbTint="@drawable/selected_switch"
-                android:trackTint="@drawable/selected_switch" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="24.5dp"
-            android:background="@color/card_background_day" />
-
-        <LinearLayout
             android:id="@+id/ll_choose"
-            android:layout_width="366dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="24.5dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="26dp"
             android:layout_marginBottom="35dp"
             android:orientation="horizontal">
 
@@ -103,41 +88,49 @@
                 android:id="@+id/iv_down_arrow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_up_arrow"
                 android:layout_gravity="center"
-                app:tint="@color/writter"/>
+                android:layout_marginEnd="20dp"
+                android:src="@drawable/ic_downn"
+                app:tint="@color/writter" />
         </LinearLayout>
 
         <androidx.core.widget.NestedScrollView
+            android:id="@+id/nested"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="320dp"
+            android:visibility="gone">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/item_bottomsheet" />
         </androidx.core.widget.NestedScrollView>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/switch_compat_loc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginBottom="24dp"
+            android:paddingVertical="18dp"
+            android:text="Avtomatik belgilash"
+            android:textAllCaps="false"
+            android:textSize="16sp" />
     </LinearLayout>
 
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/loading"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginBottom="60dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/loading_kk" />
 </androidx.constraintlayout.widget.ConstraintLayout>
-    <!--    android:id="@+id/btn_location"-->
-    <!--<TextView-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_marginBottom="20dp"-->
-    <!--android:maxLines="3"-->
-    <!--android:id="@+id/tv_localation"-->
-    <!--android:textSize="16sp"-->
-    <!--android:textColor="@color/black"/>-->
-    <!--<Button-->
 
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_marginHorizontal="70dp"-->
-    <!--app:backgroundTint="@color/background"-->
-    <!--android:text="Mintaqangizni tanlang"-->
-    <!--android:textAllCaps="false"-->
-    <!--    />-->

@@ -1,6 +1,7 @@
 package com.shersar.ramazon2023.ui.home
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -12,17 +13,21 @@ import com.shersar.ramazon2023.R
 import com.shersar.ramazon2023.data.local.entity.DailyPrayerTimesEntity
 import com.shersar.ramazon2023.databinding.ScreenHomeBinding
 import com.shersar.ramazon2023.utils.UiStateObject
+import com.shersar.ramazon2023.utils.activityNavController
+import com.shersar.ramazon2023.utils.navigateSafely
 import com.shersar.ramazon2023.viewmodel.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import viewBinding
+import java.util.*
 
 @AndroidEntryPoint
 class HomeScreen : Fragment(R.layout.screen_home) {
 
     private val homeViewModel: HomeViewModel by viewModels()
     private val binding by viewBinding { ScreenHomeBinding.bind(it) }
+    private lateinit var location: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,9 +44,17 @@ class HomeScreen : Fragment(R.layout.screen_home) {
     }
 
 
-
     private fun initView() {
+        location = requireActivity().getSharedPreferences("MyPref", Context.MODE_PRIVATE).getString("location", "Tashkent") ?: "Tashkent"
+//        val imageView = binding.ivIndiaMorning
+//        val calendar = Calendar.getInstance()
+//        when (calendar.get(Calendar.HOUR_OF_DAY)) {
+//            in 6..12 -> imageView.setImageResource(R.drawable.im_india_day)
+//            in 13..19 -> imageView.setImageResource(R.drawable.im_india_sunset)
+//            else -> imageView.setImageResource(R.drawable.im_india_night)
+//        }
         binding.apply {
+            tvLocation.text = location
             flOgizYopish.setOnClickListener {
                 if (tvOgizYopishArab.visibility != View.VISIBLE) {
                     tvOgizYopishArab.visibility = View.VISIBLE
@@ -56,13 +69,22 @@ class HomeScreen : Fragment(R.layout.screen_home) {
                     tvOgizOchishArab.visibility = View.GONE
                 }
             }
+
+            llLocation.setOnClickListener {
+                activityNavController().navigateSafely(R.id.action_mainFlowFragment_to_locationScreen)
+            }
         }
     }
 
     @SuppressLint("SetTextI18n")
-    private fun setUpTimes(day: DailyPrayerTimesEntity){
+    private fun setUpTimes(day: DailyPrayerTimesEntity) {
         binding.apply {
-            tvDayHijriy.text = "${String.format("%02d", day.day.toInt())}.${String.format("%02d", day.monthNumber)}.${day.year}"
+            tvDayHijriy.text = "${String.format("%02d", day.day.toInt())}.${
+                String.format(
+                    "%02d",
+                    day.monthNumber
+                )
+            }.${day.year}"
             tvDayQamariy.text = "${day.dayHijri} ${day.monthNameEN} ${day.yearHijri}"
 
             tvSaharlik.text = day.fajr.split(" ")[0]
@@ -74,6 +96,7 @@ class HomeScreen : Fragment(R.layout.screen_home) {
             tvAsrTime.text = day.Asr.split(" ")[0]
             tvShomTime.text = day.Maghrib.split(" ")[0]
             tvIshaTime.text = day.Isha.split(" ")[0]
+            tvTahajjud.text = day.Lastthird.split(" ")[0]
         }
     }
 
@@ -109,10 +132,26 @@ class HomeScreen : Fragment(R.layout.screen_home) {
 
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
             homeViewModel.currentTime.collect { pair ->
-                val (def, text) = pair
+                val (def, text, state) = pair
                 binding.tvDayLeft.text = def // update a TextView with the current time
                 binding.tvDownCountTimer.text = text
+
+                binding.apply {
+                    cvSaharlik.isActivated = state == "bomdod"
+                    tvSaharlikTxt.isActivated = state == "bomdod"
+                    tvSaharlik.isActivated = state == "bomdod"
+                    ivSaharlik.isActivated = state == "bomdod"
+
+                    cvIftorlik.isActivated = state == "shom"
+                    tvIftorlikTxt.isActivated = state == "shom"
+                    tvIftorlik.isActivated = state == "shom"
+                    ivIftorlik.isActivated = state == "shom"
+
+//                    ivIndiaMorning.setImageResource(R.drawable.im_india_sunset)
+                }
             }
+
+
         }
 
     }

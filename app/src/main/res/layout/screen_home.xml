@@ -46,10 +46,12 @@
                     android:src="@drawable/assalomu_alaykum" />
 
                 <LinearLayout
-                    android:layout_width="111dp"
+                    android:id="@+id/ll_location"
+                    android:layout_width="wrap_content"
                     android:layout_height="40dp"
                     android:background="@drawable/bg_location"
                     android:layout_gravity="top|end"
+                    android:paddingHorizontal="8dp"
                     android:layout_marginTop="30dp"
                     android:layout_marginEnd="16dp"
                     android:orientation="horizontal">
@@ -58,12 +60,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:paddingLeft="5dp"
                         app:tint="@color/white"
                         android:src="@drawable/ic_location" />
                     <TextView
                         android:id="@+id/tv_location"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_marginStart="10.5dp"
@@ -72,46 +73,13 @@
                         android:textColor="@color/white"
                         android:textSize="16sp" />
                 </LinearLayout>
-<!--                <androidx.cardview.widget.CardView-->
-<!--                    android:layout_width="111dp"-->
-<!--                    android:layout_height="40dp"-->
-<!--                    android:layout_gravity="top|right"-->
-<!--                    android:layout_marginTop="30dp"-->
-<!--                    android:layout_marginRight="16dp"-->
-<!--                    android:backgroundTint="#19000000">-->
 
-<!--                    <LinearLayout-->
-<!--                        android:id="@+id/ll_location"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="match_parent"-->
-<!--                        android:orientation="horizontal">-->
-
-<!--                        <ImageView-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:layout_gravity="center_vertical"-->
-<!--                            android:paddingLeft="5dp"-->
-<!--                            android:src="@drawable/ic_location" />-->
-
-<!--                        <TextView-->
-<!--                            android:id="@+id/tv_location"-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:layout_gravity="center_vertical"-->
-<!--                            android:layout_weight="1"-->
-<!--                            android:text="Tashkent"-->
-<!--                            android:textColor="@color/white"-->
-<!--                            android:textSize="16sp" />-->
-<!--                    </LinearLayout>-->
-
-<!--                </androidx.cardview.widget.CardView>-->
 
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="25dp"
                     android:layout_gravity="bottom"
                     android:background="@drawable/cardview_top_corners_rounded" />
-
 
             </FrameLayout>
 
@@ -223,6 +191,7 @@
                 android:orientation="horizontal">
 
                 <ImageView
+                    android:id="@+id/iv_saharlik"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginVertical="21dp"
@@ -349,6 +318,7 @@
                 android:orientation="horizontal">
 
                 <ImageView
+                    android:id="@+id/iv_iftorlik"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginVertical="21dp"
@@ -429,11 +399,12 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
-                        android:text="Taroveh"
+                        android:text="Tahajjud"
                         android:textColor="@color/item_indicator_text_05"
                         android:textSize="14sp" />
 
                     <TextView
+                        android:id="@+id/tv_tahajjud"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
@@ -479,6 +450,12 @@
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_duo"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
                 <LinearLayout
                     android:id="@+id/tv_ogiz_yopish"
                     android:layout_width="match_parent"

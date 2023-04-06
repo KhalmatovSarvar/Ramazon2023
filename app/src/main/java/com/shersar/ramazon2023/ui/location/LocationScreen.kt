@@ -1,18 +1,26 @@
 package com.shersar.ramazon2023.ui.location
 
 import android.Manifest
-import android.app.Activity
-import android.content.Intent
+import android.content.Context
 import android.content.IntentSender
+import android.content.SharedPreferences
+import android.content.*
+import android.net.ConnectivityManager
+import androidx.appcompat.app.AlertDialog
 import android.content.pm.PackageManager
+import android.content.res.ColorStateList
 import android.location.Geocoder
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.getSystemService
+import androidx.core.content.ContextCompat.registerReceiver
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -22,17 +30,22 @@ import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.karumi.dexter.Dexter
+import com.karumi.dexter.PermissionToken
+import com.karumi.dexter.listener.PermissionDeniedResponse
+import com.karumi.dexter.listener.PermissionGrantedResponse
+import com.karumi.dexter.listener.PermissionRequest
+import com.karumi.dexter.listener.single.PermissionListener
 import com.shersar.ramazon2023.R
 import com.shersar.ramazon2023.adapters.BottomSheetAdapter
 import com.shersar.ramazon2023.databinding.ScreenLocationBinding
-import com.shersar.ramazon2023.databinding.ScreenSettingsBinding
 import com.shersar.ramazon2023.model.Bottomsheet
+import com.shersar.ramazon2023.model.Location
 import com.shersar.ramazon2023.utils.UiStateList
 import com.shersar.ramazon2023.utils.UiStateObject
 import com.shersar.ramazon2023.utils.navigateSafely
 import com.shersar.ramazon2023.viewmodel.LocationViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 import viewBinding
 import java.io.IOException
 import java.util.*
@@ -40,15 +53,31 @@ import kotlin.collections.ArrayList
 
 @AndroidEntryPoint
 class LocationScreen : Fragment(R.layout.screen_location) {
+    private lateinit var preferences: SharedPreferences.Editor
 
     private val locationViewModel: LocationViewModel by viewModels()
     private lateinit var adapter: BottomSheetAdapter
     private lateinit var recyclerView: RecyclerView
+    private lateinit var connectivityReceiver: BroadcastReceiver
     lateinit var locationRequest: LocationRequest
     lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     private var list = arrayListOf<Bottomsheet>()
     private var data =
-        arrayOf("Toshkent", "Andijon", "Namangan", "Xorazm", "Navoiy", "Bekobod", "Jizzax")
+        arrayOf(
+            Location("Toshkent", 41.2842, 69.2441),
+            Location("Andijon", 40.7814, 72.3578),
+            Location("Namangan", 41.0522, 71.6465),
+            Location("Farg'ona", 40.3694, 71.7989),
+            Location("Jizzax", 40.1214, 67.9031),
+            Location("Sirdaryo", 40.8346, 68.6783),
+            Location("Samarqand", 39.7483, 66.8888),
+            Location("Qashqadaryo", 38.8555, 65.7783),
+            Location("Surxondaryo", 37.2880, 67.3164),
+            Location("Navoiy", 40.1012, 65.3885),
+            Location("Xiva", 41.3906, 60.3481),
+            Location("Urganch", 41.5352, 60.6313),
+            Location("Buxoro", 39.7669, 64.4587)
+        )
     private val binding by viewBinding { ScreenLocationBinding.bind(it) }
     private lateinit var bottomSheet1: BottomSheetDialog
 
@@ -56,13 +85,50 @@ class LocationScreen : Fragment(R.layout.screen_location) {
         super.onCreate(savedInstanceState)
 
         locationViewModel.getAllPrayerTimesFromDb()
+        // Register broadcast receiver to listen for network changes
+        connectivityReceiver = object : BroadcastReceiver() {
+            override fun onReceive(context: Context?, intent: Intent?) {
+                checkInternetConnection()
+            }
+        }
+        requireContext().registerReceiver(
+            connectivityReceiver,
+            IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION)
+        )
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        requireContext().unregisterReceiver(connectivityReceiver)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        checkInternetConnection()
         initView()
         setUpObservers()
+        preferences = requireActivity().getSharedPreferences("MyPref", Context.MODE_PRIVATE).edit()
+    }
 
+    private fun checkInternetConnection() {
+        val connectivityManager =
+            requireActivity().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val networkInfo = connectivityManager.activeNetworkInfo
+        if (networkInfo != null && networkInfo.isConnected) {
+            // Internet connection is available
+            // Your code to handle the internet connection
+        } else {
+            // Internet connection is not available
+            val builder = AlertDialog.Builder(requireContext())
+            builder.setTitle("Internet aloqasi mavjud emas!")
+            builder.setMessage("Internetga ulanish yo'q, aloqa holatini tekshiring.")
+            builder.setPositiveButton("OK") { dialog, which ->
+                checkInternetConnection() // Recursively check for internet connection
+            }
+            builder.setCancelable(false) // Prevent dialog from being dismissed
+            builder.show()
+        }
     }
 
     private fun initView() {
@@ -70,63 +136,112 @@ class LocationScreen : Fragment(R.layout.screen_location) {
         fusedLocationProviderClient =
             LocationServices.getFusedLocationProviderClient(requireContext())
 
-        recyclerView =binding.rv
-        adapter= BottomSheetAdapter(getData())
-        recyclerView.adapter=adapter
-        var count =1
+        recyclerView = binding.rv
+        adapter = BottomSheetAdapter(getData())
+        adapter.onClick = {
+            preferences.putString("location", it.address)
+            preferences.apply()
+            openHomePage(it.lat, it.long)
+        }
+
+        recyclerView.adapter = adapter
+        var count = 1
+
         binding.llChoose.setOnClickListener {
             if (count % 2 == 1) {
                 binding.ivDownArrow
-                    .setImageResource(R.drawable.ic_arrow_down)
-               binding.rv.visibility = View.VISIBLE
+                    .setImageResource(R.drawable.ic_downn)
+                binding.nested.visibility = View.VISIBLE
+                binding.tvLocationn.visibility = View.VISIBLE
+                binding.img.visibility = View.GONE
+                binding.tvLocation.visibility = View.GONE
                 count++
             } else {
                 binding.ivDownArrow
-                    .setImageResource(R.drawable.ic_up_arrow)
-                binding.rv.visibility = View.GONE
+                    .setImageResource(R.drawable.ic_upp)
+                binding.ivDownArrow.setColorFilter(ContextCompat.getColor(requireContext(), R.color.writter))
+                binding.nested.visibility = View.GONE
+                binding.tvLocationn.visibility = View.GONE
+                binding.img.visibility = View.VISIBLE
+                binding.tvLocation.visibility = View.VISIBLE
                 count++
             }
         }
 
         binding.switchCompatLoc.setOnClickListener {
-            if (binding.switchCompatLoc.isChecked){
-                checkLocationPermission()
-            }else{
-                Toast.makeText(requireContext(), "Asss", Toast.LENGTH_SHORT).show()
-            }
+            checkLocationPermission()
+        }
+        binding.tvOpenMap.setOnClickListener {
+            Toast.makeText(requireContext(), "Tez kunda", Toast.LENGTH_SHORT).show()
         }
 
     }
 
     private fun checkLocationPermission() {
-        if (ActivityCompat.checkSelfPermission(
-                requireActivity(),
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) == PackageManager.PERMISSION_GRANTED
-        ) {
-            checkGPS()
-        } else {
-            ActivityCompat.requestPermissions(
-                requireActivity(),
-                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                100
-            )
-        }
+        Dexter.withContext(requireContext())
+            .withPermission(Manifest.permission.ACCESS_FINE_LOCATION)
+            .withListener(object : PermissionListener {
+                override fun onPermissionGranted(p0: PermissionGrantedResponse?) {
+                    checkGPS()
+                    binding.loading.visibility = View.VISIBLE
+                }
+
+                override fun onPermissionDenied(p0: PermissionDeniedResponse?) {
+                    if (p0!!.isPermanentlyDenied) {
+                        val dialog = AlertDialog.Builder(requireActivity()).apply {
+                            setTitle("Permission Denied")
+                            setMessage("Permission to access device location is permanently denied. You need to go to setting to allow to the permission.")
+                            setNegativeButton("Cancel", null)
+                            setPositiveButton(
+                                "Ok"
+                            ) { dialog, which ->
+//                                val intent = Intent().apply {
+//                                    action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
+//                                    data = Uri.fromParts("package", requireActivity().packageName, null)
+//                                }
+                            }
+                        }
+                        dialog.create().show()
+                    } else {
+                        Toast.makeText(
+                            requireContext(),
+                            "Permission denied",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+
+                override fun onPermissionRationaleShouldBeShown(
+                    p0: PermissionRequest?,
+                    p1: PermissionToken?
+                ) {
+                    p1!!.continuePermissionRequest()
+                }
+            }).check()
+
+//        if (ActivityCompat.checkSelfPermission(
+//                requireActivity(),
+//                Manifest.permission.ACCESS_FINE_LOCATION
+//            ) == PackageManager.PERMISSION_GRANTED
+//        ) {
+//            checkGPS()
+//            binding.loading.visibility=View.VISIBLE
+//
+//        } else {
+//            binding.switchCompatLoc.isChecked = false
+//            binding.switchCompatLoc.thumbTintList =
+//                ColorStateList.valueOf(resources.getColor(R.color.card_background_day))
+//            binding.switchCompatLoc.trackTintList =
+//                ColorStateList.valueOf(resources.getColor(R.color.for_switch_false))
+//            ActivityCompat.requestPermissions(
+//                requireActivity(),
+//                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+//                100
+//
+//            )
+//        }
+
     }
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-
-        Log.d("Permission", "Granted")
-        if (requestCode == 100){
-            checkLocationPermission()
-        }
-    }
-
 
     private fun checkGPS() {
         locationRequest = LocationRequest.create()
@@ -146,7 +261,6 @@ class LocationScreen : Fragment(R.layout.screen_location) {
                 val response = task.getResult(
                     ApiException::class.java
                 )
-
                 getUserLocation()
             } catch (e: ApiException) {
                 e.printStackTrace()
@@ -189,14 +303,21 @@ class LocationScreen : Fragment(R.layout.screen_location) {
             if (location != null) {
                 try {
                     val geocoder = Geocoder(requireContext(), Locale.getDefault())
+
                     val address = geocoder.getFromLocation(location.latitude, location.longitude, 1)
                     val address_line = address?.get(0)?.getAddressLine(0)
-                    //   binding.tvLocalation.setText(address_line)
-                    Toast.makeText(requireContext(), "${location.latitude}", Toast.LENGTH_SHORT).show()
+
+                    Log.d(
+                        "Address",
+                        "Addresss heree : ${address_line} - ${address?.get(0)?.locality}"
+                    )
+
                     val address_location = address?.get(0)?.getAddressLine(0)
 //                    findNavController().navigate(R.id.homeScreen)
                     // openLocation(address_location.toString())
 
+                    preferences.putString("location", address?.get(0)?.locality)
+                    preferences.apply()
                     openHomePage(location.latitude, location.longitude)
                 } catch (e: IOException) {
                 }
@@ -204,7 +325,7 @@ class LocationScreen : Fragment(R.layout.screen_location) {
         }
     }
 
-    private fun openHomePage(lat: Double, long: Double){
+    private fun openHomePage(lat: Double, long: Double) {
         locationViewModel.getHijriCalendar(lat, long)
     }
 
@@ -223,11 +344,11 @@ class LocationScreen : Fragment(R.layout.screen_location) {
                         // Handle error
                         val errorMessage = uiState.message
                         Log.d("LocationScreen", "setUpObserversError: $errorMessage ")
-                        Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show()
+
                     }
                     UiStateObject.LOADING -> {
                         // Show loading indicator
-                        Toast.makeText(requireContext(), "LOADING", Toast.LENGTH_SHORT).show()
+
                     }
                     UiStateObject.EMPTY -> {
                         // Handle empty state
@@ -246,9 +367,9 @@ class LocationScreen : Fragment(R.layout.screen_location) {
                         // Update UI with data
                         val data = prayerTimeInDB.data // list of HijriCalendarResponse objects
                         Log.d("LocationScreen", "setUpObserversSuccess: ${data} ")
-                        if (data.isEmpty()){
+                        if (data.isEmpty()) {
                             setUpObservers()
-                        } else{
+                        } else {
                             findNavController().navigate(R.id.homeScreen)
                         }
 
@@ -257,11 +378,11 @@ class LocationScreen : Fragment(R.layout.screen_location) {
                         // Handle error
                         val errorMessage = prayerTimeInDB.message
                         Log.d("LocationScreen", "setUpObserversError: $errorMessage ")
-                        Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show()
+
                     }
                     UiStateList.LOADING -> {
                         // Show loading indicator
-                        Toast.makeText(requireContext(), "LOADING", Toast.LENGTH_SHORT).show()
+
                     }
                     UiStateList.EMPTY -> {
                         // Handle empty state
@@ -283,6 +404,7 @@ class LocationScreen : Fragment(R.layout.screen_location) {
         }
         }*/
     }
+
     private fun bottomSheet() {
         val bottomSheet = layoutInflater.inflate(R.layout.bottomsheet, null)
         bottomSheet1 = BottomSheetDialog(requireContext(), R.style.BottomSheetDialogTheme)
@@ -313,4 +435,5 @@ class LocationScreen : Fragment(R.layout.screen_location) {
         }
         return list
     }
+
 }

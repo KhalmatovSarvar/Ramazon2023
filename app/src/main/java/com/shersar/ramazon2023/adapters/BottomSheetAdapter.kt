@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.shersar.ramazon2023.R
 import com.shersar.ramazon2023.model.Bottomsheet
+import com.shersar.ramazon2023.model.Location
 import kotlinx.android.synthetic.main.item_bottomsheet.view.*
 
 
@@ -14,6 +15,9 @@ class BottomSheetAdapter( val list: ArrayList<Bottomsheet>) :
     RecyclerView.Adapter<BottomSheetAdapter.ViewHolder>() {
     private var isNewRadioButtonChecked = false
     private var lastCheckedPosition = -1
+
+    var onClick: ((Location) -> Unit)? = null
+
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -25,7 +29,7 @@ class BottomSheetAdapter( val list: ArrayList<Bottomsheet>) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val modelClass = list[position]
-        holder.itemView.tv_city.text = modelClass.city_name
+        holder.itemView.tv_city.text = modelClass.city_name.address
 
         if (isNewRadioButtonChecked) {
             holder.itemView.radio_btn.isChecked = modelClass.isSelected
@@ -37,6 +41,7 @@ class BottomSheetAdapter( val list: ArrayList<Bottomsheet>) :
         }
     }
 
+
     override fun getItemCount(): Int {
         return list.size
     }
@@ -44,7 +49,8 @@ class BottomSheetAdapter( val list: ArrayList<Bottomsheet>) :
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         init {
             itemView.radio_btn.setOnClickListener {
-                handleRadiobuttonChecks(adapterPosition)
+                handleRadiobuttonChecks(position)
+                onClick?.invoke(list[position].city_name)
             }
         }
     }

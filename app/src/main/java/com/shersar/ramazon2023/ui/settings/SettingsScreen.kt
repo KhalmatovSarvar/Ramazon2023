@@ -12,6 +12,7 @@ import com.shersar.ramazon2023.R
 import com.shersar.ramazon2023.adapters.BottomSheetAdapter
 import com.shersar.ramazon2023.databinding.ScreenSettingsBinding
 import com.shersar.ramazon2023.model.Bottomsheet
+import com.shersar.ramazon2023.model.Location
 import viewBinding
 
 
@@ -20,7 +21,21 @@ class SettingsScreen : Fragment(R.layout.screen_settings) {
     private lateinit var recyclerView: RecyclerView
     private var list = arrayListOf<Bottomsheet>()
     private var data =
-        arrayOf("Toshkent", "Andijon", "Namangan", "Xorazm", "Navoiy", "Bekobod", "Jizzax")
+        arrayOf(
+            Location("Toshkent", 41.2842, 69.2441),
+            Location("Andijon", 40.7814, 72.3578),
+            Location("Namangan", 41.0522, 71.6465),
+            Location("Farg'ona", 40.3694, 71.7989),
+            Location("Jizzax", 40.1214, 67.9031),
+            Location("Sirdaryo", 40.8346, 68.6783),
+            Location("Samarqand", 39.7483, 66.8888),
+            Location("Qashqadaryo", 38.8555, 65.7783),
+            Location("Surxondaryo", 37.2880, 67.3164),
+            Location("Navoiy", 40.1012, 65.3885),
+            Location("Xiva", 41.3906, 60.3481),
+            Location("Urganch", 41.5352, 60.6313),
+            Location("Buxoro", 39.7669, 64.4587)
+        )
     private val binding by viewBinding { ScreenSettingsBinding.bind(it) }
     private lateinit var bottomSheet1: BottomSheetDialog
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

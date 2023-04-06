@@ -40,13 +40,13 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    private val _currentTime = MutableStateFlow<Pair<String, String>>(Pair("00:00:00", "Saharlikka qoldi"))
-    val currentTime: StateFlow<Pair<String, String>>
+    private val _currentTime = MutableStateFlow<Triple<String, String, String>>(Triple("00:00:00", "Saharlikka qoldi", "bomdod"))
+    val currentTime: StateFlow<Triple<String, String, String>>
         get() = _currentTime
 
     private fun startCountdown(day: DailyPrayerTimesEntity, tomorrow: DailyPrayerTimesEntity) {
         val (date, time) = dateTimeRepository.getCurrentDateTime()
-        val (endTimeMillis, text) = calculateMillsDef(day, tomorrow)
+        val (endTimeMillis, text, state) = calculateMillsDef(day, tomorrow)
         val countDownTimer = object : CountDownTimer(endTimeMillis, 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 // Calculate hours, minutes, and seconds from milliseconds
@@ -56,7 +56,7 @@ class HomeViewModel @Inject constructor(
 
                 // Update the current time with the remaining time
                 val formattedTime = String.format("%02d:%02d:%02d", hours, minutes, seconds)
-                _currentTime.value = Pair(formattedTime, text)
+                _currentTime.value = Triple(formattedTime, text, state)
             }
 
             override fun onFinish() {
@@ -67,7 +67,7 @@ class HomeViewModel @Inject constructor(
         countDownTimer.start()
     }
 
-    private fun calculateMillsDef(day: DailyPrayerTimesEntity, tomorrow: DailyPrayerTimesEntity): Pair<Long, String>{
+    private fun calculateMillsDef(day: DailyPrayerTimesEntity, tomorrow: DailyPrayerTimesEntity): Triple<Long, String, String>{
         val currentDate = dateTimeRepository.getCurrentDate()
 
         val comingSunset = toTimestamp("${day.date}, ${day.Maghrib.split(" ")[0]}")
@@ -78,11 +78,11 @@ class HomeViewModel @Inject constructor(
         Log.d("HomeViewModel Times: ", " Cur: $currentDate, <  $comingFajr < $comingSunset")
 
         return if (currentDate < comingFajr){
-            Pair(comingFajr - currentDate, "Saharlikka qoldi")
+            Triple(comingFajr - currentDate, "Saharlikka qoldi", "bomdod")
         } else if (currentDate < comingSunset){
-            Pair(comingSunset - currentDate, "Iftorlikka qoldi")
+            Triple(comingSunset - currentDate, "Iftorlikka qoldi", "shom")
         } else {
-            Pair(comingFajrTomorrow - currentDate, "Saharlikka qoldi")
+            Triple(comingFajrTomorrow - currentDate, "Saharlikka qoldi", "bomdod")
         }
     }
 
@@ -93,7 +93,7 @@ class HomeViewModel @Inject constructor(
                 startCountdown(today, tomorrow)
 
             }catch (e:Exception){
-                _currentTime.value = Pair("00:00:00", "Saharlikka qoldi")
+                _currentTime.value = Triple("00:00:00", "Saharlikka qoldi", "bomdod")
             }
         }
     }

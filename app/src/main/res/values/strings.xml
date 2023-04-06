@@ -7,4 +7,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="subhanalloh">«Субҳаналлоҳ» жумласи Аллоҳ таоло бандалари айтишини яхши кўрадиган зикрлардан ҳисобланади. Биз ҳар куни беш маҳал намоз ўқиганимизда ўттиз уч мартадан «Субҳаналлоҳ», «Алҳамдулиллаҳ» ва «Аллоҳу акбар» зикрларини айтамиз. Унинг қанчалик савобли иш эканидан хабардормиз.</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
+    <string name="app_widget_description">This is an app widget description</string>
 </resources>

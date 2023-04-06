@@ -51,6 +51,12 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+//    override fun onBackPressed() {
+//        if (navController.currentDestination?.id == R.id.locationScreen){
+//
+//        }
+//    }
+
 
 //    override fun onBackPressed() {
 //        if (binding.bottomNavigation.selectedItemId == R.id.homeScreen) {
