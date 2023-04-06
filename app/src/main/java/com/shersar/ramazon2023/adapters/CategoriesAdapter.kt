@@ -35,6 +35,7 @@ class CategoriesAdapter (
         holder.tarjima.text = Items.tarjima
         holder.todayZikr.text = Items.today_zikr.toString()
         holder.allZikr.text = Items.all_zikr
+//        holder.allZikr.text = Items.all_zikr
         holder.orderNumber.text = (Items.id).toString()
         holder.bind(Items)
         holder.itemView.setOnClickListener {
