@@ -1,20 +1,26 @@
 package com.shersar.ramazon2023.adapters
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.AsyncListDiffer
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.shersar.ramazon2023.R
-import com.shersar.ramazon2023.model.Item
+import com.shersar.ramazon2023.data.local.entity.Zikr
+import com.shersar.ramazon2023.ui.tasbeh.Item1Screen
+import com.shersar.ramazon2023.ui.tasbeh.viewmodel.TasbehViewmodel
+import javax.inject.Inject
 
-class CategoriesAdapter(
-    private val context: Context,
-    private val list: List<Item>,
+class CategoriesAdapter (
 ) : RecyclerView.Adapter<CategoriesAdapter.CategoryViewHolder>() {
 
-    var onClick: ((Item) -> Unit)? = null
+    private val dif = AsyncListDiffer(this, ITEM_DIF)
+    var onClick: ((Zikr) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
         return CategoryViewHolder(
@@ -23,27 +29,31 @@ class CategoriesAdapter(
     }
 
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
-        // holder.bind(list[position])
-        val Items = list[position]
+        val Items = dif.currentList[position]
         holder.uzb.text = Items.uzb_zikr
         holder.arab.text = Items.arab_zikr
         holder.tarjima.text = Items.tarjima
-        holder.todayZikr.text = Items.today_zikr
+        holder.todayZikr.text = Items.today_zikr.toString()
         holder.allZikr.text = Items.all_zikr
-        holder.orderNumber.text = Items.order_number.toString()
+        holder.orderNumber.text = (Items.id).toString()
         holder.bind(Items)
-//        holder.itemView.setOnClickListener {
+        holder.itemView.setOnClickListener {
+            onClick?.invoke(dif.currentList[position])
+
 //            val fragment = Item1Screen.newInstance(list[position])
 //            (holder.itemView.context as AppCompatActivity).supportFragmentManager
 //                .beginTransaction()
 //                .replace(R.id, fragment)
 //                .addToBackStack(null)
 //                .commit()
-//        }
+        }
     }
 
-    override fun getItemCount(): Int {
-        return list.size
+    override fun getItemCount(): Int =  dif.currentList.size
+
+    fun submitData(list: List<Zikr>) {
+        dif.submitList(list)
+        Log.d("DIFLIST", "submitData: ${list}")
     }
 
     inner class CategoryViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -53,13 +63,26 @@ class CategoriesAdapter(
         val allZikr: TextView = view.findViewById(R.id.tv_all_zikr)
         val todayZikr: TextView = view.findViewById(R.id.tv_today_zikr)
         val orderNumber: TextView = view.findViewById(R.id.tv_number_order)
-        fun bind(item: Item) {
-            val uzb = item.uzb_zikr
-
+        fun bind(zikr: Zikr) {
             itemView.setOnClickListener {
-                onClick?.invoke(item)
+                Log.d("CategoriesAdapter", "bind: ONCLICK  ${zikr.toString()}")
+                onClick?.invoke(zikr)
             }
         }
 
+    }
+
+    companion object {
+        private val ITEM_DIF = object : DiffUtil.ItemCallback<Zikr>() {
+
+            override fun areItemsTheSame(oldItem: Zikr, newItem: Zikr): Boolean =
+                oldItem.id == newItem.id && oldItem.today_zikr == newItem.today_zikr
+
+            override fun areContentsTheSame(
+                oldItem: Zikr,
+                newItem: Zikr
+            ): Boolean =
+                oldItem == newItem
+        }
     }
 }

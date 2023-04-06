@@ -1,155 +1,108 @@
 package com.shersar.ramazon2023.ui.tasbeh
 
-import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.RecyclerView
 import com.shersar.ramazon2023.R
 import com.shersar.ramazon2023.adapters.CategoriesAdapter
+import com.shersar.ramazon2023.data.local.entity.Zikr
 import com.shersar.ramazon2023.databinding.ScreenZikrBinding
-import com.shersar.ramazon2023.model.Item
-import com.shersar.ramazon2023.model.Zikrlar
-import com.shersar.ramazon2023.ui.tasbeh.viewmodel.ZikrViewModel
+import com.shersar.ramazon2023.ui.tasbeh.viewmodel.TasbehViewmodel
+import com.shersar.ramazon2023.utils.UiStateList
+import com.shersar.ramazon2023.utils.UiStateObject
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import viewBinding
+import javax.inject.Inject
 
-class ZikrScreen(private val viewModel: ZikrViewModel, private val drawerLayout: DrawerLayout) :
+@AndroidEntryPoint
+class ZikrScreen @Inject constructor(
+    private val drawerLayout: DrawerLayout
+) :
     Fragment(R.layout.screen_zikr) {
-
-    private lateinit var recyclerView: RecyclerView
-
+    private val tasbehViewmodel: TasbehViewmodel by activityViewModels()
+    private val categoryAdapter by lazy { CategoriesAdapter() }
+    private var list = mutableListOf<Zikr>()
     private val binding by viewBinding { ScreenZikrBinding.bind(it) }
-    private val categories = mutableListOf(
-        Item(
-            1,
-            "Субҳаналлоҳ",
-            "سُبْحَانَ اللَّه",
-            "Маьноси: Аллоҳни поклаб ёд этаман.",
-            "0",
-            "0"
-        ),
-        Item(
-            2,
-            "Алҳамдулиллаҳ",
-            "الْحَمْدُ لله",
-            "Маьноси: Аллоҳга хамд бўлсин.",
-            "0",
-            "0"
-        ),
-        Item(
-            3,
-            "Аллоҳу акбар",
-            "اأَللهُ أَکْبَرُ",
-            "Маьноси: Аллоҳ буюкдир.",
-            "0",
-            "0"
-        ),
-        Item(
-            4,
-            "Астағфируллоҳ",
-            "أَسْتَغْفِرُ اللَّهَ",
-            "Маъноси: Аллоҳдан кечирим сўрайман.",
-            "0",
-            "0"
-        ),
-        Item(
-            5,
-            "Астағфируллоҳ ва атувбу илайҳ",
-            "أَسْتَغْفِرُ اللَّهَ وأَتُوبُ إِلَيهِ ",
-            "Маъноси: Аллоҳдан кечирим сўрайман ва Унга тавба қиламан.",
-            "0",
-            "0"
-        ),
-        Item(
-            6,
-            "Астағфируллоҳаллазий Ла илаҳа илла ҳувал ҳаййул қоййум ва атувбу илайҳ",
-            "أَسْتَغْفِرُ اللَّهَ الَّذِي لَا إِلَهَ إلَّا هُوَ الْحَيُّ الْقَيُّومُ وأَتُوبُ إِلَيهِ ",
-            "Маъноси: Барҳаёт, тирик Аллоҳдан авф этишини сўрайман ва Унга тавба қиламан.",
-            "0",
-            "0"
-        ),
-        Item(
-            7,
-            "Субҳаналлоҳи ва биҳамдиҳи\n" +
-                    "Субҳаналлоҳил ъзийм",
-            "سُبْحَانَ اللهِ وَبِحَمْدِهِ \n" +
-                    "سُبْحَانَ اللهِ الْعَظِيمِ",
-            "Маъноси: Аллоҳга ҳамд айтиш билан Уни айбу нуқсонлардан поклаб ёд етаман.",
-            "0",
-            "0"
-        ),
-        Item(
-            8,
-            "Йа муқоллибал қулуб саббит қолбий ъала дийник",
-            "يَا مُقَلِّبَ الْقُلُوبِ ثَبِّتْ قَلْبِي عَلَى دِيْنِكَ ",
-            "Маъноси: Эй қалбларни ўзгартирувчи, қалбимни динингда собит қил.",
-            "0",
-            "0"
-        ),
-        Item(
-            9,
-            "Ла илаҳа илла анта субҳанака инний кунту миназ золимийн",
-            "لَا إِلَهَ إلَّا أَنْتَ سُبْحَانَكَ إَنِّي كُنْتُ مِنَ الظَّالِمِينَ ",
-            "Маъноси: Сендан бошқа илоҳ йўқ. Сени поклаб ёд етаман. Албатта мен золимлардан бўлдим.",
-            "0",
-            "0"
-        ),
-        Item(
-            10,
-            "Ла илаҳа иллаллоҳ",
-            "لَا إِلَٰهَ إِلَّا الله",
-            "Маьноси: Аллоҳдан ўзга илоҳ йўқ.",
-            "0",
-            "0"
-        ),
-        Item(
-            11,
-            "Ла ҳавла ва ла қуввата илла биллаҳ",
-            "لَا حَولَ وَلَا قُوَّةَ إَلَّا بِاللَّهِ ",
-            "Маъноси: Куч ва қувват ёлғиз Аллоҳдандир.",
-            "0",
-            "0"
-        ),
-        Item(
-            12,
-            "Аллоҳумма мағфиротука авсаъу мин зунубий ва роҳматука аржа ъиндий мин ъамалий",
-            "اللَّهُمَّ مَغْفِرَتُكَ أَوْسَعُ مِنْ ذُنُوبِي وَرَحْمَتُكَ أَرْجَى عِنْدِي مِنْ عَمَلِي",
-            "Маъноси: Аллоҳим, мағфиратинг гинохимдан кенгроқдир. Раҳматинг ҳузуримдаги амалимдан умидлироқдир.",
-            "0",
-            "0"
-        ),
-        Item(
-            13,
-            "Ла илаҳа иллаллоҳ Мухаммадур росуллоҳ",
-            "لَا إِلَٰهَ إِلَّا الله مُحَمَّدٌ رَسُولُ اُللَّهِ",
-            "Маьнлси: Аллоҳдан ўзга илоҳ йўқ Мухаммад унинг элчиси.",
-            "0",
-            "0"
-        ),
-        )
 
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        tasbehViewmodel.getAllZikr()
+    }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initView()
+        setUpObservers()
+        updateZikrObserver()
 
+
+        binding.recyclerView.adapter = categoryAdapter
     }
 
-    private fun initView() {
-        recyclerView = binding.recyclerView
-        val adapter = CategoriesAdapter(requireContext(), categories)
-
-        adapter.onClick = {
-            viewModel._homeState.value = it
-            viewModel.setZikrState(it)
-            Log.d("@@@", "Here -> ${it.uzb_zikr} : ")
-            drawerLayout.closeDrawer(GravityCompat.END)
-            viewModel.getZikrState()
+    private fun updateZikrObserver(){
+        lifecycleScope.launchWhenStarted {
+        tasbehViewmodel.zikrState.collect{ zikr ->
+            when(zikr){
+                is UiStateObject.SUCCESS -> {
+                    list.find {it.id == zikr.data.id}?.let { zikr2 ->
+                        val updatedZikr = zikr2.copy(
+                            id = zikr.data.id,
+                            today_zikr = zikr.data.today_zikr
+                        )
+                        list[list.indexOf(zikr2)] = updatedZikr
+                        categoryAdapter.submitData(list)
+                    }
+                    binding.recyclerView.adapter = categoryAdapter
+                }
+            }
         }
-        recyclerView.adapter = adapter
+        }
     }
+
+
+    private fun setUpObservers() {
+        lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                tasbehViewmodel.zikrListState.collect {
+                    when (it) {
+                        is UiStateList.LOADING -> {
+
+                        }
+                        is UiStateList.SUCCESS -> {
+                            list.clear()
+                            list.addAll(it.data)
+                            categoryAdapter.submitData(list)
+                            categoryAdapter.onClick = {
+                                tasbehViewmodel.setZikrState(it)
+                                drawerLayout.closeDrawer(GravityCompat.END)
+//                                tasbehViewmodel.getZikrState()
+                            }
+                        }
+                        is UiStateList.ERROR -> {
+                        }
+                        else -> Unit
+                    }
+
+                }
+
+
+            }
+        }
+
+    }
+
 }
+
+
