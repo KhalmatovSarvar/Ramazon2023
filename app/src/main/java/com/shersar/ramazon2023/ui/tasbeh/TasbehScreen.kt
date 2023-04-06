@@ -11,7 +11,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
@@ -22,7 +21,6 @@ import com.shersar.ramazon2023.activity.MainActivity
 import com.shersar.ramazon2023.adapters.ViewPagerAdapter
 import com.shersar.ramazon2023.data.local.entity.Zikr
 import com.shersar.ramazon2023.databinding.ScreenTasbehBinding
-import com.shersar.ramazon2023.ui.tasbeh.viewmodel.TasbehViewmodel
 import com.shersar.ramazon2023.utils.CustomDialog
 import com.shersar.ramazon2023.utils.UiStateObject
 import dagger.hilt.android.AndroidEntryPoint

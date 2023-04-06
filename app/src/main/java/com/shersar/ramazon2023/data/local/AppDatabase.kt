@@ -10,7 +10,7 @@ import com.shersar.ramazon2023.data.local.entity.DailyPrayerTimesEntity
 import com.shersar.ramazon2023.data.local.entity.Zikr
 import com.shersar.ramazon2023.utils.Constants
 
-@Database(entities = [DailyPrayerTimesEntity::class], version = 2, exportSchema = false)
+@Database(entities = [DailyPrayerTimesEntity::class,Zikr::class], version = 2, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun prayerDao(): PrayerTimesDao
