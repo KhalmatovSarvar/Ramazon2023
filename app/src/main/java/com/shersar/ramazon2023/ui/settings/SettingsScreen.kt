@@ -13,6 +13,8 @@ import com.shersar.ramazon2023.adapters.BottomSheetAdapter
 import com.shersar.ramazon2023.databinding.ScreenSettingsBinding
 import com.shersar.ramazon2023.model.Bottomsheet
 import com.shersar.ramazon2023.model.Location
+import com.shersar.ramazon2023.utils.activityNavController
+import com.shersar.ramazon2023.utils.navigateSafely
 import viewBinding
 
 
@@ -51,12 +53,11 @@ class SettingsScreen : Fragment(R.layout.screen_settings) {
             findNavController().navigate(R.id.soundScreen)
         }
         binding.llLocation.setOnClickListener {
-            bottomSheet()
+            activityNavController().navigateSafely(R.id.action_mainFlowFragment_to_locationScreen)
         }
         binding.llAboutProject.setOnClickListener {
             findNavController().navigate(R.id.aboutProjectScreen)
         }
-
     }
 
     private fun bottomSheet() {

@@ -78,18 +78,18 @@ class TasbehScreen : Fragment(R.layout.screen_tasbeh) {
         initTabs(header, binding.drawerlayout)
     }
 
+
     private fun setupDarweLayout() {
-        adapterFragments.fragments.add(Item1Screen())
-        adapterFragments.fragments.add(Item2Screen())
-        viewPagerr.adapter = adapterFragments
     }
 
     private fun initViewPager() {
         viewPagerr = binding.viewpager2
         adapterFragments = ViewPagerAdapter(requireActivity())
-        val circleIndicator: CircleIndicator3 = binding.circleIndicator
-
+        adapterFragments.fragments.add(Item1Screen())
+        adapterFragments.fragments.add(Item2Screen())
         viewPagerr.adapter = adapterFragments
+
+        val circleIndicator: CircleIndicator3 = binding.circleIndicator
 
         // Set the CircleIndicator with ViewPager2
         circleIndicator.setViewPager(viewPagerr)
@@ -105,10 +105,11 @@ class TasbehScreen : Fragment(R.layout.screen_tasbeh) {
         TabLayoutMediator(tabLayout, viewPager2) { tab, position ->
             when (position) {
                 0 -> tab.text = "Zikrlar"
-                1 -> tab.text = "Salovatlar"
-                else -> tab.text = "Salovatlar"
+                //1 -> tab.text = "Salovatlar"
+                else -> tab.text = "Zikrlar"
             }
         }.attach()
+//        FragmentAdapter( drawerLayout,requireActivity() as AppCompatActivity)
     }
 
     private fun initCounts() {
@@ -185,6 +186,7 @@ class TasbehScreen : Fragment(R.layout.screen_tasbeh) {
     override fun onStop() {
         super.onStop()
 
+//        (binding.navView.getHeaderView(0).findViewById<ViewPager2>(R.id.viewpager2).adapter)
         Log.d("@@@", "Tasbeh on stop")
     }
 }
@@ -197,13 +199,13 @@ class FragmentAdapter @Inject constructor(
 
 ) : FragmentStateAdapter(activity) {
     override fun getItemCount(): Int {
-        return 2
+        return 1
     }
 
     override fun createFragment(position: Int): Fragment {
         return when (position) {
             0 -> ZikrScreen( drawerLayout)
-            1 -> SalovatScreen(drawerLayout)
+         //   1 -> SalovatScreen(drawerLayout)
             else -> ZikrScreen( drawerLayout)
         }
     }

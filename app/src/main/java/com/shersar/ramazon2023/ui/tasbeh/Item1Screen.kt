@@ -18,6 +18,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import viewBinding
 import javax.inject.Inject
+
 @AndroidEntryPoint
 class Item1Screen @Inject constructor(
 ) : Fragment(R.layout.screen_item1) {

@@ -90,6 +90,7 @@ class ZikrScreen(
 
                         }
                         is UiStateList.SUCCESS -> {
+                            list.clear()
                             list.addAll(it.data)
                             categoryAdapter.submitData(list)
 

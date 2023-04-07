@@ -1,5 +1,6 @@
 package com.shersar.ramazon2023.activity
 
+import android.icu.text.SimpleDateFormat
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -16,6 +17,7 @@ import com.shersar.ramazon2023.R
 import com.shersar.ramazon2023.databinding.ActivityMainBinding
 import com.shersar.ramazon2023.ui.tasbeh.viewmodel.TasbehViewmodel
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.*
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -36,7 +38,14 @@ class MainActivity : AppCompatActivity() {
         //this is initView
     }
 
+    private fun deleteTodayZikr() {
+        // Get the current date and format it to match the date field in your Zikr object
+        val currentDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
 
+        // Call the resetTodayZikr function in your ViewModel
+        viewModel.resetTodayZikr(currentDate)
+
+    }
 
     private fun initView() {
 
@@ -48,6 +57,8 @@ class MainActivity : AppCompatActivity() {
         val navGraph = navController.navInflater.inflate(R.navigation.nav_graph)
 
         navController.graph = navGraph
+
+        deleteTodayZikr()
 
     }
 

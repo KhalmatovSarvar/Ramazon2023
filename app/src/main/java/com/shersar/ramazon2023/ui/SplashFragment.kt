@@ -1,5 +1,6 @@
 package com.shersar.ramazon2023.ui
 
+import android.icu.text.SimpleDateFormat
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
@@ -20,6 +21,7 @@ import com.shersar.ramazon2023.utils.navigateSafely
 import com.shersar.ramazon2023.viewmodel.SplashViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import viewBinding
+import java.util.*
 
 @AndroidEntryPoint
 class SplashFragment : Fragment(R.layout.fragment_splash) {
@@ -111,6 +113,7 @@ class SplashFragment : Fragment(R.layout.fragment_splash) {
         }
 
     }
+
     private val zikrList = mutableListOf(
         Zikr(
             1,
@@ -120,7 +123,7 @@ class SplashFragment : Fragment(R.layout.fragment_splash) {
             "0",
             "0",
             "0",
-            ""
+            SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
         ),
         Zikr(
             2,
@@ -130,7 +133,7 @@ class SplashFragment : Fragment(R.layout.fragment_splash) {
             "0",
             "0",
             "0",
-            ""
+            SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
         ),
         Zikr(
             3,
@@ -140,7 +143,7 @@ class SplashFragment : Fragment(R.layout.fragment_splash) {
             "0",
             "0",
             "0",
-            ""
+            SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
         ),
         Zikr(
             4,
@@ -150,7 +153,7 @@ class SplashFragment : Fragment(R.layout.fragment_splash) {
             "0",
             "0",
             "0",
-            ""
+            SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
         ),
         Zikr(
             5,
@@ -160,7 +163,7 @@ class SplashFragment : Fragment(R.layout.fragment_splash) {
             "0",
             "0",
             "0",
-            ""
+            SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
         ),
         Zikr(
             6,
@@ -170,7 +173,7 @@ class SplashFragment : Fragment(R.layout.fragment_splash) {
             "0",
             "0",
             "0",
-            ""
+            SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
         ),
         Zikr(
             7,
@@ -182,7 +185,7 @@ class SplashFragment : Fragment(R.layout.fragment_splash) {
             "0",
             "0",
             "0",
-            ""
+            SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
         ),
         Zikr(
             8,
@@ -192,7 +195,7 @@ class SplashFragment : Fragment(R.layout.fragment_splash) {
             "0",
             "0",
             "0",
-            ""
+            SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
         ),
         Zikr(
             9,
@@ -202,7 +205,7 @@ class SplashFragment : Fragment(R.layout.fragment_splash) {
             "0",
             "0",
             "0",
-            ""
+            SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
         ),
         Zikr(
             10,
@@ -212,7 +215,7 @@ class SplashFragment : Fragment(R.layout.fragment_splash) {
             "0",
             "0",
             "0",
-            ""
+            SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
         ),
         Zikr(
             11,
@@ -222,7 +225,7 @@ class SplashFragment : Fragment(R.layout.fragment_splash) {
             "0",
             "0",
             "0",
-            ""
+            SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
         ),
         Zikr(
             12,
@@ -232,7 +235,7 @@ class SplashFragment : Fragment(R.layout.fragment_splash) {
             "0",
             "0",
             "0",
-            ""
+            SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
         ),
         Zikr(
             13,
@@ -242,7 +245,7 @@ class SplashFragment : Fragment(R.layout.fragment_splash) {
             "0",
             "0",
             "0",
-            ""
+            SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
         ),
     )
 }
