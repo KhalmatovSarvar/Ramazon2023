@@ -1,9 +1,13 @@
 package com.shersar.ramazon2023.ui.settings
 
+import android.app.Activity
 import android.os.Bundle
+import android.view.Gravity
 import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
@@ -58,6 +62,21 @@ class SettingsScreen : Fragment(R.layout.screen_settings) {
         binding.llAboutProject.setOnClickListener {
             findNavController().navigate(R.id.aboutProjectScreen)
         }
+        binding.llQuvvat.setOnClickListener {
+            Toast(requireContext()).showCustomToast(
+                R.drawable.ic_favorite,
+                "Tez kunda!",
+                requireActivity()
+            )
+        }
+
+        binding.llLanguage.setOnClickListener {
+            Toast(requireContext()).showCustomToast(
+                R.drawable.ic_network,
+                "Tez kunda!",
+                requireActivity()
+            )
+        }
     }
 
     private fun bottomSheet() {
@@ -89,5 +108,27 @@ class SettingsScreen : Fragment(R.layout.screen_settings) {
             list.add(Bottomsheet(data[i], false))
         }
         return list
+    }
+    fun Toast.showCustomToast(imageView: Int, message: String, activity: Activity) {
+        val layout = activity.layoutInflater.inflate(
+            R.layout.custom_toast,
+            activity.findViewById(R.id.custom_toast)
+        )
+
+        // set the text of the TextView of the message
+        val textView = layout.findViewById<TextView>(R.id.tv_toast)
+        textView.text = message
+
+        val img = layout.findViewById<ImageView>(R.id.iv_toast)
+        img.setImageResource(imageView)
+
+
+        // use the application extension function
+        this.apply {
+            setGravity(Gravity.BOTTOM, 0, 330)
+            duration = Toast.LENGTH_SHORT
+            view = layout
+            show()
+        }
     }
 }
