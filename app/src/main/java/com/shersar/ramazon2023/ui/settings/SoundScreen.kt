@@ -1,12 +1,17 @@
 package com.shersar.ramazon2023.ui.settings
 
+import android.app.Activity
 import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
 import android.content.res.ColorStateList
 import android.media.MediaPlayer
 import android.media.SoundPool
 import android.os.Bundle
+import android.view.Gravity
 import android.view.View
+import android.widget.ImageView
+import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.shersar.ramazon2023.R
@@ -111,6 +116,34 @@ class SoundScreen : Fragment(R.layout.screen_sound) {
             }
         })
 
+        binding.llSound.setOnClickListener {
+            Toast(requireContext()).showCustomToast(
+                R.drawable.ic_sound,
+                "Tez kunda!",
+                requireActivity()
+            )
+        }
+    }
+    fun Toast.showCustomToast(imageView: Int, message: String, activity: Activity) {
+        val layout = activity.layoutInflater.inflate(
+            R.layout.custom_toast,
+            activity.findViewById(R.id.custom_toast)
+        )
 
+        // set the text of the TextView of the message
+        val textView = layout.findViewById<TextView>(R.id.tv_toast)
+        textView.text = message
+
+        val img = layout.findViewById<ImageView>(R.id.iv_toast)
+        img.setImageResource(imageView)
+
+
+        // use the application extension function
+        this.apply {
+            setGravity(Gravity.BOTTOM, 0, 330)
+            duration = Toast.LENGTH_SHORT
+            view = layout
+            show()
+        }
     }
 }
