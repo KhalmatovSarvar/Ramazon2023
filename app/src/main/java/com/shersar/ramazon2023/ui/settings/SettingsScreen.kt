@@ -1,6 +1,7 @@
 package com.shersar.ramazon2023.ui.settings
 
 import android.app.Activity
+import android.content.Context
 import android.os.Bundle
 import android.view.Gravity
 import android.view.View
@@ -53,6 +54,9 @@ class SettingsScreen : Fragment(R.layout.screen_settings) {
     }
 
     private fun initView() {
+        binding.tvCountry.text = requireActivity().getSharedPreferences("MyPref", Context.MODE_PRIVATE)
+            .getString("location", "Tashkent") ?: "Tashkent"
+
         binding.llSoundNot.setOnClickListener {
             findNavController().navigate(R.id.soundScreen)
         }
